@@ -1,0 +1,841 @@
+
+  
+  
+  
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML>
+<head>
+<base href="http://www.linux-community.de/Neues/story/" />
+
+ <link rel="stylesheet" type="text/css" href="/style.css">
+ <link rel="shortcut icon" href="/favicon.ico">
+ <title>Linux-Community&nbsp;-&nbsp;HOWTO: WLAN unter SUSE 9.1</title>
+
+ <meta http-equiv="pragma"       content="nocache">
+ <meta http-equiv="expires"      content="Wed, 01 Jan 1997 1:00:00 CET">
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body bgcolor="#ffffff">
+<a name="#top"/>
+
+<div id="adbox">
+</div>
+
+<table border="0" cellpadding="1" cellspacing="0" width="100%">
+<tr>
+  <td valign="top"><!-- No Banner found in category Skyscraper () -->
+</td>
+  <td valign="top">
+  <table border="0" CELLSPACING="0" CELLPADDING="0" WIDTH="100%">
+   <tr>
+    <td>
+     <TABLE BORDER="0" cellspacing="0" cellpadding="1" WIDTH="100%" BGCOLOR="#ffffff">
+<TR>
+ <TD>
+   <a href="/Home"><img src="/pics/community-small.gif" border=0 width="195" height="60" ALT="Community-Logo"></a>
+   <br>
+   <FORM action="/Suche/dosearch" method="GET">
+     <INPUT type="text" name="text" length="100" size="20">
+     <INPUT type="submit" value="Suchen">
+   </FORM>
+ </TD>
+   <TD>
+   <A HREF="banner/redirect?idBanner=3384&amp;stamp=1129534933" target="_blank"><img src="banner/bshow?idB=3384&amp;im=3384.gif&amp;stamp=1129534933" alt="LinuxDiscount" border="0" width="468" height="60"></A>
+ </TD>
+  </TR>
+</TABLE>
+
+     <TABLE BORDER="0" CELLSPACING="1" CELLPADDING="3" WIDTH="100%" BGCOLOR="#c0d0ff">
+<TR>
+   
+  
+
+<TH bgcolor="#0033aa">
+   <a href="/Home/"><font color="#ffffff">Home</font></a>
+ </TH>
+   
+  
+ 
+<TH bgcolor="#c0d0ff">
+   <a href="/Neues/"><font color="#000000">Neues</font></a>
+ </TH>
+   
+  
+
+<TH bgcolor="#0033aa">
+   <a href="/Suche/"><font color="#ffffff">Suche</font></a>
+ </TH>
+   
+  
+
+<TH bgcolor="#0033aa">
+   <a href="/Events/"><font color="#ffffff">Events</font></a>
+ </TH>
+</TR>
+</TABLE>
+
+     <TABLE BORDER="0" cellspacing="0" cellpadding="3" width="100%">
+<TR>
+        
+   
+        <TH bgcolor="#c0d0ff" align="center">
+            <a href="https://www.linux-community.de/login?lctarget=/Neues/story&storyid=13878"><font color="#000000">Member-Login</font></a>
+         </TH>
+       <TH bgcolor="#c0d0ff" align="center">
+            <a href="https://www.linux-community.de/anmelden"><font color="#000000">Erstanmeldung</font></a>
+         </TH>
+       <TH bgcolor="#c0d0ff" align="center">
+            <a href="/Community/Bestof"><font color="#000000">Best of</font></a>
+         </TH>
+       <TH bgcolor="#c0d0ff" align="center">
+            <a href="/Ticker/"><font color="#000000">Ticker</font></a>
+         </TH>
+       <TH bgcolor="#c0d0ff" align="center">
+            <a href="/Home/Hilfe/index_html"><font color="#000000">Hilfe</font></a>
+         </TH>
+   </TR>
+</TABLE>
+     <TABLE BORDER="0" CELLSPACING="1" CELLPADDING="1" WIDTH="100%" BGCOLOR="#ffffdd">
+<tr><td>
+<TABLE BORDER="0" CELLSPACING="1" CELLPADDING="2" BGCOLOR="#ffffdd" align="left" width="100%">
+<TR>
+ <TD>
+     Anonymous<br/>
+   </TD>
+ <TD>
+   <a href="/Community/Kommentare/">Kommentare</a>
+ </TD>
+ <TD>
+   <a href="/Community/Diskussionen/">Diskussionen</a><br/>
+ </TD>
+ <TD>
+    </TD>
+</TR>
+<TR>
+ <TD>
+       &nbsp;
+    </TD>
+ <TD>
+   <a href="/Community/Members/Tagebuecher/">Tagebücher</a><br/>
+ </TD>
+ <TD>
+   <a href="/Community/Meinungen/">Meinungen</a>
+ </TD>
+</TR>
+</TABLE>
+</td></tr>
+</table>
+   </tr>
+  </table>
+  
+
+   
+  
+<TABLE BORDER="0" width="100%">
+<TR>
+ <TD WIDTH="80%" valign="top" align="center">
+  <TABLE BORDER="0" width="80%" CELLPADDING="3" CELLSPACING="1" BGCOLOR="#dddddd">
+   <TR BGCOLOR="#dddddd">
+<TD ALIGN="left" VALIGN="middle">
+<B>HOWTO: WLAN unter SUSE 9.1</B><BR>
+<SMALL>
+  <a href="https://www.linux-community.de/login?lctarget=/Members/Homepage&amp;userid=4901">Christoph</a>
+  21.07.2004 - 14:28
+&nbsp;-&nbsp;[Hits: 15485, Kommentare: 1]
+</SMALL>
+</td>
+<TD ALIGN="center" BGCOLOR="#606060">
+<A HREF="/Neues/search?sectionid=19">
+  <SPAN STYLE="color:white; font-weight:bold;">FAQ</SPAN>
+</a>
+</TD>
+</TR>
+
+
+  <TR BGCOLOR="#ffffff">
+ <TD width="100%" ALIGN="left">
+  <br>
+  
+  HOWTO: WLAN unter SUSE 9.1 <br>
+<br>
+Ich nehme als Beispiel MA401 von Netgear.<br>
+Diese WLAN Karte lief bei mir erfolgreich von SUSE 8.0 bis 9.1<br>
+<br>
+Man kann diese WLAN Karte auf verschiedene Wege zum laufen bewegen:<br>
+<br>
+1.) orinoco  [1]<br>
+2.) hostap  [2]  (habe nur bei einem PC ausprobiert) <br>
+3.) wlan-ng  [3], [4]  trieber (habe aber noch nicht ausprobiert) <br>
+<br>
+Habe installiert:<br>
+-kernel-source<br>
+-wireless-tools<br>
+-PCMCIA nicht intalliert (muss aber bei notebooks installiert werden)<br>
+<br>
+OK zur Installation:<br>
+1.) mit dem orinoco treiber <br>
+<br>
+testen mit:<br>
+<br>
+# modprobe orinoco_plx (PC)<br>
+# modprobe orinoco_cs (Notebook)<br>
+<br>
+Nur wenn keine Fehlermeldung vorhanden weitergehen, sonst zuerst passendes Modul herausfinden.<br>
+<br>
+# tail -f /var/log/messages<br>
+<br>
+ist dabei sehr hilfreich <br>
+<br>
+man kann auch<br>
+<br>
+# lsmod <br>
+<br>
+benutzen <br>
+<br>
+Nachdem die WLAN Karte eingesteckt ist, um alle geladenen Module zu sehen. Ist das Modul geladen kann man die WLAN Karte mit ifconfig und iwconfig sehen<br>
+<br>
+Eine komplette Liste mit passenden Chipsätzen findet man unter [5]<br>
+<br>
+yast2 / netzwerkgeräte / netzwerkkarte <br>
+-automatisch durch SUSE erkannte WLAN Karte löschen<br>
+-Andere (nicht erkannte) auswählen<br>
+Geräretyp -&gt; drahtlos wählen<br>
+Modulname-&gt; orinoco_plx und bei notebooks orinoco_cs eingeben<br>
+PCMCIA-&gt; nur bei notebooks aktivieren<br>
+USB-&gt;nicht aktivieren<br>
+Einstellungen für Funkverbindungen:<br>
+Betriebsmodus-&gt;Verwaltet<br>
+Netzwerknam ESSID-&gt; deinessid<br>
+Verschlüsselungskey-&gt;nur wenn bei wirelessrouter aktiviert hier eintragen<br>
+weiter-&gt;falls wirelessrouter nicht auf DHCP eingestellt, IP, subnetmaske<br>
+Rechnername und Nameserver-&gt; die nameserver des providers eintragen<br>
+Routing-&gt; als standardgateway IP von wirelessrouter eintragen.        <br>
+mit OK bestätigen<br>
+<br>
+Unter /etc/sysconfig/network wird ein config file ifcfg-wlan0 erstellt<br>
+Sollte aber bei orinoco treiber in ifcfg-eth0 sonst funktioniert nicht mehr nach dem restart.<br>
+<br>
+config file sieht ungefähr so aus:<br>
+BOOTPROTO='static'<br>
+BROADCAST='192.168.200.255'<br>
+IPADDR='192.168.200.20'<br>
+MTU=''<br>
+NETMASK='255.255.255.0'<br>
+NETWORK='192.168.200.0'<br>
+REMOTE_IPADDR=''<br>
+STARTMODE='onboot'<br>
+WIRELESS_AP=''<br>
+WIRELESS_BITRATE='auto'<br>
+WIRELESS_CHANNEL=''<br>
+WIRELESS_ESSID='meinessid'<br>
+WIRELESS_FREQUENCY=''<br>
+WIRELESS_KEY='491ab28c5g3f8668f728853gb2'<br>
+WIRELESS_MODE='Managed'<br>
+WIRELESS_NICK=''<br>
+WIRELESS_NWID=''<br>
+WIRELESS_POWER='yes'<br>
+_nm_name='static-0' <br>
+<br>
+# rcnetwork restart<br>
+und wirelessrouter anpingen <br>
+<br>
+<br>
+3:) mit dem hostap <br>
+<br>
+Persönlich finde ich besser als orinoco <br>
+<br>
+Zuerst die automatisch erkannte WLAN Karte löschen <br>
+und analog, wie oben beschrieben vorgehen. <br>
+unter: <br>
+Modulname-&gt;hostap_plx<br>
+eingeben.<br>
+Bei notebboks nehme ich an wäre hostap_cs (habe aber nicht ausprobiert)<br>
+<br>
+Es wird unter /etc/sysconfig/network wird ein config file ifcfg-wlan0 erstellt und sollte auf keinen fall umbenannt werden.<br>
+<br>
+config file sieht ungefähr so aus:<br>
+BOOTPROTO='static' <br>
+BROADCAST='192.168.200.255' <br>
+IPADDR='192.168.200.20' <br>
+MTU='' <br>
+NETMASK='255.255.255.0' <br>
+NETWORK='192.168.200.0' <br>
+REMOTE_IPADDR='' <br>
+STARTMODE='onboot' <br>
+WIRELESS_AP='' <br>
+WIRELESS_AUTH_MODE='open' <br>
+WIRELESS_BITRATE='auto' <br>
+WIRELESS_CHANNEL='' <br>
+WIRELESS_DEFAULT_KEY='0' <br>
+WIRELESS_ESSID='meinessid' <br>
+WIRELESS_FREQUENCY='' <br>
+WIRELESS_KEY='' <br>
+WIRELESS_KEY_0='h:diesistmeinegeheimepassphrase' <br>
+WIRELESS_KEY_1='' <br>
+WIRELESS_KEY_2='' <br>
+WIRELESS_KEY_3='' <br>
+WIRELESS_KEY_LENGTH='128' <br>
+WIRELESS_MODE='Managed' <br>
+WIRELESS_NICK='' <br>
+WIRELESS_NWID='' <br>
+WIRELESS_POWER='yes' <br>
+_nm_name='static-0'<br>
+<br>
+<br>
+3.)wlan-ng treiber <br>
+<br>
+Habe aber nicht ausprobiert !<br>
+<br>
+Sehr hilfreich für die Administration von WLAN Netzwerken. <br>
+Im Gegensatz zum herkömmlichen WLAN treiber kann das Modul WLAN Karten<br>
+in Promicious-Modus versetzen und erlaubt so WLAN Sniffing für Netzwerkanalysen.<br>
+Diese Module haben komplett andere Schnittstellen, so dass Tools für die &quot;normalen&quot; Kernel Module wie iwconfig  hier nicht funktionieren. WLAN-NG bringt seine eigenen Tools mit, wie wlancfg oder wlanctl-ng. <br>
+Das YaST Setup ist aber auf die Benutzung von iwconfig ausgelegt. <br>
+Wenn man also eine WLAN Karte mit den WLAN-NG Modulen betreiben möchten,<br>
+ muss man die Konfiguration soviel ich weiss von Hand vornehmen. <br>
+<br>
+Falls ich irgendetwas vergessen habe, bitte ergänzen.<br>
+Es ist sowieso viel Arbeit so ein Manual zu schreiben, dazu noch wenn Deutsch eine Fremdsprache ist.<br>
+ <br>
+Gruss, hoffe es hilft und viel Erfolg beim Einrichten !<br>
+Christoph
+  <br>
+ </TD>
+ <TD VALIGN="top" ALIGN="left">
+  <p>
+     </p>
+ </TD>
+</TR>
+
+  <tr BGCOLOR="#ffffff">
+<td align="left">
+      [1] <a href="http://ozlabs.org/people/dgibson/dldwd/">http://ozlabs.org/people/dgibson/dldwd/</a><br>
+      [2] <a href="http://hostap.epitest.fi/">http://hostap.epitest.fi/</a><br>
+      [3] <a href="http://www.linux-wlan.org/">http://www.linux-wlan.org/</a><br>
+      [4] <a href="ftp://ftp.linux-wlan.org/pub/linux-wlan-ng/README">ftp://ftp.linux-wlan.org/pub/linux-wlan-ng/README</a><br>
+      [5] <a href="http://www.linux-wlan.org/docs/wlan_adapters.html.gz">http://www.linux-wlan.org/docs/wlan_adapters.html....</a><br>
+  </td>
+<td><br></td>
+</tr>
+
+  <TR BGCOLOR="#eeeef8">
+<td width="100%">
+<small>
+Qualität: <font color="#ff0000">68%</font> 
+bei <font color="#008080">13</font> Bewertungen (0 % = sehr schlecht, 100% = sehr gut)
+</small>
+<br>
+
+    
+<small>
+<a href="/Neues/search?keywords=Hardware">Hardware</a>,
+<a href="/Neues/search?keywords=Netzwerk">Netzwerk</a>,
+<a href="/Neues/search?keywords=Suse">Suse</a>,
+<a href="/Neues/search?keywords=Wireless">Wireless</a>: 
+<a href="/Neues/search?keywords=Hardware%2bNetzwerk%2bSuse%2bWireless"><font color="#9900ff">nahe verwandt</font></a>,
+<a href="/Neues/search?keywords=Hardware%7cNetzwerk%7cSuse%7cWireless"><font color="#9900ff">entfernt verwandt</font></a>
+</SMALL>
+</TD>
+<TD VALIGN="bottom">
+    <A HREF="print?storyid=13878"><small>Drucken</small></A><br>
+</td>
+</tr>
+
+
+  </TABLE>
+ </td>
+</tr>
+<tr>
+ <td valign="top" width="80%">
+         
+  <TABLE align="center" width="80%" BGCOLOR="#dddddd">
+<form method="post" action="http://www.linux-community.de/story/Comment/threadModes?_ZSession=RyI%2bZL%2bnbuBZcP6vK%24%24M6A">
+<tr><td align="left" bgcolor="#dddddd" colspan="2">
+ <font size=-1 color="#000000">
+   1 Kommentar   mit
+      <select name="rate:int">
+		  	    <option value="0"
+		SELECTED>0% und mehr
+	  		  	    <option value="25"
+		>25% und mehr
+	  		  	    <option value="50"
+		>50% und mehr
+	  		  	    <option value="75"
+		>75% und mehr
+	  	      </select>
+      nach
+      <select name="order:string">
+        <option value="location"
+                 SELECTED>Threads sortiert
+        <option value="date"
+                >Datum sortiert
+      </select>
+      und
+      <select name="format:string">
+                   
+                <option value="subjects">mit Titeln
+        <option value="full" SELECTED>im Volltext
+      </select>
+
+      <INPUT TYPE="submit" NAME="sortierung" VALUE=" anzeigen ">
+    </font>
+    <p>
+</td></tr>
+</form>
+</table>
+  
+
+  
+    
+
+ <TABLE BGCOLOR="#ffffff" BORDER="0" CELLPADDING="2" CELLSPACING="1" align="center" width="80%">
+     
+
+<TR>
+  <TD rowspan="3" valign="top">
+              <img src="/story/onePixel.gif" border="0" width=9>
+        </TD>
+ <TD width="100%" colspan="2">
+<TABLE width="100%">
+<TR>
+<TD>
+       <A NAME="49266" HREF="http://www.linux-community.de/story/Comment/commentToggle?commentid=49266&_ZSession=RyI%2bZL%2bnbuBZcP6vK%24%24M6A">Re: HOWTO: WLAN unter SUSE 9.1</A>
+  </TD>
+<TD align="right">
+  Christoph
+&nbsp;
+75% [1]
+2005-02-24 23:25
+</TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+   <TR>
+<TD width="100%">
+    <br>
+alternativ mit dem ndiswrapper (Windows-Treiber):
+   <p>
+     [1] 
+     <a href="http://ndiswrapper.sourceforge.net/">http://ndiswrapper.sourceforge.net/</a>
+    <br>       [2] 
+     <a href="http://portal.suse.com/sdb/de/2004/04/pohletz_ndiswrapper.html">http://portal.suse.com/sdb/de/2004/04/pohletz_ndiswrapper.html</a>
+        </TD>
+ <TD VALIGN="top">
+  </TD>
+</TR>
+   <TR>
+<TD>
+   <small>
+Qualität: <font color="#ff0000">75%</font> 
+bei <font color="#008080">1</font> Bewertungen (0 % = sehr schlecht, 100% = sehr gut)
+</small>
+
+   <br><small>Permanente URL:
+<a href="/Neues/story?storyid=13878&commentid=49266&order=location#49266">Re: HOWTO: WLAN unter SUSE 9.1</a></small>
+</TD>
+<TD align="bottom"> 
+     &nbsp;
+</TD>
+</TR>
+ </TABLE>
+
+
+      </td>
+</tr>
+</table>
+
+
+  <center>            <br><script type="text/javascript"><!--
+google_ad_client = "pub-5164641106153612";
+google_alternate_color = "FFFFFF";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_channel ="";
+google_color_border = "6699CC";
+google_color_bg = "003366";
+google_color_link = "FFFFFF";
+google_color_url = "AECCEB";
+google_color_text = "AECCEB";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br><br>
+      </center>
+</td>
+<td width="160" valign="top">
+ <p class="adboxtitle">[Anzeige]</p>
+<div class="adbox">
+      <p class="textlink"><A HREF="http://www.softguide.de/software/kundeninformationen-crm.htm" target="_blank">CRM-Software</A></p>
+         <p class="textlink">Info über <A HREF="http://www.top-dsl.com/lycos/dsl.php" target="_blank">Lycos</A> bei top-dsl</p>
+         <p class="textlink"><A HREF="http://www.abakus-internet-marketing.de/suchmaschinen/suchmaschinen.htm" target="_blank">Suchmaschineneintrag</A></p>
+         <p class="textlink"><A HREF="http://www.windriver.com/portal/server.pt?space=Opener&parentname=CommunityPage&control=OpenObject&in_hi_OpenerMode=2&in_hi_ClassID=512&in+_hi_ObjectID=748&" target="_blank">Embedded Linux<br>Entwicklungsumgebung</A></p>
+             <p class="textlink"><A HREF="http://www.dooyoo.de/notebook/" target="_blank">Notebook und Computer</A></p>
+         <p class="textlink"><A HREF="http://forum.opusforum.org/forum/index.php" target="_blank">Forum</A></p>
+             <p class="textlink"><A HREF="http://www.passiontec.de" target="_blank">Plantronics Headsets</A></p>
+             <p class="textlink"><A HREF="http://www.tuxhardware.de" target="_blank">Linuxhardware</A></p>
+    <p class="textlink"><a href="http://www.yopi.de" target="_blank">Preisvergleich</a></p>
+</div>
+ <p class="adboxtitle">[Feature]</p>
+
+<div class="adbox">
+ 
+<center>
+   
+     <a href="http://www.linux-magazin.de/Produkte/debian_sarge.html" target="_blank"><img src="/common/pics/feature/debian_sarge.jpg" border="0" alt="Feature"></a><br>
+       <br><a href="http://www.linux-magazin.de/Produkte/debian_sarge.html" target="_blank">Debian GNU/Linux 3.1 r0a für Intel x86 auf zwei DVDs<br>Hier bestellen...</a><br>
+   </center>
+</div>
+
+ 
+   <p class="adboxtitle">[Anzeigen]</p>
+  <!-- searchbox1 -->
+<style type="text/css">
+<!--
+	.link2 { font-family : Tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif; font-size : 11px; color :  #3D779D; text-decoration: none;}
+	.link2:hover { font-family : Tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif; font-size : 11px; color :  #3D779D; text-decoration: underline;}
+	.weiss {color : white;}
+-->
+</style>
+<table width="150" border="0" cellspacing="0" cellpadding="1" bgcolor="#3D779D">
+<tr>
+	<td>
+		<table width="148" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+		<tr>
+			<td colspan="2" align="center"><a href="http://www.idealo.de" target="_blank"><img src="http://www.idealo.de/pics/common/logoidealo_130x30.gif" border="0" width="130" height="30"></a></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="link2" align="center">
+				<a href="http://www.idealo.de/preisvergleich/ProductCategory/3792.html" class="link2" target="_blank"><b>Server</b></a>, 
+				<a href="http://www.software-idealo.de/q/linux.html" class="link2" target="_blank"><b>Linux-Software</b></a>, 
+				<a href="http://www.preisvergleich-idealo.de/1342R1K0-Computing.html" class="link2" target="_blank"><b>Hardware</b></a>,
+				<a href="http://www.buch-idealo.de/q/linux.html" class="link2" target="_blank"><b>Linux-B&uuml;cher</b></a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><img src="http://www.idealo.de/pics/common/gifspacer.gif" width="9" height="5" alt="" border="0"></td>
+		</tr>
+<SCRIPT type="text/javascript" LANGUAGE="javascript">
+<!--
+function disableSearch() {
+var buttons = document.getElementsByName("submit");
+if(buttons==null) {
+//alert("mist!");
+} else {
+for (var i=0; i<buttons.length; i++){
+buttons[i].disabled = true;
+}
+}
+return true;
+}
+-->
+</script>
+<form onSubmit="return disableSearch()" action="http://www.idealo.de/preisvergleich/MainSearchProductCategory.html" method="post">
+		<tr>
+			<td align="right"><input size="12" maxlength=50 name="prodsearch.form.Suchfeld" value=""> <input type="hidden" name="submit.hidden" value=""></td>
+			<td style="padding-left:3px;"><input type="image" value="submit" alt="" name="submit" src="http://www.idealo.de/pics/buttons/los.gif" border="0"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><img src="http://www.idealo.de/pics/common/gifspacer.gif" width="9" height="2" alt="" border="0"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><font size=1>
+			<select size="1" name="prodsearch.form.Area" style="width:142px">
+			<option value="idealo" selected>Computer & Foto</option>
+			<option value="2" >B&uuml;cher</option>
+			<option value="0" >DVD</option>
+			<option value="3" >Musik</option>
+			<option value="1" >PC- & Videospiele</option>
+			<option value="4" >Software</option>
+			<option value="5" >Video</option>
+			</select></font>
+			</td>
+		</tr>
+</form>
+		<tr>
+			<td colspan="2"><img src="http://www.idealo.de/pics/common/linux-spacer4.gif" width="9" height="5" alt="" border="0"></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+<!-- searchbox 1 ende -->
+
+
+ 
+   <script>
+function checkSS(f)
+{
+if (f.siteSearchQuery.value != '' && f.siteSearchQuery.value != 'null') {return true;}
+else {alert('Geben Sie ein Suchwort ein!');return false;}
+}
+</script>
+<form onSubmit="return checkSS(this)" action="http://www.kelkoo.de/search.jsp" method="get" name="ss" target="_blank">
+<input name="kpartnerid" value="8909833" type="hidden">
+<table width="150" style="border:1px solid #F04923;" cellpadding="2" cellspacing="0">
+<tr>
+<td align="center">
+<a href="http://www.kelkoo.de" target="_blank">
+<img src="http://www.kelkoo.de/images/de/affiliate/kelkoo_logo_146x52.gif" border="0" alt="Preisvergleich">
+</a>
+</tr>
+<tr>
+<td align="center">
+<a href="http://www.kelkoo.de/b/a/ss_linux.html" target="_blank">
+<img src="http://www.kelkoo.de/images/de/affiliate/linux_image_computer_50x50.gif" border="0">
+</a>
+</td>
+</tr>
+<tr>
+<td align="center" style="font-family:arial;font-size:11px;font-weight:bold;">Linux Produkte<br>und vieles mehr<br>im <a href="http://www.kelkoo.de" target="_blank">Preisvergleich</a> !</td>
+</tr>
+<tr bgcolor="#F2F7FF">
+<td align="center"><input value="Linux" name="siteSearchQuery" size="14" style="font-size:11px;width:100%;"></td>
+</tr>
+<tr bgcolor="#F2F7FF">
+<td align="center">
+<select class="select" name="catId" style="font-size:11px;width:100%;">
+<OPTION value="110001">Computer & Software</OPTION>
+<OPTION value="155101">Auktionen</OPTION>
+<OPTION value="172601">Auto & Motor</OPTION>
+<OPTION value="132801">Beauty & Gesundheit</OPTION>
+<OPTION value="5101">B&uuml;cher</OPTION>
+<OPTION value="149201">DVD & Videofilme</OPTION>
+<OPTION value="120501">Elektronik & Foto</OPTION>
+<OPTION value="128701">Essen & Trinken</OPTION>
+<OPTION value="100007413">Geschenke </OPTION>
+<OPTION value="125301">Handy, Telefon & Fax</OPTION>
+<OPTION value="134301">Haushalt & Wohnen</OPTION>
+<OPTION value="159001">Immobilien & Finanzen</OPTION>
+<OPTION value="107301">Mode & Accessoires</OPTION>
+<OPTION value="150701">Musik</OPTION>
+<OPTION value="169901">Reisen</OPTION>
+<OPTION value="168001">Spiel & Hobby</OPTION>
+<OPTION value="163601">Sport & Fitness</OPTION>
+<OPTION value="167401">Tickets</OPTION>
+<OPTION value="100164013">Suche in ganz Kelkoo </OPTION>
+</select>
+</td>
+</tr>
+<tr bgcolor="#F2F7FF">
+<td align="center"><input border="0" type="image" src="http://r6.kelkoo.com/buttons/button_searchl_de_DE_KELKOO.gif"></td>
+</tr>
+<tr>
+<td align="center" style="font-family:arial;font-size:11px;font-weight:bold;">
+<br>
+<a href="http://computer.kelkoo.de/b/a/c_117001_software.html" target="_blank">Software</a> | <a href="http://computer.kelkoo.de/b/a/c_111801_pc_desktops.html" target="_blank">PC Desktops</a></td>
+</tr>
+</table>
+</form>
+
+ 
+                  
+          <table border="1" width="100%">
+<tr>
+    <td align="center"><a href="http://www.dhd24.com" target="_blank"><img src="http://www.dhd24.com/bilder/logo_68_40.gif" width="68" height="40" alt="verkaufen &amp; kaufen" border="0"></a><br>
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><a href="http://www.dhd24.com"><b>Kleinanzeigen</b></a><b> 
+        &amp; <a href="http://preisvergleich.dhd24.com">Preisvergleich</a></b></font><b><font face="Verdana, Arial, Helvetica, sans-serif" size="1"><br>
+        <br>
+        </font></b><font face="Verdana, Arial, Helvetica, sans-serif" size="1"><a href="http://www.dhd24.com/azl/index.php?classid=4346" target="_blank"><font face="Arial, Helvetica, sans-serif"><b> 
+        Notebook</b></font></a><b> | <font face="Arial, Helvetica, sans-serif"><a href="http://www.dhd24.com/azl/index.php?classid=4342" target="_blank">Drucker</a> 
+        | <a href="http://www.dhd24.com/azl/index.php?classid=5339" target="_blank">PC</a> 
+        <br>
+        <a href="http://www.auto-foto.de/auto-markt/gebrauchtwagen.html" target="_blank">Gebrauchtwagen</a> 
+        | <a href="http://www.sammlermarkt.de/angebote/muenzen-medaillen-papiergeld-wertpapiere.html" target="_blank">M&uuml;nzen</a><br>
+        <a href="http://www.dhd24.com/bilder/wohnmobile/suchliste_wohnmobile.htm" target="_blank">Wohnmobile</a> 
+        | <a href="http://www.dhd24.com/azl/index.php?classid=4340" target="_blank">Grafikkarten</a> 
+        <a href="http://www.mondorico.de" target="_blank">Mondorico Suche</a></font></b></font>
+     </td>
+</tr></table>
+  
+
+  
+        <br><br>
+    <div style="border:1px solid #333;width:150px; text-align:center;padding:5px;line-height:120%;font-family:verdana;font-size:9px;">
+<a href="http://adfire.de" target="blank">
+<img style="float:left;" border="0" src="http://www.linux-magazin.de/adfire.gif" alt="content"></a>
+Halte dich auf dem Laufenden &uuml;ber die <a style="color:#000;" href="http://newsfoxx.de/Themen/EU.html">EU</a> und zur Ablenkung schau dir ein paar 
+<a style="color:#000;" href="http://pixtore.de">Bilder</a> an oder informiere dich &uuml;ber
+<a style="color:#000;" href="http://der-kredit-ratgeber.de">Kredite</a>.
+Oder bist du gerade <a style="color:#000;" href="http://dirfox.de/cat1_____cat2__Singleb%F6rse">Single</a> und willst es nicht bleiben?
+Oder interessierst du dich mehr f&uuml;r <a style="color:#000;" href="http://odge.de/">Sprachen</a>? Auch immer interessant: 
+<a style="color:#000;" href="http://news-themen.de/Gesundheit/">Gesundheit</a>.
+</div>
+  
+          <!-- Begin Mercateo -->
+
+<table width="150" style="padding:0px; border:1px solid #CCCCCC;" bgcolor="#f3f3f1" cellpadding="0" cellspacing="0">
+<tr>
+<td colspan=2 align="center"><a href="http://www.mercateo.com/" target=_blank><img src="/pix/mercateo-logo.gif" border=0></a></td>
+</tr>
+<tr>
+<td colspan=2 align="center" style="padding-right:3px; padding-left:3px; padding-top:3px; padding-bottom:3px; font-size:10pt; color:#F21C0A; font-family:arial;font-weight:bold;">
+Hier&nbsp;kaufen&nbsp;Unternehmen
+</td>
+</tr>
+<tr>
+		<td align="left" width="75" style="padding-right:4px; padding-left:5px;" >
+			<a style="font-size:10pt;  color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/linux/linux.html" target=_blank>SUSE Linux</a>
+		</td>
+		<td align="left" width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/computer/computer.html" target=_blank>Computer</a>
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+		<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/festplatte/festplatte.html" target=_blank>Festplatten</a>
+
+		</td>
+		
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+		<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/server/server.html" target=_blank>Server</a>
+		</td>		
+	</tr>
+	<tr>
+	
+		<td width="75" style="padding-right:4px; padding-left:5px;">	
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/grafikkarte/grafikkarte.html" target=_blank>Grafikkarten</a>
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/notebook/notebook.html" target=_blank>Notebooks</a>		
+		
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; white-space:nowrap; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/mainboard/mainboard.html" target=_blank>Mainboards</a>
+
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/router/router.html" target=_blank>Router</a>
+		
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/prozessoren/prozessoren.html" target=_blank>Prozessoren</a>
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/firewall/firewall.html" target=_blank>Firewalls</a>		</td>
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/netzteil/netzteil.html" target=_blank>Netzteile</a>	
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/switch/switch.html" target=_blank>Switches</a>		
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; white-space:nowrap; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/cd(20)brenner/cd_brenner.html" target=_blank>CD-Brenner</a>
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/monitor/monitor.html" target=_blank>Monitore</a>			
+		</td>
+	</tr>		
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/drucker/drucker.html" target=_blank>Drucker</a>
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/display/display.html" target=_blank>Displays</a>
+		</td>
+	</tr>	
+	<tr>	
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/scanner/scanner.html" target=_blank>Scanner</a>
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/beamer/beamer.html" target=_blank>Beamer</a>
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/toner/toner.html" target=_blank>Toner</a>	
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/tastatur/tastatur.html" target=_blank>Tastaturen</a>	
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/staroffice/staroffice.html" target=_blank>StarOffice</a>	
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">
+			<a style="font-size:10pt; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/antivirus/antivirus.html" target=_blank>Antivirus</a>	
+		</td>
+	</tr>
+	<tr>
+		<td width="75" style="padding-right:4px; padding-left:5px;">	
+			<a style="font-size:10pt; white-space:nowrap; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/ms(20)office/ms_office.html" target=_blank>MS-Office</a>	
+		</td>
+		<td width="75" style="padding-right:5px; padding-left:4px;">		
+			<a style="font-size:10pt; white-space:nowrap; color:#000000; font-family:arial,helvetica;font-weight:bold;" href="http://www.mercateo.com/kw/ms(20)outlook/ms_outlook.html" target=_blank>MS-Outlook</a>	
+		</td>		
+	</tr>
+</table>
+
+<!-- END Mercateo  -->
+
+  
+  
+  
+
+    
+</td>
+</tr>
+</table>
+
+<div id="btt">
+ <a href="#top">^^ TOP ^^</a>
+</div>
+
+<div id="footer">
+ <a href="http://www.linux-community.de/Home/Impressum/">Impressum</a>
+ <a href="mailto:webmaster@linux-community.de">Fragen zur Web-Seite</a>
+ <a href="mailto:moderatoren@linux-community.de">Fragen zu Stories</a>
+ <a href="http://www.linux-community.de/Home/Mission/">Mission</a>
+</div>
+
+<div id="partner">
+ Partner-Sites Deutschland:
+ [<a href="http://www.linux-magazin.de" target="_blank">Linux-Magazin</a>]
+ [<a href="http://www.linux-user.de" target="_blank">LinuxUser</a>]
+ [<a href="http://www.easylinux.de" target="_blank">EasyLinux</a>]
+ [<a href="http://www.linux-nachrichten.de" target="_blank">Linux-Nachrichten</a>]
+ [<a href="http://www.linux-events.de" target="_blank">Linux Events</a>]
+ <br/>
+ Partner-Sites International:
+ [<a href="http://www.linux-magazine.com" target="_blank">Linux Magazine International</a>]
+ [<a href="http://www.easylinux.pl" target="_blank">EasyLinux Polen</a>]
+ [<a href="http://www.linux-magazine.pl" target="_blank">Linux Magazine Polen</a>]
+ [<a href="http://www.easylinux.ro" target="_blank">EasyLinux Rumänien</a>]
+ [<a href="http://www.linux-magazin.ro" target="_blank">Linux Magazin Rumänien</a>]
+ [<a href="http://www.linux-magazine.com.br" target="_blank">Linux Magazine Brasilien</a>]
+ [<a href="http://www.linux-magazine.es" target="_blank">Linux Magazine Spanien</a>]
+</div>
+
+</body>
+</html>

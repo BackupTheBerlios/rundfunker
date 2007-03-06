@@ -1,0 +1,1170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+  <head>
+    <meta name="description" content="Tips for a Debian GNU/Linux System Administrator.">
+<meta name="keywords"  content="Debian System Administration News, Debian Sysadmin, Linux Administration, Linux Sysadmin, Sysadmin">
+<meta name="copyright" content="(c) 2004, 2005 Debian Administration">
+<meta name="author"  content="Debian Administration">
+<meta name="robots" content="index,follow">
+<meta name="resource-type" content="document">
+<meta name="classification" content="Personal">
+<meta name="language" content="en">
+<link rel="icon" href="/favicon.ico" >
+<link rel="shortcut icon" href="/favicon.ico" >
+<link rel="top"    title="home"    href="/" >
+<link rel="search" title="Search" href="http://www.debian-administration.org/about/search">
+<link rel="alternate" title="Debian Administration RSS" href="/articles.rdf" type="application/rdf+xml">
+<link rel="alternate" title="Atom" href="/atom.xml" type="application/atom+xml">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" title="Default Layout">
+
+    <title>Debian Administration :: Setting up multiple Subversion repositories</title>
+
+  </head>
+
+  <body id="yawns">
+    <div id="no-rightBar">
+
+
+<div id="sidebar">
+  <div id="logo">
+ <p><a href="/" title="Go back to homepage"><img src="/images/logo.png" alt="Logo" width="104" height="115"></a></p>
+</div>
+
+
+
+
+        <h3 class="sideBarTitle">Current Poll</h3>
+	
+	<form method="post" action="/polls/38">
+	<p><input type="hidden" name="poll" value="38" /><b>&nbsp;How do you contribute to Debian?</b></p><p>
+	
+	<input type="radio" name="pollanswer" value="1" />&nbsp;I use it<br />
+	
+	<input type="radio" name="pollanswer" value="2" />&nbsp;I read the lists<br />
+	
+	<input type="radio" name="pollanswer" value="3" />&nbsp;I help on the lists<br />
+	
+	<input type="radio" name="pollanswer" value="4" />&nbsp;I submit bugs<br />
+	
+	<input type="radio" name="pollanswer" value="5" />&nbsp;I submit patches<br />
+	
+	<input type="submit" name="pollvote" value="Vote" /><br />
+	( <a href="/polls/38">265 votes ~ 7 comments</a> )</p>
+	</form>
+	
+
+
+
+	<h3 class="sideBarTitle">Recent Weblogs</h3>
+	    
+            <ul>
+              
+              <li><a href="/users/eric/weblog/2" title="samba + active directory">eric</a> </li>
+              
+              <li><a href="/users/k2/weblog/1" title="Changing the Website Theme">k2</a> (2)</li>
+              
+              <li><a href="/users/core/weblog/1" title="November">core</a> </li>
+              
+              <li><a href="/users/Steve/weblog/45" title="Apathy strikes">Steve</a> </li>
+              
+              <li><a href="/users/cvweiss/weblog/1" title="Faster Debian Startup">cvweiss</a> (3)</li>
+              
+              <li><a href="/users/mirza/weblog/1" title="Debian Server Admin">mirza</a> (3)</li>
+              
+              <li><a href="/users/jcdr/weblog/1" title="Double folder backup">jcdr</a> </li>
+              
+              <li><a href="/users/JulienV/weblog/2" title="Old stylesheet">JulienV</a> (3)</li>
+              
+              <li><a href="/users/jparrella/weblog/3" title="Just routine">jparrella</a> (1)</li>
+              
+              <li><a href="/users/orchid/weblog/4" title="ulimit">orchid</a> (3)</li>
+              
+            </ul>
+	    <h3 class="sideBarTitle">More Weblogs</h3>
+	    <ul>
+	    <li><a href="http://planet.debian-administration.org/">Planet Debian Administration</a></li>	   </ul>
+	    
+
+
+
+
+
+      <h3 class="sideBarTitle">Previous Headlines</h3>
+            <ul>
+              
+                <li><a href="/articles/283">Denying access to your web server by IP address</a></li>
+              
+                <li><a href="/articles/282">Backing Up/Restoring Package Information?</a></li>
+              
+                <li><a href="/articles/281">Perl Packages - the return</a></li>
+              
+                <li><a href="/articles/280">HowTo Setup Basic SMTP AUTH in Exim4</a></li>
+              
+                <li><a href="/articles/279">Question: WebDAV with Apache2 -  including Windows XP?</a></li>
+              
+                <li><a href="/articles/278">Logging the right way</a></li>
+              
+                <li><a href="/articles/277">Setting Up Awstats  for Apache</a></li>
+              
+                <li><a href="/articles/276">Making OpenLDAP+Kerberos Single Sign On work?</a></li>
+              
+                <li><a href="/articles/275">Setting up an IMAP server with dovecot</a></li>
+              
+                <li><a href="/articles/274">Creation of a Redhat RHEL Kernel 2.6.9-11 for Debian 3.1r0a Sarge</a></li>
+              
+            </ul>
+
+
+
+	    
+</div>
+
+<!-- Main body -->
+<div id="mainContent">
+    <!-- ##### Header ##### -->
+    <div id="header">
+      <div class="midHeader">
+        <h1 class="headerTitle">Debian Administration</h1>
+        <h2 id="headerSubTitle">System Administration Tips and Resources</h2>
+      </div>
+      <div class="subHeader">
+       [ 
+ <a href="/about/Debian%20Administration" title="About this site">About</a> |
+ <a href="/create/article" title="Contribute an article to this website">Contribute Article</a> |
+ <a href="/about/FAQ" title="Frequently asked questions with answers">FAQ</a> |
+ <a href="/hof" title="Article statistics">Hall of Fame</a> |
+ <a href="/about/Search" title="Search the articles which have been posted previously">Search</a> |
+ <a href="/about/Syndication" title="Syndicate this website's articles, or view them in an aggregator">Syndication</a> |
+ <a href="/about/Topics" title="See the available topic catagories">Topics</a> ]
+      </div>
+    </div>
+
+
+
+       <div class="article">
+       <!-- headline + section name -->
+       <h2 class="title">Setting up multiple Subversion repositories</h2>
+
+       <div class="tagline"><p>Posted by  <a href="/users/hruske">hruske</a> in the <a href="/topics/Packages" title="View past articles in this topic">Packages</a> section on Tue  9 Aug 2005  at 11:20 </p></div>
+
+
+       <p>With subversion (and svn-buildpackage) becoming popular hosting multiple repositories with different access controls is something that is commonly required.  Here we'll show how you can set this up in a very flexible manner using PostgreSQL</p>
+<p>This article was inspired after reading <a href="http://www.linuxjournal.com/article/7655" rel="nofollow">the guide on LinuxJournal written by Cristiano Paris</a>.  However this introduction describes a  more flexible setup.</p>
+<p>Since this guide is for Debian Sarge, it may use different versions of the software.</p>
+<hr>
+<p>We will be using PostgreSQL with Apache 2 WebDAV and mod-auth-pgsql. Packages you will need to install are:</p>
+<ul>
+<li>postgresql</li>
+<li>postgresql-contrib</li>
+<li>subversion</li>
+<li>apache2</li>
+<li>libapache2-mod-auth-pgsql</li>
+<li>libapache2-svn</li>
+</ul>
+
+<b>PostgreSQL and database setup</b>
+
+<p>Installing PostgreSQL is pretty easy. Be sure to select the proper encoding settings, ideally this would be the same as your system locale.</p>
+<p>For storing password in PostgreSQL table we'd like some encryption, so we need to install <tt>pgcrypto</tt> too. Do this by switching to user postgres and running pgcrypto.sql:</p>
+<pre>
+root @ box # su postgres
+postgres @ box $ psql template1 < /usr/share/postgresql/contrib/pgcrypto.sql  
+SET
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+</pre>
+    
+    <p>This creates some new functions, including crpyt, which we will use to store encrypted passwords in database. First we need to create the database and new user:</p>
+<pre>
+postgres @ box $ createdb subversion
+CREATE DATABASE
+postgres @ box $ createuser subversion
+Shall the new user be allowed to create databases? (y/n) n
+Shall the new user be allowed to create more new users? (y/n) n
+CREATE USER
+</pre>
+
+<p>Now we can already map the database structure, which is mostly defined by mod_auth_pgsql. For the SQL queries to work, you need to connect to the database:</p>
+
+<pre>
+postgres @ box $ psql subversion
+subversion=#
+</pre>
+
+<p>Now we need a table for users ...</p>
+<pre>
+CREATE TABLE users (username char(32),pass text,email varchar(80));
+GRANT SELECT ON users to subversion;
+</pre>
+
+<p> ... and a table for groups ... </p>
+<pre>
+CREATE TABLE groups (username char(32),memberof char(64));
+GRANT SELECT ON groups to subversion;
+</pre>
+
+<p> ... and a table for logging authorizations. One can never know.</p>
+<pre>
+CREATE TABLE log (uname char(20), time timestamp(8), uri varchar(512),ip inet);
+GRANT INSERT ON log TO subversion;
+</pre>
+
+<p>We also need to change the subversion's password.</p>
+<pre>
+ALTER USER subversion WITH ENCRYPTED PASSWORD 'secretpass';
+</pre>
+
+
+<b>Apache 2 and WebDAV</b>
+
+<p>After getting Apache2 running make sure you enable mod_dav, mod_dav_svn and mod_auth_pgsql. On <a href="http://www.debian-administration.org/articles/207" rel="nofollow">using the Debian tools for Apache2</a>:</p>
+<pre>
+root @ box # a2enmod dav
+root @ box # a2enmod dav_svn
+root @ box # a2enmod auth_pgsql
+</pre>
+
+<p>When this is set up, we need to make the layout for repositories. Default Debian location is /var/lib/svn, and I'm going to use this default. In /var/lib/svn create this layout:</p>
+
+<pre>
+/var/lib/svn/
+/var/lib/svn/conf
+/var/lib/svn/conf/policies
+/var/lib/svn/repository
+</pre>
+
+<p>We need some config files for Apache, so create /var/lib/svn/conf/mod_dav_svn.conf with following content:</p>
+<pre>
+Include /var/lib/svn/conf/default_policy.conf
+Include /var/lib/svn/conf/policies/*
+DavLockDB /var/lib/svn/repository/DavLock
+</pre>
+
+<p>Link location /etc/apache2/mods-available/dav_svn.conf to this file. Also create new file /var/lib/svn/conf/default_policy.conf:</p>
+<pre>
+&lt;Location /svn/&gt;
+        Dav svn 
+        SVNParentPath /var/lib/svn/repository
+        &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+            Order deny,allow
+            Deny from all
+            # for access from 'safe' ip, uncomment following line
+            # allow from 192.168.0.0/24
+        &lt;/LimitExcept&gt;
+&lt;/Location&gt;
+
+
+</pre>
+
+<p>The policies for each project are then stored in folder /var/lib/svn/conf/policies/ and are included by Apache. This means Apache needs to be restarted when new project is added. The repository needs to be Apache writable, therefore we need to adjust permissions.</p>
+<pre>
+find /var/lib/svn/repository -type f -exec chmod 660 {} \;
+find /var/lib/svn/repository -type d -exec chmod 2770 {} \;
+chown -R root.www-data /var/lib/svn/repository
+</pre>
+
+<p>Apache needs one more setting set up properly. Add this stanza to /var/lib/svn/conf/mod_dav_svn.conf:</p>
+<pre>
+&lt;Location /svn&gt;
+        Order deny,allow
+        Allow from all
+&lt;/Location&gt;
+</pre>
+
+<p>Viewing files with browsers should now work.</p>
+
+<b>Setting up the authentication with mod_auth_pgsql</b>
+
+<p>First we need to allow connections for user subversion to PostgreSQL database subversion. Add this line to /etc/postgresql/pg_hba.conf:</p>
+<pre>
+host    subversion  subversion  127.0.0.1         255.255.255.255   md5
+</pre>
+
+<p>Be sure, to put it before line</p>
+<pre>
+host    all         all         127.0.0.1         255.255.255.255   ident sameuser
+</pre>
+
+<p>You may need to add your real IP too, not only 127.0.0.1, so either add it now or check logs later.<br /><br />We will now create a test project to make sure this works. Create a new file /var/lib/svn/conf/default_auth.conf with common parameters for mod_auth_pgsql:</p>
+
+<pre>
+AuthType Basic
+Auth_PG_host localhost
+Auth_PG_port 5432
+Auth_PG_database subversion
+Auth_PG_user subversion
+Auth_PG_pwd secretpass
+Auth_PG_pwd_table users
+Auth_PG_uid_field username
+Auth_PG_pwd_field pass
+Auth_PG_grp_table groups
+Auth_PG_grp_group_field memberof
+Auth_PG_grp_user_field username
+Auth_PG_cache_passwords on
+Auth_PG_connection_reuse on
+Auth_PG_log_table log
+Auth_PG_log_uname_field uname
+Auth_PG_log_date_field time
+Auth_PG_log_uri_field uri
+Auth_PG_log_addrs_field ip
+</pre>
+
+<p>Create a new file /var/lib/svn/conf/policies/blah intended for access control to a project, having following content:</p>
+
+<pre>
+&lt;Location /svn/blah/&gt;
+        &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+                AuthName "Subversion repository for project blah"
+                require group blah
+        &lt;/LimitExcept&gt;
+&lt;/Location&gt;
+</pre>
+
+<p>Next we need to create subversion repository in /var/lib/svn/repository/blah:</p>
+<pre>
+root @ box # mkdir /var/lib/svn/repository/blah
+root @ box # svnadmin create /var/lib/svn/repository/blah
+</pre>
+
+<p>You can not authenticate user, if you don't have one, therefore we will create a 'test' user to see if we've got authentication set up properly:</p>
+<pre>
+root @ box # su postgres
+postgres @ box $ psql subversion
+subversion=# INSERT INTO users VALUES ('test',crypt('pass','seed'),'test@localhost');
+subversion=# INSERT INTO groups VALUES ('test','blah');
+</pre>
+
+<p>We can now try and hopefully succeed in importing <b>Revision 1</b> of our project.</p>
+<hr>
+<p>If you are having trouble setting up, be sure to check Apache and PostgreSQL logs to see what is going on.</p>
+
+
+	<div class="row">
+        <span class="left">
+	<a href="/comment/onarticle/208">Comment on this article</a></span>
+
+         <span class="right">
+         <a href="/articles/208/print">Print version</a>
+         </span>
+	<div class="spacer"> </div>
+	</div>
+
+	<p>&nbsp;</p>
+         <div class="row">
+	  <span class="left">
+           
+            <a href="/articles/207">&lt;&lt;&lt; Maintaining apache2 sites and modules lists</a>
+           
+          </span>
+          <span class="right">
+           
+            <a href="/articles/209">Unattended, Encrypted, Incremental Network Backups: Part 1 &gt;&gt;&gt;</a>
+           
+          </span>
+	<div class="spacer"> </div>
+        </div>
+
+	</div>
+
+
+ <hr />
+ 
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_1">#1</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_1">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/hruske">hruske</a>   (193.2.xx.xx) on Wed 10 Aug 2005  at 16:44 </div>
+
+ <div class="body">
+  uhm ... Apache directives with lessthan and greaterthan have been stripped?
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/1">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_2">#2</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_2">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Steve">Steve</a> [<a href="/users/Steve/scratchpad">Scratchpad</a> ~ <a href="/users/Steve/weblog">Weblogs</a>]  (82.41.xx.xx) on Wed 10 Aug 2005  at 16:47 </div>
+
+ <div class="body">
+  <p>Ugh.</p>
+<p>I just checked my mailbox and they were never present - I don't know how I didn't notice.</p>
+<p>If you give me updated bits I can fix it.</p>
+<p>There are times when I really hate having to handle stuff like this :S</p>
+<p>Steve<br />
+-- <a href="http://www.steve.org.uk/">Steve.org.uk</a>
+</p>
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_1">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/2">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_3">#3</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_3">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/hruske">hruske</a>   (193.2.xx.xx) on Wed 10 Aug 2005  at 23:31 </div>
+
+ <div class="body">
+  I've put a copy at <a href="http://www.kiberpipa.org/~hruske/subversion.html" rel="nofollow">http://www.kiberpipa.org/~hruske/subversion.html</a>
+<br />
+
+<br />
+Oh, and it would be smart to change the ip field from char to inet. ;) I forgot that earlier.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_2">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/3">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_4">#4</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_4">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (193.170.xx.xx) on Fri 12 Aug 2005  at 14:40 </div>
+
+ <div class="body">
+  I also want to point you to mod_authz_svn, which allows you to use directory based access control within repositories:
+<br />
+<br />
+<a href="http://svnbook.red-bean.com/en/1.1/ch06s04.html#svn-ch-6-sect-4.4.2" rel="nofollow">http://svnbook.red-bean.com/en/1.1/ch06s04.html#svn-ch-6-sect-4.4 .2</a>
+<br />
+
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/4">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_5">#5</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_5">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (148.136.xx.xx) on Fri 16 Sep 2005  at 07:36 </div>
+
+ <div class="body">
+  Am I the only one who cannot make this work?
+<br />
+<br />
+I have the default_auth.conf, but I havn't told apache anywhere to use it, and the guide doesn't tell me to. Is there a step missing? Or am I just not finding it...
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/5">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_6">#6</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_6">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (193.2.xx.xx) on Fri 16 Sep 2005  at 08:25 </div>
+
+ <div class="body">
+  How on earth did I miss that?
+<br />
+
+<br />
+Yes, you have to add it to /var/lib/svn/conf/policies/blah, into the LimitExcept directive.
+<br />
+
+<br />
+thanks for pointing this out.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_5">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/6">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_7">#7</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_7">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (148.136.xx.xx) on Fri 16 Sep 2005  at 11:18 </div>
+
+ <div class="body">
+  Thanks for the reply, and all that...
+<br />
+<br />
+But..
+<br />
+<br />
+Exactly how do I type? I tried a few different things, but I have so far failed to figure out the magic word to use before the filename (yes, I've looked in the mod_auth_pgsql documentation, as well as som general apache auth documentation)
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_6">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/7">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_8">#8</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_8">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (4.154.xx.xx) on Sat 15 Oct 2005  at 03:36 </div>
+
+ <div class="body">
+  I too would like to know the answer to this question. Two months since publishing and there's no revision? These directions are really shady. They should have been checked before being posted. I appreciate the effort, but a half-written article almost does more harm than good.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_7">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/8">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+ </div>
+  
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_9">#9</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_9">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/hackeron">hackeron</a>   (212.36.xx.xx) on Mon 24 Oct 2005  at 14:25 </div>
+
+ <div class="body">
+  If I were to write such a howto, I would go with pam (i.e. pam-mysql or pam-ldap) or even htauth for simplicity instead of auth-pgsql. Many WebDAV users dont want a separate password database.
+<br />
+<br />
+I.E. register on a forum, and get read-only access to svn/webdav.
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/9">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/208#comment_10">#10</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_10">Re: Setting up multiple Subversion repositories</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (193.2.xx.xx) on Tue 25 Oct 2005  at 07:14 </div>
+
+ <div class="body">
+  You could still use mod_auth_pam, this is basically just an example.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_9">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/208/10">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+
+
+  <!-- Closing tag for if_error -->
+
+    <!-- ##### Footer ##### -->
+  <div id="footer">
+	<div>
+<p>Articles and comments are the property of their respective posters.</p>
+<p>Trademarks are the property of their respective owners.  Debian is <a
+href="http://tarr.uspto.gov/servlet/tarr?regser=serial&amp;entry=75386376&amp;action=Request+Status">a registered trademark</a> of <a href="http://www.spi-inc.org">Software in the Public Interest, Inc</a>.</p>
+<p>This site is copyright &copy; 2004, 2005 <a class="footer" href="http://www.debian-administration.org/">Debian Administration</a> - Email: <a class="footer" href="mailto:webmaster@debian-administration.org">webmaster@debian-administration.org</a></p>
+</div>
+    </div>
+
+</div>
+</div>
+
+<!-- ##### Right Sidebar ##### -->
+<div id="rightbar">
+  
+
+      <h3 class="sideBarTitle">User Login</h3>
+            <form id="user-login" action="/" method="post">
+	    <input type="hidden" name="target" value="/articles/208" />
+                
+	<p><b>Username</b>:<br />
+        <input id="name" name="lname" type="text" size="14" maxlength="25" /></p>
+	<p><b>Password</b>:<br />
+	<input id="pass" name="lpass" type="password" size="15" maxlength="25" /></p>
+	<p><input type="submit" name="login" value="Login" /></p>
+                
+          <p><a href="/create/user">Create New User</a></p>
+            </form>
+
+
+
+
+  
+<h3 class="sideBarTitle">Quick Site Search</h3>
+ <form id="quickSearch" action="/" method="get">
+  <p><input size="10" name="search"> <input type="submit" name="go" value="Go"></p>
+ </form>
+
+
+
+  
+
+
+   
+   
+   
+   
+
+    	 
+	
+	    <h3 class="sideBarTitle">Sponsored Links</h3>
+ <p>&nbsp;</p>
+ <div style="text-align: center;"> 	 
+  <script type="text/javascript"><!-- 	 
+   google_ad_client = "pub-1910202134166551"; 	 
+   google_ad_width = 120; 	 
+   google_ad_height = 620; 	 
+   google_ad_format = "120x600_as"; 	 
+   google_ad_channel =""; 	 
+  //--></script> 	 
+  <script type="text/javascript" 	 
+   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+  </script> 	 
+ </div>
+
+	
+
+        
+	
+         	 
+	  <hr />
+          <p><a href="/create/user">Create an account</a> and login to avoid these adverts.</p>
+         	 
+
+     
+</div>
+
+
+
+
+  </body>
+</html>
+

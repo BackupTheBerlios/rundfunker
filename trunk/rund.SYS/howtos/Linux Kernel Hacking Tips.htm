@@ -1,0 +1,218 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux 2.4.4 i686) [Netscape]">
+   <meta name="Author" content="Chris Vaill">
+   <title>Linux Kernel Hacking Tips</title>
+</head>
+<body bgcolor="#FFFFFF">
+<h1>Time-saving kernel hacking tips for OS students</h1>
+
+<h2>1. Compiling for success</h2>
+
+<ul>
+<li>
+You want to be able to install your experimental kernel alongside the
+standard kernel, so you can switch between them easily without one
+clobbering the other's modules.  A good way to do this is to edit the
+top level makefile, and change the <tt>EXTRAVERSION</tt> line to
+"<tt>EXTRAVERSION&nbsp;=&nbsp;-pudding</tt>" or something.  When you
+do a <tt>make&nbsp;modules_install</tt>, the modules will end up in
+<tt>/lib/modules/2.4.0-pudding/</tt> instead of overwriting the
+modules in <tt>/lib/modules/2.4.0/</tt>.  Also, if you run
+<tt>uname&nbsp;-r</tt>, it will return <tt>2.4.0-pudding</tt>, so you
+can always tell which kernel you're running.
+
+<li>
+Compile your kernel with debugging symbols.  In the top level kernel
+makefile, look for the line starting "<tt>CFLAGS =</tt>" and add the
+<tt>-g</tt> option to the end of the line.  This will come in handy
+later.
+
+<li>
+When configuring your kernel, <bf>definitely</bf> turn on "Magic SysRq
+key" under "Kernel hacking" and read <tt>Documentation/sysrq.txt</tt>.
+It can often save you from a fsck, and does other useful things, too.
+
+<li>
+If you compile with modules enabled, it's a good idea to turn on "Set
+version information..." under "Loadable module support".  This way, if
+a module uses a struct that has been changed out from under it, it
+will simply refuse to load (with an unresolved symbol error) rather
+than loading and improperly referencing the struct, causing all kinds
+of random kernel faults.  You just have to recompile the modules to
+get them to link in properly.
+
+<li>
+If you run into weird build errors, it sometimes helps to do a rebuild
+from scratch:<br>
+<tt>cp .config /tmp<br>
+make distclean<br>
+cp /tmp/.config .<br>
+make oldconfig<br>
+make dep && make bzImage && make modules<br>
+</tt>
+</ul>
+
+<h2>2. Oops!</h2>
+
+<ul>
+<li>
+The dump from an oops contains all kinds of valuable information.
+There is a tool called <tt>ksymoops</tt> that takes the information
+from an oops and combines it with information about your kernel image
+(vmlinux), symbol map (System.map), and other sources to give a stack
+trace and a disassembly of the offending code.
+
+<li>
+Now you've got a stack trace of a kernel oops, but the addresses are
+something like "<tt>c01217f8&nbsp;&lt;schedule+0xb50></tt>", which
+really only gives you a general idea of where you are inside the
+<tt>schedule()</tt> function.  If you want to see more specifically
+what the code at that address looks like, you can use
+<tt>objdump</tt>.  If you run "<tt>objdump -d vmlinux</tt>", you get a
+disassembly of the kernel.  This is, of course, extremely large, so
+you might want to use the <tt>--start-address</tt> and
+<tt>--stop-address</tt> options to narrow down the range.  You can use
+<tt>objdump</tt> on individual object files, too, but since they
+haven't been linked the addresses won't match up with your oops
+output.
+
+<li>
+But hey!  I don't want to have to learn Intel assembly!  Well, this is
+where compiling with debugging symbols pays off.  You can get
+<tt>objdump</tt> to list the source code alongside the disassembled
+code if you run "<tt>objdump&nbsp;-dS&nbsp;vmlinux</tt>" and
+<tt>vmlinux</tt> contains debugging symbols.
+</ul>
+
+<h2>3. Fsck!</h2>
+
+<ul>
+<li>
+It's a fact of life--kernel hacking can often cause your machine to
+crash, needing a hard reset.  Then, when it's coming back up, you have
+to wait forever for the drive to fsck.  If you're lucky, the wait is
+the only problem, but if you're unlucky, you may get some filesystem
+corruption.  You can avoid this by unmounting any disks you don't
+need, and mounting the disks you do need read-only.  For the root
+filesystem, this command would be
+"<tt>mount&nbsp;-o&nbsp;ro,remount&nbsp;/</tt>".
+
+<li>
+But I need the disks to store my data!  Not to worry, just use a
+ramdisk.  This has the added benefit of eliminating I/O delays that
+may taint your data.  In the kernel configuration, you need to enable
+"RAM disk support" under "Block devices" (as a module if you
+like). Then run:<br>
+<tt>dd if=/dev/zero of=/dev/ram bs=1k count=4096<br>
+mke2fs -vm0 /dev/ram 4096<br>
+mount /dev/ram /mnt</tt><br>
+and a writable 4MB ramdisk will be mounted under <tt>/mnt</tt>.  You
+can put your data there, and transfer it over the network or to a
+floppy when you're done, and the root filesystem is never in danger.
+</ul>
+
+<h2>4. Where's my output?</h2>
+
+<ul>
+<li>
+You can't do much with the output of an oops if the machine crashes
+before the oops gets written to the system log, or if you're running
+with the disks mounted read-only.  The solution?  Write console output
+to the serial port!  In the kernel configuration, under "Character
+devices", enable "Standard/generic (dumb) serial support" (as a
+built-in driver, not as a module) and "Support for console on serial
+port".  Then add the options
+"<tt>console=ttyS0,57600&nbsp;console=tty0</tt>" to your kernel
+command line (see next item for instructions on how to do this).  This
+will write console output to serial port 0 (COM1 in DOS-speak) at
+57600 baud; adjust as necessary.  The second console argument tells
+the kernel to write console output to the real console as well, so you
+can also see it on the screen.
+
+<li>
+If you use lilo, you change your kernel command line by adding an
+<tt>append=</tt> line to your <tt>lilo.conf</tt>; for example:
+<tt>append&nbsp;=&nbsp;"console=ttyS0,57600&nbsp;console=tty0"</tt>.
+<li>
+If you use grub (which I recommend), you put the arguments after the
+kernel image file in the kernel statement; for example:<br>
+<tt>kernel&nbsp;/boot/vmlinuz-2.2.18-pudding&nbsp;root=/dev/sda1&nbsp;console=ttyS0,57600&nbsp;console=tty0</tt>
+
+<li>
+Now you have to connect the other end.  If your experimental machine
+is just a VMware machine, this is easy.  Go to the configuration
+editor in VMware, and set up serial port COM1 as type file, and enter
+a filename of your choice.  All console output from the guest machine
+will be now written to a file on the host machine.
+
+<li>
+If you're using a real machine, however, you need to physically
+connect the first serial port to something, most likely the serial
+port of another machine.  Connect COM1 of your test machine to a
+serial port on another machine (which we'll call the monitor machine)
+with a null modem cable.  You can buy one of these, or you can make
+one with about $6 worth of parts from Radio Shack and a soldering
+iron.  Check <a
+href="http://www.geocities.com/SiliconValley/Heights/5704/serial1.html">Ryan
+Richardson's page</a> <small><a href="nullmodem/serial1.html">(local
+mirror)</a></small> or <a
+href="http://support.microsoft.com/support/kb/articles/q142/3/24.asp">this
+page at Microsoft</a> for instructions.  On the monitor machine, run a
+terminal emulator (probably minicom on Linux, something else on
+Windows), and set it up to use the serial port you're using on the
+monitor machine, at 57600 baud.  The console output should show up in
+the terminal emulator, where you can capture it to a file.
+</ul>
+
+<h2>5. Miscellany</h2>
+
+<ul>
+<li>
+The kdb kernel debugger put out by SGI can be very useful: you can
+stop the kernel at any time and drop to a debugging prompt, where you
+can get stack traces, examine memory contents, set breakpoints, and
+other useful debugger stuff.  Get the kernel patch at <a
+href="http://oss.sgi.com/projects/kdb/">oss.sgi.com</a>.
+
+<li>
+Be paranoid.  Don't trust anything you haven't confirmed by reading
+the related source yourself.  Example: the function
+<tt>smp_send_reschedule(cpu)</tt> is sometimes listed as a way to
+force a schedule on a different CPU.  This is not true.  You also have
+to set <tt>cpu_curr(cpu)->need_resched&nbsp;=&nbsp;1</tt>, but this is
+not documented outside of the code itself.  Use the source, Luke!
+
+<li>
+Know the calling structure of the routines you're working with.  For
+example, you have to be very careful when using <tt>printk()</tt> for
+debugging around scheduling routines.  <tt>printk()</tt> indirectly
+calls <tt>wake_up_process()</tt>, which calls
+<tt>add_to_runqueue()</tt>.  If you call <tt>printk()</tt> from
+<tt>add_to_runqueue()</tt>, you get an endless mutual recursion that
+involves many different functions.  This sort of bug is often not easy
+to trace, so it's best to prevent it when you can.
+
+<li>
+Pay attention to locking principles.  You may think that throwing
+something together with shoddy locking is okay for now, just to get it
+running before the deadline.  Take my word for it, you'll end up
+having to go through and fix every potential deadlock and race
+condition before it works anyway, so take the time to do it right the
+first time.
+
+<li>
+Also, pay attention to locking principles.
+
+<li>
+Did I mention you should pay attention to locking principles?
+</ul>
+
+<hr>
+Questions?  Comments?  Corrections?  Send them to: <address><a
+href="mailto:cvaill@cs.columbia.edu">cvaill@cs.columbia.edu</a></address>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+[Eagle]
+Version="04 16 00"
+Platform="Windows"
+Serial="62191E841E-LSR-WLM-1EL"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibrary="C:/Programme/EAGLE-4.16/lbr/rcl.lbr"
+UsedLibrary="C:/Programme/EAGLE-4.16/lbr/special.lbr"
+UsedLibrary="C:/Programme/EAGLE-4.16/lbr/switch-dil.lbr"
+UsedLibrary="C:/Programme/EAGLE-4.16/lbr/switch-misc.lbr"
+UsedLibrary="C:/Programme/EAGLE-4.16/lbr/switch.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="50 121 1009 420"
+State=1
+Number=0
+
+[Desktop]
+Screen="2048 768"
+Window="Win_1"

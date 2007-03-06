@@ -1,0 +1,75 @@
+#!/bin/bash
+# /etc/init.d/troubadix
+# Troubadix Startup Script
+# creates Links for MySQL, Apache, Home
+# (C) Jan Peuker 2005
+
+set -e
+set -u
+${DEBIAN_SCRIPT_DEBUG:+ set -v -x}
+
+# Just check if /pst is existing and a link
+test -L /pst || exit 0
+
+SELF=$(cd $(dirname $0); pwd -P)/$(basename $0)
+MYNAME="TroubadixLinks"
+
+cd /
+umask 077
+
+#
+# main()
+#
+
+case "${1:-''}" in
+  'start')
+  	# Create Links for Rundfunker
+	echo -n "Starting $MYNAME Services"
+	# if returns execution codes ( 0 = positive), test returns boolean codes ( 1 = positive)
+	if [ ! -L /etc/apache2 ]; then
+		ln -s /pst/apache2 /etc/apache2
+	fi
+	test -L /home/troubadix || ln -s /pst/home /home/troubadix
+	test -L /usr/sbin/troubadix || ln -s /pst/troubadix /usr/sbin/troubadix
+	test -L /etc/inid.d/rundfunker || ln -s /usr/sbin/troubadix/rundfunker-init.sh /etc/init.d/rundfunker
+	# Apache (not checked in status)
+	test -L /var/www || ln -s /pst/apache2/default-www /var/www
+	test -L /var/log/apache2 || ln -s /pst/apache2/log /var/log/apache2
+	echo "."
+	;;
+  'stop')
+	# It is a "Service", so we're deleting the Links...
+	echo -n "Shutting down $MYNAME Services"
+	sync
+	test -L /etc/apache2 && rm /etc/apache2
+	test -L /home/troubadix && rm /home/troubadix
+	test -L /etc/init.d/rundfunker && rm /etc/init.d/rundfunker
+	test -L /usr/sbin/troubadix && rm /usr/sbin/troubadix
+	# Apache (not checked in status)
+	test -L /usr/sbin/troubadix && rm /var/www
+	test -L /var/log/apache2 && rm /var/log/apache2
+	echo "."
+  	;;
+  'restart')
+  	# restart just resets the Links
+	$SELF stop
+	$SELF start
+	;;
+  'reload')
+  	# Does the same as restart, just reset the Links
+	echo -n "Restaring $MYNAME Services"
+	echo "."
+	;;
+  'status')
+  	# Checks if the links exist
+	if [ -L /etc/apache2 ] && [ -L /home/troubadix ]  && [ -L /usr/sbin/troubadix ] && [ -L /etc/init.d/rundfunker ]; then
+		echo "$MYNAME is active"
+	else
+	 	echo "$MYNAME is inactive"
+	fi
+  	;;
+  *)
+  	echo "$MYNAME: Usage $SELF start|stop|restart|reload|status"
+	exit 1
+	;;
+esac

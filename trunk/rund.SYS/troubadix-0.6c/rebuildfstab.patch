@@ -1,0 +1,12 @@
+3a4
+> # JAN
+25c26,27
+< ADDEDBYKNOPPIX="# Added by KNOPPIX"
+---
+> # JAN
+> ADDEDBYKNOPPIX="# Added by TROUBADIX"
+77c79,80
+<     ntfs) options="${options},ro,umask=000" ;;
+---
+>     # JAN - do not mount ntfs
+>     # ntfs) options="${options},ro,umask=000" ;;

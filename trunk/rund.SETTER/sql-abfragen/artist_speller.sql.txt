@@ -1,0 +1,1 @@
+select artist from rf_song where artist like 'blum%' group by artist

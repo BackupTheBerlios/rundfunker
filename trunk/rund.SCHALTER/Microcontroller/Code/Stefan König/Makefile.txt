@@ -1,0 +1,30 @@
+# Makefile, written by Stefan Koenig
+CC=avr-gcc
+AR=avr-ar
+OBJCOPY=avr-objcopy
+LDFLAGS=-Wl,-Map=$(PRG).map,--cref -g3 -O -mmcu=$(MCU)
+CFLAGS= -g3 -Os -fomit-frame-pointer -mmcu=$(MCU) -Wall 
+
+#------------------
+
+PRG=kwrx
+MCU=atmega16
+
+#-------------------
+
+
+all: $(PRG).hex
+
+$(PRG).o: 	$(PRG).c
+	rm -f $(PRG).hex
+	$(CC) $(CFLAGS) -c $(PRG).c -o $(PRG).o
+
+$(PRG).elf: 	$(PRG).o 
+	$(CC) $(LDFLAGS) $(PRG).o -o $(PRG).elf
+	
+$(PRG).hex: 	$(PRG).elf
+	$(OBJCOPY) -O ihex $(PRG).elf $(PRG).hex
+	
+clean:
+	rm -f *.o $(PRG).map $(PRG).out $(PRG).hex
+																

@@ -1,0 +1,36 @@
+# sudoers file.
+#
+# This file MUST be edited with the "visudo" command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# Host alias specification
+Host_Alias LOCALHOST=localhost,troubadix,127.0.0.1
+
+# User alias specification
+User_Alias SUDOERS = troubadix
+User_Alias WWW = www-data
+
+# Cmnd alias specification
+Cmnd_Alias SU = /bin/su, /sbin/sulogin, /usr/bin/sudo
+Cmnd_Alias DUMPS = /bin/mt, /sbin/dump, /sbin/rdump, /sbin/restore, /sbin/rrestore
+Cmnd_Alias PS = /bin/ps
+Cmnd_Alias SHUTDOWN = /sbin/shutdown
+Cmnd_Alias KILL = /bin/kill
+Cmnd_Alias HALT = /sbin/halt
+Cmnd_Alias REBOOT = /sbin/reboot
+Cmnd_Alias SHELLS = /bin/sh, /bin/bash, /bin/rbash
+Cmnd_Alias NET = /sbin/ifconfig, /sbin/route, /sbin/arp, /sbin/iwconfig, /sbin/iwlist, /sbin/iwspy, /sbin/iwpriv
+
+
+# User privilege specification
+root    ALL=(ALL) ALL
+# JAN - in every network (dhcpd)
+SUDOERS ALL= DUMPS, PS, KILL, SHUTDOWN, HALT, REBOOT, SU, /usr/bin/passwd [A-z]*, !/usr/bin/passwd root
+WWW LOCALHOST=NOPASSWD: ALL
+
+# KNOPPIX WARNING: This allows the unprivileged knoppix user to start commands as root
+# KNOPPIX WARNING: This is totally insecure and (almost) makes knoppix a second root account.
+# KNOPPIX WARNING: Never allow external access to the knoppix user!!!
+knoppix ALL=NOPASSWD: ALL

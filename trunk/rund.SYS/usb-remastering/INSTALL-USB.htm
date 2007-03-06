@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"></HEAD>
+<BODY><PRE>:: How to boot L.S.A from a USB Flash drive ::
+
+::Step 1)
+Get your USB drive booting:-
+Download syslinux http://syslinux.zytor.com/faq.php (don't trust the 
+syslinux that came with your favorite Linux distro it's probably been 
+tampered with)
+Insert your USB drive.
+Work out where it has been attached to /dev (look in dmesg for a hint) - 
+probably /dev/sda or /dev/sda1
+Make a directory in mount for your drive.
+
+mnt\&gt;mkdir usbdrive
+
+mount it and get a disk free to make sure you have the right device
+
+mnt\&gt;mount -t [vfat/msdos] /dev/sda* /mnt/usbdrive
+mnt\&gt;df
+
+Unmount it before you make it bootable.
+
+mnt\&gt;umount /mnt/usbdrive
+
+make it bootable
+\&gt;/home/syslinux/syslinux [-s] /dev/sda*
+
+reboot
+
+::Step 2)
+Enter your BIOS and set the first boot device to USB ZIP
+If this isn't an option in your BIOS download and flash your BIOS with the 
+latest version. Still not an option - only thing todo is make a boot floppy 
+and keep all the other files on the USB :(
+
+Boot the machine and you should see the start of a Syslinux boot
+It will stop with an error. Turn your machine off and remove the drive.
+
+[if it didn't start to boot then either :-
+	1) you need to put the USB drive into a root usb port or your BIOS may time 
+out before it finds the drive
+	2) your usb drive doesn't have a cluster size that will boot syslinux 
+(there are 2 many different drives out there for me to help you with this 
+;google your way out of it)
+	3) if all else fails do a search for "runt" &amp; "usb" on google to look for 
+another method to boot from USB involving dd if=xxx.mbr of=/dev/usbdrive
+]
+
+::Step 3)
+Start Linux up again, insert your USB drive, mount it.
+insert your L.S.A cd and mount it
+\&gt;mount -t iso9660 /dev/hcd /mnt/temp    (assuming /dev/hcd is your cdrom &amp; 
+you must mkdir /mnt/temp first)
+
+copy over the KNOPPIX directory to the USB drive
+copy the moded miniroot.gz and other files onto the root of the USB.
+
+Unmount the loop back remove the cd and reboot
+\&gt;umount /mnt/temp
+
+\&gt;reboot
+
+If you can't get it going send an email usb[at]localareasecurity.com
+</PRE></BODY></HTML>

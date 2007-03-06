@@ -1,0 +1,4 @@
+select artist,title from rf_song where title like 'saf%';
+
+# mit nächstem character:
+select artist,title,substring(title,3,1) as nextChar from rf_song where title like 'ye%' order by nextChar

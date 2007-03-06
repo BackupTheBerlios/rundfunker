@@ -1,0 +1,46 @@
+Vielleicht wäre es ganz interessant, folgende Informationen über unsere Song-Tabelle im Webinterface darzustellen:
+
+Anzahl der Songs
+SELECT COUNT(filepath) as count FROM rf_song;
+
+Anzahl an Genres
+SELECT COUNT(DISTINCT genre) FROM rf_song;
+
+Anzahl an Artists
+SELECT COUNT(DISTINCT artist) FROM rf_song;
+
+Anzahl an Alben
+SELECT COUNT(DISTINCT album) FROM rf_song;
+
+Songs ohne Genre
+SELECT * FROM rf_song WHERE ISNULL(genre) OR genre='' OR genre='<undefined>';
+
+Gesamtspielzeit
+SELECT SUM(songSeconds) FROM rf_song;
+
+Durchschnittslänge eines Songs
+SELECT AVG(songSeconds) FROM rf_song;
+
+Letztes Update der Song-Tabelle
+SELECT lastDBChange FROM rf_song ORDER BY lastDBChange DESC LIMIT 1;
+
+Die Top-Ten
+SELECT artist, title, round((pow((secondsPlayed / songSeconds / timesPlayed),2) * timesPlayed),4) AS lieblingsliedfaktor, (secondsPlayed / songSeconds / timesPlayed) as durchschnitt, timesPlayed FROM rf_song HAVING lieblingsliedfaktor > 0 ORDER BY lieblingsliedfaktor DESC LIMIT 10;
+
+Lese-Zeiten (für Metadaten)
+SELECT MAX(readDurationMillis) AS maxRead, AVG(readDurationMillis) AS avgRead, MIN(readDurationMillis) AS minRead FROM rf_song;
+
+Die Lieder, deren Metadaten am längsten zum Einlesen gebraucht haben
+SELECT readDurationMillis, artist, title, filename FROM rf_song ORDER BY readDurationMillis DESC LIMIT 10;
+
+Start/Ende Einlesevorgang
+SELECT MIN(lastDBchange) AS beginn, MAX(lastDBchange) AS ende FROM rf_song;
+
+Fehler beim Einlesen:
+SELECT filename,errors FROM rf_song WHERE NOT ISNULL(errors);
+
+Alle Fehler mit Anzahl des Auftretens:
+SELECT COUNT(errors) as anz, errors FROM rf_song WHERE NOT ISNULL(errors) GROUP BY errors ORDER BY anz desc;
+
+Timeout-Fehler:
+SELECT filename FROM rf_song WHERE errors like '%watcher%'

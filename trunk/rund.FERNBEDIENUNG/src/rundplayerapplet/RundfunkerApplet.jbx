@@ -1,0 +1,27 @@
+[PropertyInfo]
+appletInfo,String,false,false, , ,true,<default>
+borderLayout1,java.awt.BorderLayout,false,false, , ,false,<default>
+bt_album,javax.swing.JLabel,false,false, , ,false,<default>
+bt_back,javax.swing.JLabel,false,false, , ,false,<default>
+bt_genre,javax.swing.JLabel,false,false, , ,false,<default>
+bt_interpret,javax.swing.JLabel,false,false, , ,false,<default>
+bt_next,javax.swing.JLabel,false,false, , ,false,<default>
+bt_ok,javax.swing.JLabel,false,false, , ,false,<default>
+bt_titel,javax.swing.JLabel,false,false, , ,false,<default>
+display,javax.swing.JList,false,false, , ,false,<default>
+img,java.awt.Image,false,false, , ,false,<default>
+isStandalone,boolean,false,false, , ,false,<default>
+LED,int,false,false, , ,true,<default>
+led_album,javax.swing.JLabel,false,false, , ,false,<default>
+led_genre,javax.swing.JLabel,false,false, , ,false,<default>
+led_interpret,javax.swing.JLabel,false,false, , ,false,<default>
+led_titel,javax.swing.JLabel,false,false, , ,false,<default>
+line,String[],false,false, , ,true,<default>
+listData,String[],false,false, , ,false,<default>
+parameterInfo,String[][],false,false, , ,true,<default>
+tcpip,rundplayerapplet.RemoteTCPIPClient,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

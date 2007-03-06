@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Asus W3N-Kompendium: Debian Sondertasten" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+		<title>Asus W3N-Kompendium: Debian Sondertasten - Wikibooks</title>
+		<style type="text/css" media="screen,projection">/*<![CDATA[*/ @import "/skins-1.5/monobook/main.css?5"; /*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="/skins-1.5/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "/skins-1.5/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "/skins-1.5/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if gte IE 6]><style type="text/css">@import "/skins-1.5/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE]><script type="text/javascript" src="/skins-1.5/common/IEFixes.js"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		<script type="text/javascript" src="/w/index.php?title=-&amp;action=raw&amp;gen=js"><!-- site js --></script>
+		<script type="text/javascript" src="/skins-1.5/common/wikibits.js"><!-- wikibits js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "/w/index.php?title=MediaWiki:Common.css&action=raw&ctype=text/css&smaxage=2678400";
+@import "/w/index.php?title=MediaWiki:Monobook.css&action=raw&ctype=text/css&smaxage=2678400";
+@import "/w/index.php?title=-&action=raw&gen=css&maxage=2678400";
+/*]]>*/</style>
+	</head>
+<body class="ns-0">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+		<div id="siteNotice"><div id="fundraising" style="margin-top:5px;">
+<p><b><a href="http://wikimediafoundation.org/wiki/Wikimedia_needs_your_help" class='extiw' title="wikimedia:Wikimedia needs your help">Wikimedia needs your help</a></b> in its current fund drive. See <a href="http://wikimediafoundation.org/wiki/fundraising" class='extiw' title="wikimedia:fundraising">our fundraising page</a> for details.</p>
+</div>
+<center><small>Please help <b><a href="http://meta.wikimedia.org/wiki/Fund_drives/2005/Q4_planning/Translations" class='extiw' title="meta:Fund drives/2005/Q4 planning/Translations">translate this message</a> for your local site</b>.</small></center>
+
+</div>		<h1 class="firstHeading">Asus W3N-Kompendium: Debian Sondertasten</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">aus Wikibooks, der freien Wissensdatenbank</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<p>Die sogenannten Hotkeys kann man mit dem Modul asus_acpi in Betrieb nehmen. Dazu müssen folgende Module installiert sein:</p>
+<ul>
+<li>acpi</li>
+<li>acpid -&gt; mit <i>/etc/init.d/acpid start</i> starten</li>
+<li>alsa-utils -&gt; stellt amixer zur Verfügung zum Regeln der Lautstärke (auf der Kommandozeile zum Skripten)</li>
+</ul>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;action=edit&amp;section=1" title="Asus W3N-Kompendium: Debian Sondertasten">bearbeiten</a>]</div>
+<p><a name="Beschreibung_der_Tasten" id="Beschreibung_der_Tasten"></a></p>
+<h3>Beschreibung der Tasten</h3>
+<dl>
+<dt>Fn + F10&#160;</dt>
+<dd>Mute (Lautlos) Taste, die Master Lautstärke wird aus-/eingeschaltet</dd>
+</dl>
+<pre>
+/usr/bin/amixer set Master toggle 
+</pre>
+<dl>
+<dt>Fn + F11 </dt>
+<dd>Leiser Taste, die Master Lautstärke wird verringert</dd>
+</dl>
+<pre>
+/usr/bin/amixer set Master 1-
+</pre>
+<dl>
+<dt>Fn + F12 </dt>
+<dd>Lauter Taste, die Master Lautstärke wird erhöht</dd>
+</dl>
+<pre>
+/usr/bin/amixer set Master 1+
+</pre>
+<dl>
+<dt>CD-Taste (links) </dt>
+<dd>hier belegt mit CD auswerfen</dd>
+</dl>
+<pre>
+eject cdrom
+</pre>
+<dl>
+<dt>Zurück Taste (links) </dt>
+<dd>zurück bei Programm <i>amarok</i></dd>
+<dd><i>man</i>-Eintrag -r, --previous Skip backwards in playlist</dd>
+<dd><i>username</i> durch den Benutzernamen des Hauptbenutzers ersetzen (gilt auch für folgende Befehle)</dd>
+</dl>
+<pre>
+su - username -c "export DISPLAY=:0.0; /usr/bin/amarok -r &amp;"
+</pre>
+<dl>
+<dt>Stop Taste (links) </dt>
+<dd>stop bei Programm <i>amarok</i></dd>
+<dd><i>man</i>-Eintrag -s, --stop Stop playback</dd>
+</dl>
+<pre>
+su - username -c "export DISPLAY=:0.0; /usr/bin/amarok -s &amp;"
+</pre>
+<dl>
+<dt>Play/Pause Taste (links) </dt>
+<dd>spielen/anhalten bei Programm <i>amarok</i></dd>
+<dd><i>man</i>-Eintrag -t nicht vorhanden</dd>
+</dl>
+<pre>
+su - username -c "export DISPLAY=:0.0; /usr/bin/amarok -t &amp;"
+</pre>
+<dl>
+<dt>Vorwärts Taste (links) </dt>
+<dd>vorwärts bei Programm <i>amarok</i></dd>
+<dd><i>man</i>-Eintrag -f, --next Skip forward in playlist</dd>
+</dl>
+<pre>
+su - username -c "export DISPLAY=:0.0; /usr/bin/amarok -f &amp;"
+</pre>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;action=edit&amp;section=2" title="Asus W3N-Kompendium: Debian Sondertasten">bearbeiten</a>]</div>
+<p><a name="Hotkeys_aktivieren" id="Hotkeys_aktivieren"></a></p>
+<h3>Hotkeys aktivieren</h3>
+<p>Automatisch werden alle Dateien innerhalb /etc/acpi/events ausgewertet. Wir verweisen mit der Datei /etc/acpi/events/hotkey auf die Datei /etc/acpi/actions/hotkey.sh die die Anweisungen enthält</p>
+<p>/etc/acpi/events/hotkey</p>
+<pre>
+ event=hotkey ATKD .*
+   action=/etc/acpi/actions/hotkey.sh %e
+</pre>
+<p>Die Datei /etc/acpi/actions/hotkey.sh sieht folgendermaßen (leider klappt die Belegung der Tasten für amarok noch nicht) aus: /etc/acpi/actions/hotkey.sh</p>
+<pre>
+ #!/bin/bash
+       case "$3" in
+       # Mute button
+       00000032) /usr/bin/amixer set Master toggle
+       ;;
+       # Volume up button
+       00000030) /usr/bin/amixer set Master 1+
+       ;;
+       # Volume down button
+       00000031) /usr/bin/amixer set Master 1-
+       ;;
+       # Rewind button
+       00000040) su username -c "export DISPLAY=:0.0; /usr/bin/amarok -r &amp;"
+       ;;
+       # Stop button
+       00000043) su username -c "export DISPLAY=:0.0; /usr/bin/amarok -s &amp;"
+       ;;
+       # Play/pause button
+       00000045) su username -c "export DISPLAY=:0.0; /usr/bin/amarok -t &amp;"
+       ;;
+       # Forward button
+       00000041) su username -c "export DISPLAY=:0.0; /usr/bin/amarok -f &amp;"
+       ;;
+       # CD-player ON/OFF button (I use it to eject the cdrom)
+       0000004c) eject cdrom
+       ;;
+       # WiFi button
+       #0000005d) /etc/acpi/wireless.sh
+       *) logger "ACPI hotkey $3 is not defined"
+       ;;
+       esac
+</pre>
+<p>Damit kann ich nur die Lautsprecher leise stellen, aber die Funktion testen. Die Rechte für diese Datei müssen auf Ausführen geändert werden.</p>
+<pre>
+ cd /etc/acpi/actions
+ chmod 700 hotkey.sh
+</pre>
+<p>Jetzt sollte es klappen. Falls es Probleme gibt hilft es meist die Datei <i>/var/log/acpi</i> zu analysieren. Am besten mit</p>
+<pre>
+ su
+ tail -f /var/log/acpi
+</pre>
+<hr />
+<div align="center">
+<p>← <a href="/wiki/Asus_W3N-Kompendium:_Debian_ACPI" title="Asus W3N-Kompendium: Debian ACPI">ACPI</a> | <a href="/wiki/Asus_W3N-Kompendium" title="Asus W3N-Kompendium">Inhalt</a> | <a href="/wiki/Asus_W3N-Kompendium:_Debian_Netzwerk" title="Asus W3N-Kompendium: Debian Netzwerk">Netzwerk &amp; Internet</a> →</p>
+<hr /></div>
+
+
+<!-- Saved in parser cache with key dewikibooks:pcache:idhash:8019-0!1!0!0!!de!2 and timestamp 20051227210405 -->
+<div class="printfooter">
+Von "<a href="http://de.wikibooks.org/wiki/Asus_W3N-Kompendium:_Debian_Sondertasten">http://de.wikibooks.org/wiki/Asus_W3N-Kompendium:_Debian_Sondertasten</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="/wiki/Asus_W3N-Kompendium:_Debian_Sondertasten">Kapitel</a></li>
+				 <li id="ca-talk"><a href="/wiki/Diskussion:Asus_W3N-Kompendium:_Debian_Sondertasten">Diskussion</a></li>
+				 <li id="ca-edit"><a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;action=edit">bearbeiten</a></li>
+				 <li id="ca-history"><a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;action=history">versionen/autoren</a></li>
+		</ul>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>'Persönliche Werkzeuge</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/w/index.php?title=Spezial:Userlogin&amp;returnto=Asus_W3N-Kompendium:_Debian_Sondertasten">Anmelden</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/images/wiki-textbook.png);" href="/wiki/Hauptseite" title="Hauptseite"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><a href="/wiki/Hauptseite">Hauptseite</a></li>
+				<li id="n-portal"><a href="/wiki/Wikibooks:Portal">Wikibooks-Portal</a></li>
+				<li id="n-currentevents"><a href="/wiki/Wikibooks:Aktuelle_Ereignisse">Aktuelle Ereignisse</a></li>
+				<li id="n-recentchanges"><a href="/wiki/Spezial:Recentchanges">Letzte Änderungen</a></li>
+				<li id="n-randompage"><a href="/wiki/Spezial:Random">Zufälliger Artikel</a></li>
+				<li id="n-help"><a href="/wiki/Wikibooks:Hilfe">Hilfe</a></li>
+				<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Spenden">Spenden</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Suche</label></h5>
+		<div class="pBody">
+			<form action="/wiki/Spezial:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Los" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" value="Suche" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Werkzeuge</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/wiki/Spezial:Whatlinkshere/Asus_W3N-Kompendium:_Debian_Sondertasten">Was zeigt hierhin</a></li>
+				<li id="t-recentchangeslinked"><a href="/wiki/Spezial:Recentchangeslinked/Asus_W3N-Kompendium:_Debian_Sondertasten">Verlinkte Seiten</a></li>
+<li id="t-upload"><a href="/wiki/Spezial:Upload">Hochladen</a></li>
+<li id="t-specialpages"><a href="/wiki/Spezial:Specialpages">Spezialseiten</a></li>
+				<li id="t-print"><a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;printable=yes">Druckversion</a></li>				<li id="t-permalink"><a href="/w/index.php?title=Asus_W3N-Kompendium:_Debian_Sondertasten&amp;oldid=46526">Permanentlink</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/skins-1.5/common/images/poweredby_mediawiki_88x31.png" alt="MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="/images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>
+			<ul id="f-list">
+				<li id="lastmod"> <a href="http://de.wikibooks.org/wiki/Wikibooks:Impressum" class="intern" title="Impressum">Impressum</a> | Diese Seite wurde zuletzt geändert um 17:03, 24. Jun 2005.</li>
+				<li id="copyright">Inhalt ist verfügbar unter der <a href="http://www.gnu.org/copyleft/fdl.html" class='external ' title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License</a>.</li>
+				<li id="privacy"><a href="/wiki/Wikibooks:Privacy_policy" title="Wikibooks:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="/wiki/Wikibooks:%C3%9Cber_Wikibooks" title="Wikibooks:Über Wikibooks">Über Wikibooks</a></li>
+				<li id="disclaimer"><a href="/wiki/Wikibooks:Lizenzbestimmungen" title="Wikibooks:Lizenzbestimmungen">Lizenzbestimmungen</a></li>
+			</ul>
+		</div>
+	<script type="text/javascript"> if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served by srv40 in 0.11 secs. -->
+</body></html>

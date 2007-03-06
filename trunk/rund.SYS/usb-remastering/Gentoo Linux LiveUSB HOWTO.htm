@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Gentoo Linux LiveUSB HOWTO</title><link rel="stylesheet" href="../paper.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.68.1" /></head><body><div class="article" lang="en" xml:lang="en"><div class="titlepage"><div><div><h1 class="title"><a id="id2450077"></a>Gentoo Linux LiveUSB HOWTO</h1></div><div><h3 class="subtitle"><i>... or how to emulate a Gentoo LiveCD using an arbitrary block device</i></h3></div><div><div class="author"><h3 class="author"><span class="firstname">Henrik Brix</span> <span class="surname">Andersen</span></h3><div class="affiliation"><div class="address"><p><code class="email">&lt;<a href="mailto:brix@gentoo.org">brix@gentoo.org</a>&gt;</code></p></div></div></div></div><div><p class="copyright">Copyright © 2004-2005 
+        Henrik Brix Andersen
+      </p></div><div><div class="revhistory"><table border="1" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="3"><b>Revision History</b></th></tr><tr><td align="left">Revision 0.2.0</td><td align="left">2005-12-15</td><td align="left">HBA</td></tr><tr><td align="left" colspan="3">Updated for 2005.1-r1</td></tr><tr><td align="left">Revision 0.1.0</td><td align="left">2004-12-12</td><td align="left">HBA</td></tr><tr><td align="left" colspan="3">Initial revision</td></tr></table></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+        This document explains how to create an unofficial
+        <span class="emphasis"><em>Gentoo Linux LiveUSB</em></span> or, in other words,
+        how to emulate a Gentoo Linux LiveCD using an USB flash disk.
+        This is particularly useful for
+        installing <a href="http://www.gentoo.org/" target="_top">Gentoo
+        Linux</a> on a computer with no CD-ROM drive.
+      </p><p>
+        While the instructions found in this document aims at
+        emulating a Gentoo LiveCD using an USB flash drive, they
+        should work for any arbitrary block device as long as you
+        adjust the device names accordingly.
+      </p><p>
+        The document is also available
+        as <a href="LiveUSB.txt" target="_top">plain text</a>.
+        The <a href="LiveUSB.xml" target="_top">Docbook XML</a> source from
+        which it was created is available as well.  The latest version
+        of this document can be obtained
+        from <a href="http://dev.gentoo.org/~brix" target="_top">dev.gentoo.org/~brix</a>.
+      </p></div></div></div><hr /></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#sect-intro">1. Introduction</a></span></dt><dd><dl><dt><span class="section"><a href="#sect-copyright">1.1. Copyright and License</a></span></dt><dt><span class="section"><a href="#sect-disclaimer">1.2. Disclaimer</a></span></dt><dt><span class="section"><a href="#sect-feedback">1.3. Feedback</a></span></dt></dl></dd><dt><span class="section"><a href="#sect-prerequisites">2. Prerequisites</a></span></dt><dt><span class="section"><a href="#sect-usb-prepare">3. Preparing the USB flash drive</a></span></dt><dd><dl><dt><span class="section"><a href="#sect-usb-fdisk">3.1. Partitioning the drive</a></span></dt><dt><span class="section"><a href="#sect-usb-mkfs">3.2. Creating the filesystem</a></span></dt><dt><span class="section"><a href="#sect-usb-mbr">3.3. Installing a master boot record</a></span></dt></dl></dd><dt><span class="section"><a href="#sect-copy">4. Copying the needed files</a></span></dt><dd><dl><dt><span class="section"><a href="#sect-copy-livecd">4.1. Mounting the LiveCD</a></span></dt><dt><span class="section"><a href="#sect-copy-usb">4.2. Mounting the LiveUSB</a></span></dt><dt><span class="section"><a href="#sect-copy-files">4.3. Copying the files</a></span></dt><dt><span class="section"><a href="#sect-copy-param">4.4. Adjusting the boot parameters</a></span></dt></dl></dd><dt><span class="section"><a href="#sect-bootloader">5. Installing the bootloader</a></span></dt><dt><span class="section"><a href="#sect-booting">6. Booting the LiveUSB</a></span></dt></dl></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-intro"></a>1. Introduction</h2></div></div></div><p> </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-copyright"></a>1.1. Copyright and License</h3></div></div></div><p>
+        This document is copyrighted © 2004-2005 by
+        <span class="emphasis"><em>Henrik Brix Andersen</em></span>.  Permission is
+        granted to copy, distribute and/or modify this document under
+        the terms of the GNU Free Documentation License, Version 1.2
+        or any later version published by the Free Software
+        Foundation; with no Invariant Sections, with no Front-Cover
+        Texts, and with no Back-Cover Texts.  A copy of the license is
+        available at <a href="http://www.gnu.org/copyleft/fdl.html" target="_top">
+        http://www.gnu.org/copyleft/fdl.html</a>.
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-disclaimer"></a>1.2. Disclaimer</h3></div></div></div><p>
+        No liability for the contents of this document can be
+        accepted.  Use the concepts, examples and information at your
+        own risk.  There may be errors and inaccuracies, that could be
+        damaging to your system.  Proceed with caution, and although
+        this is highly unlikely, the author(s) do not take any
+        responsibility.
+      </p><p>
+        All copyrights are held by their by their respective owners,
+        unless specifically noted otherwise.  Use of a term in this
+        document should not be regarded as affecting the validity of
+        any trademark or service mark.  Naming of particular products
+        or brands should not be seen as endorsements.
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-feedback"></a>1.3. Feedback</h3></div></div></div><p>
+        Feedback is most certainly welcome for this document.  Send
+        your additions, comments and criticisms to the following email
+        address: <code class="email">&lt;<a href="mailto:brix@gentoo.org">brix@gentoo.org</a>&gt;</code>.
+      </p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-prerequisites"></a>2. Prerequisites</h2></div></div></div><p>
+      In order to use a Gentoo Linux LiveUSB you need the following
+      items:
+
+      </p><div class="itemizedlist"><ul><li><p>
+	    Bootable USB flash disk (at least 64MB)
+          </p></li><li><p>
+	    PC with support for booting from USB
+          </p></li><li><p>
+	    Access to a PC running Gentoo Linux (or another Linux
+	    distribution) for creating the Gentoo Linux LiveUSB
+          </p></li><li><p>
+	    The <code class="filename">install-x86-minimal-2005.1-r1.iso</code>
+	    file from your
+	    local <a href="http://www.gentoo.org/main/en/where.xml" target="_top">Gentoo
+	    mirror</a>
+          </p></li></ul></div><p>
+    </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-usb-prepare"></a>3. Preparing the USB flash drive</h2></div></div></div><p>
+      This section describes how to prepare the USB flash drive to be
+      used as a Gentoo Linux LiveUSB.
+    </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>
+	These instructions will erase all data from the USB flash
+	drive. Make sure to backup any data first.
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-usb-fdisk"></a>3.1. Partitioning the drive</h3></div></div></div><p>
+	Create a FAT32 partition on your USB flash drive and mark it
+	bootable using <span><strong class="command">fdisk</strong></span>. An example
+	partitioning scheme can be seen in
+	<a href="#fig-usb-fdisk" title="Figure&#xA0;1.&#xA0;Example partitioning scheme">Figure 1</a>.
+
+      </p><div class="figure"><a id="fig-usb-fdisk"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">fdisk -l /dev/sda</strong></span>
+
+Disk /dev/sda: 262 MB, 262012928 bytes
+9 heads, 56 sectors/track, 1015 cylinders
+Units = cylinders of 504 * 512 = 258048 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1        1015      255752    b  W95 FAT32
+</pre><p class="title"><b>Figure 1. Example partitioning scheme</b></p></div><p>
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-usb-mkfs"></a>3.2. Creating the filesystem</h3></div></div></div><p>
+	Create a FAT32 filesystem on the USB flash drive as shown in
+	<a href="#fig-usb-mkfs-mkdosfs" title="Figure&#xA0;2.&#xA0;Running mkdosfs">Figure 2</a>.
+
+        </p><div class="figure"><a id="fig-usb-mkfs-mkdosfs"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">emerge -av sys-fs/dosfstools</strong></span>
+<code class="prompt"># </code><span><strong class="command">mkdosfs -F 32 /dev/sda1</strong></span>
+mkdosfs 2.11 (12 Mar 2005)
+</pre><p class="title"><b>Figure 2. Running mkdosfs</b></p></div><p>
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-usb-mbr"></a>3.3. Installing a master boot record</h3></div></div></div><p>
+	Install a master boot record as shown in
+	<a href="#fig-usb-mbr-install" title="Figure&#xA0;3.&#xA0;Installing a master boot record">Figure 3</a>.
+
+        </p><div class="figure"><a id="fig-usb-mbr-install"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">emerge -av '&gt;=sys-boot/syslinux-3*'</strong></span>
+<code class="prompt"># </code><span><strong class="command">dd if=/usr/lib/syslinux/mbr.bin of=/dev/sda</strong></span>
+0+1 records in
+0+1 records out
+</pre><p class="title"><b>Figure 3. Installing a master boot record</b></p></div><p>
+      </p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-copy"></a>4. Copying the needed files</h2></div></div></div><p>
+      Now we're ready to copy the needed files from the official
+      Gentoo Linux LiveCD to the Gentoo Linux LiveUSB.
+    </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-copy-livecd"></a>4.1. Mounting the LiveCD</h3></div></div></div><p>
+	Mount the ISO image as shown in
+	<a href="#fig-copy-livecd" title="Figure&#xA0;4.&#xA0;Mounting the LiveCD image">Figure 4</a>.
+
+      </p><div class="figure"><a id="fig-copy-livecd"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">mkdir /mnt/cdrom</strong></span>
+<code class="prompt"># </code><span><strong class="command">mount -o loop,ro install-x86-minimal-2005.1-r1.iso /mnt/cdrom</strong></span>
+</pre><p class="title"><b>Figure 4. Mounting the LiveCD image</b></p></div><p>
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-copy-usb"></a>4.2. Mounting the LiveUSB</h3></div></div></div><p>
+	Mount the USB flash drive as shown in
+	<a href="#fig-copy-usb" title="Figure&#xA0;5.&#xA0;Mounting the USB flash disk">Figure 5</a>.
+
+      </p><div class="figure"><a id="fig-copy-usb"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">mkdir /mnt/usb</strong></span>
+<code class="prompt"># </code><span><strong class="command">mount -t vfat /dev/sda1 /mnt/usb</strong></span>
+</pre><p class="title"><b>Figure 5. Mounting the USB flash disk</b></p></div><p>
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-copy-files"></a>4.3. Copying the files</h3></div></div></div><p>
+	Copy the files from the LiveCD to the LiveUSB as shown in
+	figure <a href="#fig-copy-files" title="Figure&#xA0;6.&#xA0;Copying files">Figure 6</a>.
+
+      </p><div class="figure"><a id="fig-copy-files"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">cp -r /mnt/cdrom/* /mnt/usb/</strong></span>
+<code class="prompt"># </code><span><strong class="command">umount /mnt/cdrom</strong></span>
+<code class="prompt"># </code><span><strong class="command">mv /mnt/usb/isolinux/* /mnt/usb/</strong></span>
+<code class="prompt"># </code><span><strong class="command">mv /mnt/usb/isolinux.cfg /mnt/usb/syslinux.cfg</strong></span>
+<code class="prompt"># </code><span><strong class="command">rm -rf /mnt/usb/isolinux*</strong></span>
+<code class="prompt"># </code><span><strong class="command">mv /mnt/usb/memtest86 /mnt/usb/memtest</strong></span>
+</pre><p class="title"><b>Figure 6. Copying files</b></p></div><p>
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="sect-copy-param"></a>4.4. Adjusting the boot parameters</h3></div></div></div><p>
+	Adjust the kernel boot parameters as shown in
+	<a href="#fig-copy-param" title="Figure&#xA0;7.&#xA0;Adjusting boot parameters">Figure 7</a>.
+
+	</p><div class="figure"><a id="fig-copy-param"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">sed -i \
+    -e "s:cdroot:cdroot rootdelay=10:" \
+    -e "s:kernel memtest86:kernel memtest:" \
+    /mnt/usb/syslinux.cfg</strong></span>
+</pre><p class="title"><b>Figure 7. Adjusting boot parameters</b></p></div><p>
+      </p><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Tip</h3><p>
+        Consider adding the <code class="option">docache</code> parameter to the
+        boot parameters. This will allow unmounting
+        <code class="filename">/mnt/cdrom</code> and removing the USB flash
+        disk after booting.
+      </p></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-bootloader"></a>5. Installing the bootloader</h2></div></div></div><p>
+      Finally install the <span><strong class="command">syslinux</strong></span> bootloader to
+      the USB flash drive as shown in
+      <a href="#fig-bootloader-syslinux" title="Figure&#xA0;8.&#xA0;Running syslinux">Figure 8</a>.
+
+      </p><div class="figure"><a id="fig-bootloader-syslinux"></a><pre class="programlisting">
+<code class="prompt"># </code><span><strong class="command">umount /mnt/usb</strong></span>
+<code class="prompt"># </code><span><strong class="command">syslinux /dev/sda1</strong></span>
+</pre><p class="title"><b>Figure 8. Running syslinux</b></p></div><p>
+    </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="sect-booting"></a>6. Booting the LiveUSB</h2></div></div></div><p>
+      Insert the USB flash disk and boot the computer. Make sure the
+      BIOS is set up to boot from USB and you should be presented with
+      a syslinux boot prompt...
+    </p><p>
+      The above commands are summarized in a script which can be found
+      at <a href="http://dev.gentoo.org/~brix/files/LiveUSB/" target="_top">my
+      website</a>.
+    </p></div></div></body></html>

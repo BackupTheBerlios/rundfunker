@@ -1,0 +1,1370 @@
+<html>
+<head>
+<!-- google_ad_section_start --><title>Boot Knoppix 3.6 from USB key - How To (Success!) - Knoppix.net</title><!-- google_ad_section_end --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="alternate" type="text/xml" title="RSS: Knoppix Forum Latest Posts" href="http://www.knoppix.net/rss.php" />
+<link rel="alternate" type="text/xml" title="RSS: Knoppix NEWS Forum Latest Posts" href="http://www.knoppix.net/rss.php?fid=4" />
+<link rel="stylesheet" type="text/css" title="Main" href="/css/knoppix.css" />
+<style type="text/css">
+<!--
+@import url("/forum/templates/Morpheus/formIE.css"); 
+@import url("/forum/templates/Morpheus/style_blue.css");
+-->
+</style>
+
+<script language="javascript" type="text/javascript">
+var PreloadFlag = false;
+var expDays = 90;
+var exp = new Date(); 
+var tmp = '';
+var tmp_counter = 0;
+var tmp_open = 0;
+
+exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
+
+function SetCookie(name, value) 
+{
+	var argv = SetCookie.arguments;
+	var argc = SetCookie.arguments.length;
+	var expires = (argc > 2) ? argv[2] : null;
+	var path = (argc > 3) ? argv[3] : null;
+	var domain = (argc > 4) ? argv[4] : null;
+	var secure = (argc > 5) ? argv[5] : false;
+	document.cookie = name + "=" + escape(value) +
+		((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
+		((path == null) ? "" : ("; path=" + path)) +
+		((domain == null) ? "" : ("; domain=" + domain)) +
+		((secure == true) ? "; secure" : "");
+}
+
+function getCookieVal(offset) 
+{
+	var endstr = document.cookie.indexOf(";",offset);
+	if (endstr == -1)
+	{
+		endstr = document.cookie.length;
+	}
+	return unescape(document.cookie.substring(offset, endstr));
+}
+
+function GetCookie(name) 
+{
+	var arg = name + "=";
+	var alen = arg.length;
+	var clen = document.cookie.length;
+	var i = 0;
+	while (i < clen) 
+	{
+		var j = i + alen;
+		if (document.cookie.substring(i, j) == arg)
+			return getCookieVal(j);
+		i = document.cookie.indexOf(" ", i) + 1;
+		if (i == 0)
+			break;
+	} 
+	return null;
+}
+
+function ShowHide(id1, id2, id3) 
+{
+	var res = expMenu(id1);
+	if (id2 != '') expMenu(id2);
+	if (id3 != '') SetCookie(id3, res, exp);
+}
+	
+function expMenu(id) 
+{
+	var itm = null;
+	if (document.getElementById) 
+	{
+		itm = document.getElementById(id);
+	}
+	else if (document.all)
+	{
+		itm = document.all[id];
+	} 
+	else if (document.layers)
+	{
+		itm = document.layers[id];
+	}
+	if (!itm) 
+	{
+		// do nothing
+	}
+	else if (itm.style) 
+	{
+		if (itm.style.display == "none")
+		{ 
+			itm.style.display = ""; 
+			return 1;
+		}
+		else
+		{
+			itm.style.display = "none"; 
+			return 2;
+		}
+	}
+	else 
+	{
+		itm.visibility = "show"; 
+		return 1;
+	}
+}
+</script>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-32073-1";
+urchinTracker();
+</script>
+</head>
+<body>
+<div id="header"><a href="/" title="Knoppix Linux - Home"><img src="/images/logo.png" id="logo" alt="Knoppix Linux" width="330" height="105"/></a></div>
+<div id="menu">
+<a href="/">Home</a> 
+| <a href="/about.php">About</a> 
+| <a href="/get.php">Get Knoppix</a> 
+| <a href="/wiki/">Documentation</a> 
+| <a href="/forum/">Forum</a> 
+| <a href="/books/">Books</a> 
+| <a href="/contact.php">Contact</a> 
+| <a href="http://knopper.net/knoppix/index-en.html">&raquo; Knopper.net</a>
+| <a href="http://swpat.ffii.org/index.en.html">&raquo; Software Patents</a>
+</div><table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+<tr>
+	<td width="10"><img src="./templates/Morpheus/images/spacer.gif" width="10" height="1" alt="" /></td>
+	<td width="100%" height="100%" class="content" align="center" valign="top">
+	<div id="navigation">
+<a name="top"></a>
+						&nbsp;<a href="profile.php?mode=register&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Register</a>&nbsp; | 
+						&nbsp;<a href="search.php?sid=615b4ac10ad074e837b325bd7eb748b1">Search</a>&nbsp; | 
+						&nbsp;<a href="login.php?sid=615b4ac10ad074e837b325bd7eb748b1">Log in</a>&nbsp; | 
+			&nbsp;<a href="faq.php?sid=615b4ac10ad074e837b325bd7eb748b1">Forum FAQ</a>&nbsp;
+	</div>
+	<div id="content">
+			
+	<table width="100%" cellspacing="1" cellpadding="4" border="0" align="center" class="nav">
+<tr>
+	<td class="nav" align="left" valign="middle" nowrap="nowrap"><span class="nav"><a href="index.php?sid=615b4ac10ad074e837b325bd7eb748b1">Knoppix Forum Index</a> &raquo; <a href="viewforum.php?f=2&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Customising & Remastering</a></span></td>
+	<td class="nav navform" align="right" valign="middle" nowrap="nowrap"><span class="nav"><form action="search.php?mode=results&amp;sid=615b4ac10ad074e837b325bd7eb748b1" method="post" style="display: inline;"><input type="hidden" name="show_results" value="topics" /><input type="hidden" name="search_forum" value="2" />
+	<input type="text" name="search_keywords" class="post" size="15" />
+	<input type="submit" value="Search" class="mainoption" />
+	</form></span></td>
+</tr>
+</table>
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td valign="top" width="165">
+<br /><br />
+<script type="text/javascript"><!--
+ch_client = "p5";
+ch_width = 160;
+ch_height = 600;
+ch_non_contextual = 1;
+ch_sid = "viewtopic";
+var ch_queries = new Array( "linux", "psp", "vmware", "ipod video", "amd" );
+var ch_selected=Math.floor((Math.random()*ch_queries.length));
+ch_query = ch_queries[ch_selected];
+//--></script>
+<script  src="http://scripts.chitika.net/eminimalls/mm.js" type="text/javascript">
+</script>
+
+</td><td valign="top">
+
+
+
+
+
+<table width="100%" cellspacing="2" cellpadding="2" border="0">
+  <tr> 
+    <td align="left" valign="middle"><a href="posting.php?mode=reply&amp;t=12964&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/reply.gif" border="0" alt="Reply to topic" align="middle" /></a></td>
+	 <td align="right" valign="middle"><div class="pagination">Goto page  <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=0&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Previous</a>&nbsp;&nbsp;<a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=0&amp;sid=615b4ac10ad074e837b325bd7eb748b1">1</a>, <b>2</b>, <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=20&amp;sid=615b4ac10ad074e837b325bd7eb748b1">3</a>, <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=30&amp;sid=615b4ac10ad074e837b325bd7eb748b1">4</a>&nbsp;&nbsp;<a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=20&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Next</a></div></td>
+  </tr>
+</table>
+
+ 
+
+<a name="58354"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap">USB Stick Mount Problem Still there</td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1">drmarathe</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 31 Aug 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 13</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Location: Pune, India</span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=58354&amp;sid=615b4ac10ad074e837b325bd7eb748b1#58354"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Aug 31, 2004 8:44 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=58354&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->I am booting form a CD. My HD has crashed. 
+<br />
+Have a Toshiba Satelite 1805-S274. 
+<br />
+First I did not put the stick in USB and started Knoppix Kernal 2.4.26. It shows in the fstab file 4 entries(sda1, sda2,sda3,sda4):
+<br />
+
+<br />
+#Added by Knoppix
+<br />
+/dev/sda1  /mnt/sda1 auto noauto, users, exec 0, 0
+<br />
+
+<br />
+This is after plugging in the Stick in the USB port. It shows Hard Disk Partition [sda1 thru sda4] on the desktop. But if I click on anyone it gives error Could not mount.Not a valid block device. 
+<br />
+
+<br />
+So subsequently 
+<br />
+
+<br />
+I logged in as root and did
+<br />
+#mkdir /mnt/flash
+<br />
+then when I type in
+<br />
+#mount /dev/sda1 /mnt/flash
+<br />
+It gives error 
+<br />
+#Mount: /dev/sda1 is not a valid block device
+<br />
+
+<br />
+I have tried mounting /dev/sda2, /dev/sda3 and even /dev/sda5. Nothing works.
+<br />
+
+<br />
+If I tried to edit fstab file, and remove those entries. 
+<br />
+It doesn't allow me to save it.
+<br />
+
+<br />
+Second Try:
+<br />
+
+<br />
+I have tried first putting the stick in USB and then booting.
+<br />
+Knoppix. 
+<br />
+It syas in the beginning USB found, managed by Hotplug. Rescanning .. [001 002]
+<br />
+
+<br />
+After the desktop comes up, It shows 4 partitions on the desktop 
+<br />
+Hard Disk 1 thru 4 but no sign of Stick. If I clik on any of them it says 
+<br />
+
+<br />
+Step 1:
+<br />
+Could not mount device
+<br />
+Mount: /dev/sda1 is not a valid Block drive
+<br />
+
+<br />
+Step 2:
+<br />
+Have run Utilities, Tools, USB Viewer. After a long time it shows i the left panel:
+<br />
+USB OHCI Root Hub
+<br />
+... usb-storage
+<br />
+If I click on usb-storage it shows all the details of the 
+<br />
+device including the correct size etc. 
+<br />
+Which means it has recognised the USB stick
+<br />
+
+<br />
+But it doesn't show it in the the 'fstab'
+<br />
+
+<br />
+Step 3:
+<br />
+
+<br />
+Now how do I mount it? What to do with these non-existing hard drives?
+<br />
+
+<br />
+By the way I am a Professor of IT and have used in the past 
+<br />
+SCO Xenix. But that was 10 years ago.
+<br />
+
+<br />
+Thanks a million for your patience and help.<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=drmarathe&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by drmarathe" title="Find all posts by drmarathe" border="0" /></a><a href="privmsg.php?mode=post&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a><a href="profile.php?mode=email&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_email.gif" alt="Send e-mail" title="Send e-mail" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="58362"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1">champagnemojo</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"><img src="images/avatars/42f55858401cbf7709078.jpg" alt="" border="0" /></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 27 Oct 2003</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 382</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Location: GA</span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=58362&amp;sid=615b4ac10ad074e837b325bd7eb748b1#58362"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Aug 31, 2004 11:12 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=58362&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->Correct me if I'm wrong drmarathe, but I assume your USB stick is not partitioned.  In that case would it not just be /dev/sda (or possibly /dev/sdb)?<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=champagnemojo&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by champagnemojo" title="Find all posts by champagnemojo" border="0" /></a><a href="privmsg.php?mode=post&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a><a href="http://www.champagnemojo.com" target="_userwww"><img src="templates/Morpheus/images/lang_english/icon_www.gif" alt="Visit poster's website" title="Visit poster's website" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="58379"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap">USB Mount still problem.</td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1">drmarathe</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 31 Aug 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 13</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Location: Pune, India</span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=58379&amp;sid=615b4ac10ad074e837b325bd7eb748b1#58379"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Aug 31, 2004 1:58 pm</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=58379&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->Thannks Champagnemojo but /dev/sda doiesn't seem to work. Gives me an error /dev/sda or /dev/sdb is not a block device"
+<br />
+
+<br />
+I have a Transcend Jetflash 128 MB brand new Stick for USB 2.0 and it is working fine on Windows. Also /utilitis/tools/usb view recognises it as 
+<br />
+
+<br />
+Flash Disk
+<br />
+Manufacturer: USB
+<br />
+Serial No. 61100740FC7A4D7D
+<br />
+Speed: 12 MB/s
+<br />
+USB Version : 2.00
+<br />
+Device Class: 00(&gt;ifc)
+<br />
+Device Subclass: 00
+<br />
+Device Protocol: 00
+<br />
+Max Default Endpoint size: 64
+<br />
+Number of Configurations: 1
+<br />
+Vendor Id: 0ea0
+<br />
+Product ID: 2166
+<br />
+Revision No. 2.00
+<br />
+
+<br />
+So I think it is being recognised ok.
+<br />
+
+<br />
+The question seems to be what /dev/xxx entry corresponds to this Flash Rom. I am logging in as Root shell so I don't think it is an issue of permissions.
+<br />
+
+<br />
+I need the correct value of this XXX. Any ideas.
+<br />
+
+<br />
+Thanks<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=drmarathe&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by drmarathe" title="Find all posts by drmarathe" border="0" /></a><a href="privmsg.php?mode=post&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a><a href="profile.php?mode=email&amp;u=11210&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_email.gif" alt="Send e-mail" title="Send e-mail" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="58390"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1">champagnemojo</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"><img src="images/avatars/42f55858401cbf7709078.jpg" alt="" border="0" /></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 27 Oct 2003</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 382</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Location: GA</span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=58390&amp;sid=615b4ac10ad074e837b325bd7eb748b1#58390"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Aug 31, 2004 3:45 pm</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=58390&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->It seems like it should really be /dev/sdX (and you'd think the X would be a or b).  Are you sure you have all of the right kernel modules loaded?<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=champagnemojo&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by champagnemojo" title="Find all posts by champagnemojo" border="0" /></a><a href="privmsg.php?mode=post&amp;u=4946&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a><a href="http://www.champagnemojo.com" target="_userwww"><img src="templates/Morpheus/images/lang_english/icon_www.gif" alt="Visit poster's website" title="Visit poster's website" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="59035"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap">success!</td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=5220&amp;sid=615b4ac10ad074e837b325bd7eb748b1">jbreiden</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 10 Nov 2003</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 13</span></td></tr>
+			<tr><td align="left"><span class="postdetails"></span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=59035&amp;sid=615b4ac10ad074e837b325bd7eb748b1#59035"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Sun Sep 05, 2004 4:41 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=59035&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->Ok, here's what I ended up doing. Don't know if all steps are 
+<br />
+necessary:
+<br />
+
+<br />
+BIOS stuff
+<br />
+
+<br />
+1) Flashed the BIOS of my EPIA ME6000 to version 1.13
+<br />
+2) Changed display setting in BIOS to 'LCD' to get a readable display
+<br />
+3) Enabled 'boot from USB-HDD' option in BIOS
+<br />
+
+<br />
+From CD-booted KNOPPIX
+<br />
+
+<br />
+4) Ran mkfs.vfat directly on /dev/sda (no partition table)
+<br />
+5) Copied KNOPPIX CD contents to /dev/sda
+<br />
+6) Moved boot/isolinux/* to top level of /dev/sda
+<br />
+7) Renamed isolinux.[cfg|bin] to syslinux.[cfg|bin]
+<br />
+
+<br />
+Edited linuxrc files (still in CD-booted KNOPPIX)
+<br />
+
+<br />
+8)  Copied minirt24.gz to /tmp
+<br />
+9)  cd /tmp &amp;&amp; mkdir 24 &amp;&amp; gunzip minirt24.gz
+<br />
+10) mount -o loop minirt24 24
+<br />
+11) edited 24/linuxrc
+<br />
+       a) add a 4 second delay after modules are loaded
+<br />
+       b) force FOUND_KNOPPIX to be /dev/sda and mount that to /cdrom
+<br />
+12) unmount 24 &amp;&amp; gzip minirt24.gz
+<br />
+13) Copy modified minirt24.gz back to the USB drive
+<br />
+14) Repeat the whole thing with minirt26.gz
+<br />
+
+<br />
+Get USB key ready to boot (still in CD-booted KNOPPIX)
+<br />
+
+<br />
+15) Download syslinux-2.11.tar.gz
+<br />
+16) Unmount /dev/sda
+<br />
+17) Untar and run syslinux on /dev/sda
+<br />
+
+<br />
+Boot from USB Key
+<br />
+
+<br />
+18) Boot from USB key. (I use the USB2 cheatcode for speed).
+<br />
+
+<br />
+And that is about it. I can easily fit an entire KNOPPIX on the 1GB PQI
+<br />
+iStick, which is great. More fiddling than I hoped for, but the end
+<br />
+result is a no moving parts computer. I may post the exact linuxrc patch and 
+<br />
+more detailed instructions somewhere on the web in the future, unless I am
+<br />
+too lazy.<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=5220&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=jbreiden&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by jbreiden" title="Find all posts by jbreiden" border="0" /></a><a href="privmsg.php?mode=post&amp;u=5220&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="60846"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=11629&amp;sid=615b4ac10ad074e837b325bd7eb748b1">jdmml</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 19 Sep 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 3</span></td></tr>
+			<tr><td align="left"><span class="postdetails"></span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=60846&amp;sid=615b4ac10ad074e837b325bd7eb748b1#60846"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Sun Sep 19, 2004 7:45 pm</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=60846&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->I was wondering if you could send me your version of knoppix that has been made to fit a 512 MB usb key<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=11629&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=jdmml&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by jdmml" title="Find all posts by jdmml" border="0" /></a><a href="privmsg.php?mode=post&amp;u=11629&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="64999"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1">pbs</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 08 Jan 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 13</span></td></tr>
+			<tr><td align="left"><span class="postdetails"></span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=64999&amp;sid=615b4ac10ad074e837b325bd7eb748b1#64999"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Fri Oct 29, 2004 1:37 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=64999&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start -->Making Knoppix 3.6 Bootable from a 1 GB USB Flash Memory Stick
+<br />
+2004/10/28 pbs
+<br />
+
+<br />
+REQUIRED: 1 GB or more USB stick, Knoppix_V3.6-2004-08-16-EN CD or similar, and an alert mind. 
+<br />
+
+<br />
+I've benefited from many suggestions on the web. In kind thanks, here is a yet more "compleat" and commented recipe.
+<br />
+
+<br />
+
+<br />
+PREPARATION:
+<br />
+
+<br />
+Read everything through completely before beginning.
+<br />
+
+<br />
+Be awake and alert! While experimenting and learning (the hard way!), I corrupted a couple hard disk partition tables by mistyping -- sda and hda are one character apart, and subconcious habits are dominant when weary! Backups are good. If you decide to try this, the consequences are yours. 
+<br />
+
+<br />
+You'll need to be root for these operations. CTRL-ALT-F1 (or F2,F3,F4) is a quick way to switch to root console access, CTRL-ALT-F5 puts you back into the GUI as knoppix rather than as root. Depending on how your hardware is assigned at boot time, the USB stick may be referenced as sda, sdb, or sdc, etc. Notice there is a difference between /dev/sda and /dev/sda1, being the entire drive as a block device or its first partition respectively. 
+<br />
+
+<br />
+Backup any important files on your USB to a folder on another disk; the USB stick WILL be reformatted in the process below, and it is then very easy to copy them back afterwards.
+<br />
+
+<br />
+Backup sector 0 from the USB stick (and any other important hard drive!) somewhere safe like onto a floppy. It contains the MBR in the first 306 bytes and the partition table for the first four partitions in the remaining 206 bytes. If need be and you've goofed, you can replace this later by swapping input if= and output of= locations (don't mix them up). Five minutes now can save days of recovery later. 
+<br />
+
+<br />
+ dd if=/dev/sda of=/dev/fd0/myUSBMBR.bin bs=512 count=1  
+<br />
+ dd if=/dev/hda of=/dev/fd0/myHDMBR.bin bs=512 count=1    
+<br />
+
+<br />
+
+<br />
+PROCESS:
+<br />
+
+<br />
+Partition and format the USB stick. This will wipe out your previous data! Use cfdisk to create a partition &gt;700 Mb (not sure how much is needed), make it bootable and of type 06 for FAT16, and lastly write the configuration back to USB. The menus are easy to use.
+<br />
+
+<br />
+ cfdisk /dev/sda
+<br />
+ ...    
+<br />
+ mkdosfs /dev/sda1
+<br />
+
+<br />
+Download free SysLinux 2.11 (http://syslinux.zytor.com/) to get a viable MBR for the USB stick. The next commands transfer only 306 bytes rather than 512 because mbr.bin is only that long, leaving the trailing 206 partition table bytes of the sector unchanged.
+<br />
+
+<br />
+ cd /Path/To/Unpacked/Syslinux2.11/
+<br />
+ dd if=./mbr.bin of=/dev/sda
+<br />
+
+<br />
+Use syslinux to install ldlinux.sys located at beginning of partition (it doesn't have to be redone later, and both v2.04 included with knoppix or v2.11 worked fine for me).
+<br />
+
+<br />
+ ./syslinux /dev/sda1       
+<br />
+
+<br />
+Now copy the boot files from the CD.
+<br />
+
+<br />
+ mkdir /mnt/sda1
+<br />
+ mount -t vfat /dev/sda1 /mnt/sda1
+<br />
+ cp /cdrom/boot/isolinux/* /mnt/sda1
+<br />
+ cd /mnt/sda1
+<br />
+ mv isolinux.cfg syslinux.cfg
+<br />
+ rm isolinux.bin
+<br />
+ rm boot.cat
+<br />
+
+<br />
+Edit linuxrc inside minirt24.gz (repeat for minirt26.gz if you want)
+<br />
+
+<br />
+ cp minirt*.gz /tmp
+<br />
+ gunzip /tmp/m*.gz
+<br />
+ mkdir /mnt/m24
+<br />
+ mkdir /mnt/m26
+<br />
+ mount /tmp/minirt24.gz /mnt/m24 -o loop -o rw
+<br />
+ mount /tmp/minirt26.gz /mnt/m26 -o loop -o rw
+<br />
+
+<br />
+Edit /mnt/m24/linuxrc and add a line midway through the file ...
+<br />
+
+<br />
+ test -n "$FOUND_USB" -a -z "$NOUSB" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+
+<br />
+... as shown in the following snippet which shows the lines immediately prior and after. Find it by looking for the commented section line reading
+<br />
+
+<br />
+ # Now that the right SCSI driver is (hopefully) loaded, try to find CDROM
+<br />
+ &lt;snip&gt;
+<br />
+ test -n "$FOUND_SCSI" -a -z "$NOSCSI" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+ test -n "$FOUND_USB" -a -z "$NOUSB" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+ DEVICES="$DEVICES /dev/hd?[1-9] /dev/hd?[1-9][0-9]"
+<br />
+ &lt;snip&gt;
+<br />
+
+<br />
+If you edited it somewhere else as knoppix (e.g. in the GUI), then copied it back as root,
+<br />
+you may have to set linuxrc back to being root owned.
+<br />
+
+<br />
+ ls -al 
+<br />
+ chown root:root /mnt/m24/linuxrc
+<br />
+ ls -al
+<br />
+
+<br />
+To repeat this for /mnt/m26, you can just copy the file as both kernel 2.4 and 2.6
+<br />
+linuxrc files were identical in KNXv3.6 when I compared them with diff.
+<br />
+
+<br />
+ cp /mnt/mr24/linuxrc /mnt/m26
+<br />
+
+<br />
+Umount, recompress, and put back on USB stick. Minirt*.gz already has the necessary USB driver files and appropriate sleep times in it now, so there's no need to add those.
+<br />
+
+<br />
+ umount /mnt/m2*
+<br />
+ gzip -9 /tmp/mini*
+<br />
+ cp /tmp/mini*.gz /mnt/sda1
+<br />
+
+<br />
+Now copy over the Knoppix directory from the cdrom. Have patience, it's big, and you're probably working at USB1.0 rather than USB2.0 speeds as that's the tested Knoppix default.
+<br />
+
+<br />
+ cp -r /cdrom/knoppix /mnt/sda1
+<br />
+
+<br />
+If you like the initial webpage at startup, then copy
+<br />
+
+<br />
+ cp /cdrom/index.html /mnt/sda1  
+<br />
+
+<br />
+Unmount USB stick and WAIT for changes to finish writing.
+<br />
+
+<br />
+ umount /dev/sda1    
+<br />
+
+<br />
+Select boot from usb in your PC BIOS -- the specifics are system dependent -- and reboot.
+<br />
+
+<br />
+
+<br />
+FINAL NOTES:
+<br />
+
+<br />
+If upon booting you want the USB stick to be writeable, you'll have to mount it again as a loop device.  The USB partition containing /KNOPPIX/Knoppix file system is already mounted as read-only, and unfortunately the default desktop icon Hard Disk [sda1] refers to that. Create a new mount point /mnt/myusb to write to the drive.
+<br />
+
+<br />
+ mkdir /mnt/myusb
+<br />
+ mount /dev/sda1 /mnt/myusb -o loop -o rw
+<br />
+
+<br />
+ALWAYS remember to unmount the new USB stick access point first to save all cached changes before quitting, or you might corrupt the stick and have to start completely over. 
+<br />
+
+<br />
+ umount /mnt/myusb
+<br />
+
+<br />
+Hint: if it won't unmount, close all GUI windows that display this drive, cd / to get out of /mnt/myusb in all work spaces, e.g. CTRL-ALT-F1 to F4. You may even have to "init 3", thus closing the GUI to get stuck Konqueror inodes to release (check with "ps aux"). Then try umount /mnt/myusb again. "init 5" will restart the GUI, or "init 6" will complete the shutdown.
+<br />
+
+<br />
+An alternative is to figure out how much is needed for Knoppix and it's boot files, limit the first partition size, and to create a second partition for writing user data. Starting with one partition first helps get it all working; also if everything is all in one space, if you suddenly need room on the USB from another OS or computer, you can wipe out /knoppix/knoppix, then replace it from CD later, though it may get fragmented on rewriting.
+<br />
+
+<br />
+
+<br />
+.ISO BOOT?:
+<br />
+
+<br />
+Setting up the USB to boot from a .ISO stored on itself is less easy to do. It requires access to a number of programs in a non-ISO-encapsulated /knoppix/knoppix file system to accomplish the root transfer, and there's not enough room for both. I suppose one could add the necessary programs (and dependencies?) to minirt.gz, but it would likely take much more effort. Cool, but is it really worth it?
+<br />
+
+<br />
+
+<br />
+LAST RITES:
+<br />
+
+<br />
+If in the process of experimenting with making the USB stick bootable, you've somehow corrupted it so badly that it cannot be mounted or reformatted under Linux or Windows, and even dd fails (yikes!) to wipe sector 0 with if=/dev/zero count=1, and feel your new stick is utterly destroyed ... don't despair. <a href="Http://www.killdisk.com" target="_blank">Http://www.killdisk.com</a> has a freeware windows console utility that runs even under win2k's and winXP's direct disk access restrictions to wipe all blocks on a chosen drive to zero, with no mounting or existing format questions asked. RTFM. And triple check you've got the right drive! You can then reformat. This worked when even the HP Utility format utility got stuck. 
+<br />
+
+<br />
+Or worse, suppose you've wiped out the MBR and the partition table of the wrong hard drive, thus losing the starting cluster number for each partition in spite of the precautions above. You can still possibly recover it with "gpart", which will go searching for lost partition tables -- IF you've not made any further writes to the disk: i.e. don't write any type of data, don't delete and recreate partitions with cfdisk, qtparted, or whatever else tempts you. These will rewrite the very information tables needed for recovery. Best advice now is stop, relax!, have a cup of tea, and think it through before trying anything. Don't be hasty. I had already mucked everything up beyond gpart's powers before even knowing it existed, which left me rebuilding my HD from scratch. Now you at least have a valuable headstart hint, if you've read this in time. 
+<br />
+
+<br />
+
+<br />
+POSTLUDE:
+<br />
+
+<br />
+Good luck, go forth and multiply by sharing; enjoy your bootable, full function Knoppix USB stick with lots more applications, storage, and tinier form factor than a PDA! <img src="images/smiles/icon_smile.gif" alt="Smile" border="0" /><!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"><br /><br />Last edited by pbs on Tue Nov 02, 2004 7:14 pm; edited 1 time in total</span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=pbs&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by pbs" title="Find all posts by pbs" border="0" /></a><a href="privmsg.php?mode=post&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="65339"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=12554&amp;sid=615b4ac10ad074e837b325bd7eb748b1">tuxlmt</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 02 Nov 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 1</span></td></tr>
+			<tr><td align="left"><span class="postdetails"></span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=65339&amp;sid=615b4ac10ad074e837b325bd7eb748b1#65339"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Nov 02, 2004 7:39 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=65339&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start --><div align="center"><table width="90%" align="center" cellspacing="1" cellpadding="2" border="0" class="quote"><tr> 	<td class="quote_user" align="left">pbs wrote:</td></tr><tr>	<td class="quote" align="left">
+<br />
+Edit linuxrc inside minirt24.gz (repeat for minirt26.gz if you want)
+<br />
+
+<br />
+ cp minirt*.gz /tmp
+<br />
+ gunzip /tmp/m*.gz
+<br />
+ mkdir /mnt/m24
+<br />
+ mkdir /mnt/m26
+<br />
+ mount /tmp/minirt24.gz /mnt/m24 -o loop -o rw
+<br />
+ mount /tmp/minirt26.gz /mnt/m26 -o loop -o rw
+<br />
+
+<br />
+Edit /mnt/m24/linuxrc and add a line midway through the file ...
+<br />
+
+<br />
+ test -n "$FOUND_USB" -a -z "$NOUSB" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+
+<br />
+... as shown in the following snippet which shows the lines immediately prior and after. Find it by looking for the commented section line reading
+<br />
+
+<br />
+ # Now that the right SCSI driver is (hopefully) loaded, try to find CDROM
+<br />
+ &lt;snip&gt;
+<br />
+ test -n "$FOUND_SCSI" -a -z "$NOSCSI" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+ test -n "$FOUND_USB" -a -z "$NOUSB" &amp;&amp; DEVICES="$DEVICES /dev/sd?[1-9] /dev/sd?[1-9][0-9]"
+<br />
+ DEVICES="$DEVICES /dev/hd?[1-9] /dev/hd?[1-9][0-9]"
+<br />
+ &lt;snip&gt;
+<br />
+
+<br />
+If you edited it somewhere else as knoppix (e.g. in the GUI), then copied it back as root,
+<br />
+you may have to set linuxrc back to being root owned.
+<br />
+
+<br />
+ ls -al 
+<br />
+ chown root:root /mnt/m24/linuxrc
+<br />
+ ls -al
+<br />
+
+<br />
+To repeat this for /mnt/m26, you can just copy the file as both kernel 2.4 and 2.6
+<br />
+linuxrc files were identical in KNXv3.6 when I compared them with diff.
+<br />
+
+<br />
+ cp /mnt/mr24/linuxrc /mnt/m26
+<br />
+
+<br />
+Umount, recompress, and put back on USB stick. Minirt*.gz already has the necessary USB driver files and appropriate sleep times in it now, so there's no need to add those.
+<br />
+
+<br />
+ umount /mnt/m2*
+<br />
+ gzip -9 /tmp/mini*
+<br />
+ cp /tmp/mini*.gz /mnt/sda1
+<br />
+</td>	</tr></table></div>
+<br />
+
+<br />
+All tweaking with minirt2?.gz can be replaced by KNOPPIX cheatcode.
+<br />
+My idea is <span style="font-weight: bold">leave minirt2?.gz as is</span>. This allows just overrite it when new KNOPPIX version comes.
+<br />
+
+<br />
+Do add cheatcode <span style="font-weight: bold">fromhd=/dev/sda1</span> to command line or syslinux.cfg<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=12554&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=tuxlmt&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by tuxlmt" title="Find all posts by tuxlmt" border="0" /></a><a href="privmsg.php?mode=post&amp;u=12554&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a><a href="profile.php?mode=email&amp;u=12554&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_email.gif" alt="Send e-mail" title="Send e-mail" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="65403"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1">pbs</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 08 Jan 2004</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 13</span></td></tr>
+			<tr><td align="left"><span class="postdetails"></span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=65403&amp;sid=615b4ac10ad074e837b325bd7eb748b1#65403"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Tue Nov 02, 2004 7:11 pm</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=65403&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start --><div align="center"><table width="90%" align="center" cellspacing="1" cellpadding="2" border="0" class="quote"><tr> 	<td class="quote_user" align="left">tuxlmt wrote:</td></tr><tr>	<td class="quote" align="left">
+<br />
+All tweaking with minirt2?.gz can be replaced by KNOPPIX cheatcode.
+<br />
+My idea is <span style="font-weight: bold">leave minirt2?.gz as is</span>. This allows just overrite it when new KNOPPIX version comes.
+<br />
+
+<br />
+Do add cheatcode <span style="font-weight: bold">fromhd=/dev/sda1</span> to command line or syslinux.cfg</td>	</tr></table></div>
+<br />
+
+<br />
+
+<br />
+Thanks. That is much simpler for many purposes.
+<br />
+
+<br />
+The longer edit does provide autodetection for which drive the stick was mounted (sda1,sdb1,sdc1 ...); this can vary if there are extra slots for assorted camera memory cards or other USB sticks, which may or may not be inserted at boot time.  One less thing to remember.
+<br />
+
+<br />
+Take your pick.
+<br />
+
+<br />
+pete<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=pbs&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by pbs" title="Find all posts by pbs" border="0" /></a><a href="privmsg.php?mode=post&amp;u=6325&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table><a name="66007"></a>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_post.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"></td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="post">
+<tr>
+	<td width="150" class="row" align="center" valign="top" style="padding: 2px;" rowspan="2">
+		<div style="padding: 3px;"><span class="name"><a class="name" href="profile.php?mode=viewprofile&amp;u=3418&amp;sid=615b4ac10ad074e837b325bd7eb748b1">bfree</a></span><br /></div>
+		<div style="padding: 2px;"><span class="postdetails"></span><br /></div>
+				<div style="width: 140px; margin: auto; overflow: hidden"></div>
+		<br />
+		<table width="100%" cellspacing="5" cellpadding="0">
+			<tr><td align="left"><span class="postdetails">Joined: 07 Aug 2003</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Posts: 162</span></td></tr>
+			<tr><td align="left"><span class="postdetails">Location: Dublin, Ireland</span></td></tr>
+		</table>
+		<img src="./templates/Morpheus/images/spacer.gif" width="150" height="1" border="0" alt="" />
+	</td>
+	<td width="1" class="postborder" rowspan="2"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="100" alt="" /></td>
+	<td width="100%" class="row" align="left" valign="top"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" align="left" style="padding: 3px;"><span class="postdate"><a href="viewtopic.php?p=66007&amp;sid=615b4ac10ad074e837b325bd7eb748b1#66007"><img src="templates/Morpheus/images/blue/icon_minipost.gif" width="12" height="9" alt="Post" title="Post" border="0" /></a> Posted: Mon Nov 08, 2004 5:15 am</span></td>
+		<td width="50%"></td>
+		<td width="23" valign="top" class="posttop" align="left"><img src="./templates/Morpheus/images/posttop_left.gif" width="23" height="9" border="0" alt="" /></td>
+		<td class="posttop" nowrap="nowrap" valign="top"><a href="posting.php?mode=quote&amp;p=66007&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/icon_quote.gif" alt="Reply with quote" title="Reply with quote" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td width="50%" class="postline" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="100" height="1" alt="" /></td>
+		<td colspan="3" height="1"><img src="./templates/Morpheus/images/spacer.gif" width="1" height="1" alt="" /></td>
+	</tr>
+	</table>
+	<div style="padding: 4px;" class="postbody"><!-- google_ad_section_start --><div align="center"><table width="90%" align="center" cellspacing="1" cellpadding="2" border="0" class="quote"><tr> 	<td class="quote_user" align="left">pbs wrote:</td></tr><tr>	<td class="quote" align="left">
+<br />
+.ISO BOOT?:
+<br />
+
+<br />
+Setting up the USB to boot from a .ISO stored on itself is less easy to do. It requires access to a number of programs in a non-ISO-encapsulated /knoppix/knoppix file system to accomplish the root transfer, and there's not enough room for both. I suppose one could add the necessary programs (and dependencies?) to minirt.gz, but it would likely take much more effort. Cool, but is it really worth it?
+<br />
+</td>	</tr></table></div>
+<br />
+You might want to look at <a href="http://www.knoppix.net/forum/viewtopic.php?t=14680" target="_blank">this</a> which outlines one approach to getting iso booting working.   The linuxrc patch could be much simpler if you wanted (I had pretty much written a patch to linuxrc so the section to scan the $DEVICES uses an if/esle to make it check if a "fromiso" cheatcode was present and if so to hunt the drives for KNOPPIX.ISO instead of KNOPPIX/KNOPPIX and if it finds one to loop mount it as /cdrom and then check it for KNOPPIX/KNOPPIX and break if it has it.<!-- google_ad_section_end --></div>
+	</td>
+</tr>
+<tr>
+	<td align="left" valign="bottom">
+	<div style="padding: 5px;" class="postbody"><span class="signature"><span class="gensmall"></span></span></div>
+	<table width="100%" height="9" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="postbottom" height="9" nowrap="nowrap"><a href="profile.php?mode=viewprofile&amp;u=3418&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_profile.gif" alt="View user's profile" title="View user's profile" border="0" /></a><a href="search.php?search_author=bfree&amp;showresults=posts&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_search.gif" alt="Find all posts by bfree" title="Find all posts by bfree" border="0" /></a><a href="privmsg.php?mode=post&amp;u=3418&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/icon_pm.gif" alt="Send private message" title="Send private message" border="0" /></a></td>
+		<td width="100%" height="9" align="left"><img src="./templates/Morpheus/images/postbottom_right.gif" width="22" height="9" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table>
+<table width="100%" class="hdr" cellspacing="0" cellpadding="0"><tr><td align="left" width="35"><img src="./templates/Morpheus/images/blue/hdr_left_orange.gif" width="35" height="25" alt="" /></td><td width="100%" align="left" nowrap="nowrap"><a href="viewtopic.php?t=12964&amp;start=10&amp;postdays=0&amp;postorder=asc&amp;highlight=&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Boot Knoppix 3.6 from USB key - How To (Success!)</td><td width="120" align="right"><img src="./templates/Morpheus/images/blue/hdr_right_blue.gif" width="120" height="25" alt="" /></td></tr></table><table class="forumline" width="100%" cellspacing="1" cellpadding="3" border="0">
+<tr>
+	<td class="row" align="left" valign="top">
+	<table border="0" cellspacing="0" cellpadding="5" width="100%">
+	<tr>
+		<td align="left" valign="top">
+			<span class="gensmall">You <b>cannot</b> post new topics in this forum<br />You <b>cannot</b> reply to topics in this forum<br />You <b>cannot</b> edit your posts in this forum<br />You <b>cannot</b> delete your posts in this forum<br />You <b>cannot</b> vote in polls in this forum<br /></span>
+		</td>
+		<td align="right" valign="top">
+			<span class="gensmall">All times are GMT&nbsp;&nbsp;<br />
+			Page <b>2</b> of <b>4</b>&nbsp;&nbsp;</span>
+			<div class="pagination">Goto page  <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=0&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Previous</a>&nbsp;&nbsp;<a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=0&amp;sid=615b4ac10ad074e837b325bd7eb748b1">1</a>, <b>2</b>, <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=20&amp;sid=615b4ac10ad074e837b325bd7eb748b1">3</a>, <a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=30&amp;sid=615b4ac10ad074e837b325bd7eb748b1">4</a>&nbsp;&nbsp;<a href="viewtopic.php?t=12964&amp;postdays=0&amp;postorder=asc&amp;start=20&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Next</a></div><br />
+			<span class="gensmall"></span>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<tr>
+	<td class="catBottom" align="center" valign="middle" nowrap="nowrap"><table border="0" cellspacing="0" cellpadding="2" width="100%">
+	<tr>
+		<form method="post" action="viewtopic.php?t=12964&amp;start=10&amp;sid=615b4ac10ad074e837b325bd7eb748b1" style="display: inline;"><td align="left" valign="middle" nowrap="nowrap"><select name="postdays"><option value="0" selected="selected">All Posts</option><option value="1">1 Day</option><option value="7">7 Days</option><option value="14">2 Weeks</option><option value="30">1 Month</option><option value="90">3 Months</option><option value="180">6 Months</option><option value="364">1 Year</option></select>&nbsp;<select name="postorder"><option value="asc" selected="selected">Oldest First</option><option value="desc">Newest First</option></select>&nbsp;<input type="submit" value="Go" class="liteoption" name="submit" /></td></form>
+		<td align="right" valign="middle" nowrap="nowrap"><table cellspacing="0" cellpadding="0" border="0">
+<tr> 
+<form method="get" name="jumpbox" action="viewforum.php?sid=615b4ac10ad074e837b325bd7eb748b1" onsubmit="if(document.jumpbox.f.value == -1){return false;}">
+	<td nowrap="nowrap"><select name="f" onchange="if(this.options[this.selectedIndex].value != -1){ forms['jumpbox'].submit() }"><option value="-1">Select a forum</option><optgroup label="The Knoppix.net Forums"><option value="4">News</option><option value="9">Hardware & Booting</option><option value="12">Networking</option><option value="5">Hdd Install / Debian / Apt</option><option value="11">Laptops</option><option value="15">MS Windows & New to Linux</option><option value="1">General Support</option><option value="2">Customising & Remastering</option><option value="3">Ideas</option><option value="13">Tips and Tricks</option><option value="19">Games</option><option value="7">The Lounge</option><option value="17">Klik</option><option value="18">Other Live CDs</option><option value="14">Knoppix DVD</option></optgroup><optgroup label="German Forums"><option value="16">German Forum</option></optgroup></select><input type="hidden" name="sid" value="615b4ac10ad074e837b325bd7eb748b1" />&nbsp;<input type="submit" value="Go" class="liteoption" />&nbsp;</td>
+</form>
+</tr>
+</table></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td align="right" width="100%" height="15" valign="top"><a href="#top"><img src="./templates/Morpheus/images/ftr_right.gif" width="60" height="10" alt="" /></a></td></tr></table>
+<table width="100%" cellspacing="1" cellpadding="4" border="0" align="center" class="nav">
+<tr>
+	<td class="nav" align="left" valign="middle" nowrap="nowrap"><span class="nav"><a href="index.php?sid=615b4ac10ad074e837b325bd7eb748b1">Knoppix Forum Index</a> &raquo; <a href="viewforum.php?f=2&amp;sid=615b4ac10ad074e837b325bd7eb748b1">Customising & Remastering</a></span></td>
+	<td class="nav navform" align="right" valign="middle" nowrap="nowrap"><span class="nav"><form action="search.php?mode=results&amp;sid=615b4ac10ad074e837b325bd7eb748b1" method="post" style="display: inline;"><input type="hidden" name="show_results" value="topics" /><input type="hidden" name="search_forum" value="2" />
+	<input type="text" name="search_keywords" class="post" size="15" />
+	<input type="submit" value="Search" class="mainoption" />
+	</form></span></td>
+</tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr>
+	<td align="left" valign="top" style="padding-top: 5px; padding-bottom: 5px;">&nbsp;<a href="posting.php?mode=reply&amp;t=12964&amp;sid=615b4ac10ad074e837b325bd7eb748b1"><img src="templates/Morpheus/images/lang_english/blue/reply.gif" border="0" alt="Reply to topic" align="middle" /></a>
+		</td>
+	<td align="right" valign="top" style="padding-top: 5px;">&nbsp;</td>
+</tr>
+</table>
+
+
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3822347126027973";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_channel ="";
+google_ad_type = "text_image";
+google_color_border = ["FFFFFF","336699","FF4500","191933"];
+google_color_bg = ["FFFFFF","FFFFFF","FFEBCD","333366"];
+google_color_link = ["0066FF","0000FF","DE7008","99CC33"];
+google_color_url = ["666666","008000","E0AD12","FFCC00"];
+google_color_text = ["333333","000000","8B4513","FFFFFF"];
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+  </script>
+</div>
+
+</td></tr></table>
+
+</div><!-- content -->
+
+
+	</td><td width="10" ><img src="./templates/Morpheus/images/spacer.gif" width="10" height="1" alt="" /></td>
+</tr>
+</table>
+<div style='text-align:left; font-size: 9px; color: #ccc;' id='ads'> |  |  |  | </div>
+<!-- searchbox.html -->
+<div id="searchform">
+
+
+<div id="searchformcontainer">
+<!-- SiteSearch Google -->
+<form method="get" action="http://www.google.com/custom" target="_top">
+<table border="0" bgcolor="#ffffff">
+<tr><td nowrap="nowrap" valign="top" align="left" height="32">
+<a href="http://www.google.com/">
+<img src="http://www.google.com/logos/Logo_25wht.gif"
+border="0" alt="Google"></img></a>
+<br/>
+<input type="hidden" name="domains" value="www.knoppix.net"></input>
+<input type="text" name="q" size="31" maxlength="255" value=""></input>
+</td></tr>
+<tr>
+<td nowrap="nowrap">
+<table>
+<tr>
+<td>
+<input type="radio" name="sitesearch" value="" checked="checked"></input>
+<font size="-1" color="#000000">Web</font>
+</td>
+<td>
+<input type="radio" name="sitesearch" value="www.knoppix.net"></input>
+<font size="-1" color="#000000">www.knoppix.net</font>
+</td>
+</tr>
+</table>
+<input type="submit" name="sa" value="Search"></input>
+<input type="hidden" name="client" value="pub-3822347126027973"></input>
+<input type="hidden" name="forid" value="1"></input>
+<input type="hidden" name="ie" value="UTF-8"></input>
+<input type="hidden" name="oe" value="UTF-8"></input>
+<input type="hidden" name="cof" value="GALT:#E9382F;GL:1;DIV:#CCCCCC;VLC:7E3939;AH:center;BGC:FFFFFF;LBGC:FF3333;ALC:E9382F;LC:E9382F;T:000000;GFNT:7E3939;GIMP:7E3939;FORID:1;"></input>
+<input type="hidden" name="hl" value="en"></input>
+
+</td></tr></table>
+</form>
+<!-- SiteSearch Google -->
+</div>
+<div id="hide" name="hide"><a  onClick="document.getElementById('searchformcontainer').style.display ='none';document.getElementById('show').style.display ='block';document.getElementById('hide').style.display ='none';">Hide</a></div>
+<div id="show" name="show"><a  onClick="document.getElementById('searchformcontainer').style.display ='block';document.getElementById('hide').style.display ='block';document.getElementById('show').style.display ='none';">Search</a></div>
+
+</div>
+<!-- end searchbox.html -->
+<br clear="all"/>
+<div id="footer"><p style="font-size: 10px;">
+&copy; 2005 &amp; Web Design by <a href="http://www.webforce.co.nz/">Webforce</a> Ltd.
+ 
+<br />
+	Forum theme by <a href="http://www.phpbbstyles.com" target="_blank">phpBBStyles.com</a> 
+</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+6c6,7
+< PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin"
+---
+> # JAN
+> PATH="/bin:/sbin:/usr/bin:/usr/sbin"
+8a10,15
+> TROUBADIXPST="/dev/null"
+> export TROUBADIXPST
+> 
+> TROUBADIXNAME="troubadix"
+> export TROUBADIXNAME
+> 
+488a496
+> # JAN
+490c498
+< DESKTOP="$(getbootparam desktop 2>/dev/null)"
+---
+> # DESKTOP="$(getbootparam desktop 2>/dev/null)"
+495c503
+< [ -n "$DESKTOP" ] || DESKTOP="kde" 
+---
+> # [ -n "$DESKTOP" ] || DESKTOP="kde" 
+506c514
+< hostname Knoppix
+---
+> hostname Troubadix 
+541,544c549,553
+< if checkbootparam "splash" >/dev/null 2>&1 && [ -z "$TESTCD" ]; then
+<     RES=$(fbresolution 2>/dev/null)
+<     [ "$RES" = "1024x768" ] && [ -x /etc/init.d/splash.sh ] && /etc/init.d/splash.sh start
+< fi
+---
+> # JAN
+> # if checkbootparam "splash" >/dev/null 2>&1 && [ -z "$TESTCD" ]; then
+> #    RES=$(fbresolution 2>/dev/null)
+> #    [ "$RES" = "1024x768" ] && [ -x /etc/init.d/splash.sh ] && /etc/init.d/splash.sh start
+> # fi
+600a610
+> # JAN
+604,608c614,618
+< #if checkbootparam "idecd" || checkbootparam "atapicd"; then
+< #modprobe ide-cd >/dev/null 2>&1
+< #else
+< #modprobe ide-scsi >/dev/null 2>&1
+< #fi
+---
+> # if checkbootparam "idecd" || checkbootparam "atapicd"; then
+> # modprobe ide-cd >/dev/null 2>&1
+> # else
+> # modprobe ide-scsi >/dev/null 2>&1
+> # fi
+609a620
+> # JAN
+612,615c623,626
+< for DEVICE in /proc/ide/hd?; do
+<  [ "$(cat $DEVICE/media 2>/dev/null)" = "cdrom" ] && CDROMS="$CDROMS /dev/${DEVICE##*/}"
+< done
+< [ -n "$CDROMS" ] && { chown root.cdrom $CDROMS; chmod 666 $CDROMS; } 2>/dev/null
+---
+> # for DEVICE in /proc/ide/hd?; do
+> #  [ "$(cat $DEVICE/media 2>/dev/null)" = "cdrom" ] && CDROMS="$CDROMS /dev/${DEVICE##*/}"
+> # done
+> # [ -n "$CDROMS" ] && { chown root.cdrom $CDROMS; chmod 666 $CDROMS; } 2>/dev/null
+621a633
+> # JAN TODO
+647a660
+> # JAN TODO
+681,682c694,695
+< 
+< if checkbootparam "nopcmcia"; then
+---
+> # JAN
+> # if checkbootparam "nopcmcia"; then
+684,685c697,698
+< else
+< modprobe pcmcia_core >/dev/null 2>&1
+---
+> # else
+> # modprobe pcmcia_core >/dev/null 2>&1
+687,695c700,708
+< modprobe yenta_socket >/dev/null 2>&1 || modprobe i82365 >/dev/null 2>&1 || modprobe pd6729 >/dev/null 2>&1 || modprobe tcic >/dev/null 2>&1
+< if [ "$?" = "0" ]; then
+< modprobe ds >/dev/null 2>&1
+< if [ -d /proc/bus/pccard ]; then
+< echo "${GREEN}PCMCIA found, starting cardmgr.${NORMAL}"
+< cardmgr >/dev/null 2>&1 && sleep 4
+< fi
+< fi
+< fi
+---
+> #modprobe yenta_socket >/dev/null 2>&1 || modprobe i82365 >/dev/null 2>&1 || modprobe pd6729 >/dev/null 2>&1 || modprobe tcic >/dev/null 2>&1
+> #if [ "$?" = "0" ]; then
+> #modprobe ds >/dev/null 2>&1
+> #if [ -d /proc/bus/pccard ]; then
+> #echo "${GREEN}PCMCIA found, starting cardmgr.${NORMAL}"
+> #cardmgr >/dev/null 2>&1 && sleep 4
+> #fi
+> #fi
+> #fi
+741a755
+> # JAN
+743c757
+< if checkbootparam "nofirewire"; then
+---
+> #if checkbootparam "nofirewire"; then
+745c759
+< else
+---
+> #else
+747,768c761,782
+< modprobe ieee1394 >/dev/null 2>&1
+< FOUNDFIREWIRE=""
+< FIREWIREREINIT="yes"
+< if stringinfile ohci1394 /proc/modules; then
+< FOUNDFIREWIRE="yes"
+< FIREWIREREINIT="yes"
+< elif modprobe ohci1394 >/dev/null 2>&1; then
+< FOUNDFIREWIRE="yes"
+< FIREWIREREINIT=""
+< fi
+< if [ -n "$FOUNDFIREWIRE" ]; then
+< HOTPLUG="yes"
+< echo -n "${GREEN}Firewire found, managed by ${MAGENTA}hotplug${GREEN}"
+< if [ -n "$FIREWIREREINIT" -a -x /etc/hotplug.d/ieee1394/rescan-scsi-bus.sh ]; then
+< echo -n ": ${YELLOW}(Re-)scanning firewire devices... "
+< /etc/hotplug.d/ieee1394/rescan-scsi-bus.sh >/dev/null 2>&1
+< echo -n "Done."
+< else
+< echo -n "."
+< fi
+< echo "${NORMAL}"
+< else
+---
+> #modprobe ieee1394 >/dev/null 2>&1
+> #FOUNDFIREWIRE=""
+> #FIREWIREREINIT="yes"
+> #if stringinfile ohci1394 /proc/modules; then
+> #FOUNDFIREWIRE="yes"
+> #FIREWIREREINIT="yes"
+> #elif modprobe ohci1394 >/dev/null 2>&1; then
+> #FOUNDFIREWIRE="yes"
+> #FIREWIREREINIT=""
+> #fi
+> #if [ -n "$FOUNDFIREWIRE" ]; then
+> #HOTPLUG="yes"
+> #echo -n "${GREEN}Firewire found, managed by ${MAGENTA}hotplug${GREEN}"
+> #if [ -n "$FIREWIREREINIT" -a -x /etc/hotplug.d/ieee1394/rescan-scsi-bus.sh ]; then
+> #echo -n ": ${YELLOW}(Re-)scanning firewire devices... "
+> #/etc/hotplug.d/ieee1394/rescan-scsi-bus.sh >/dev/null 2>&1
+> #echo -n "Done."
+> #else
+> #echo -n "."
+> #fi
+> #echo "${NORMAL}"
+> #else
+771,773c785,787
+< true
+< fi
+< fi
+---
+> #true
+> #fi
+> #fi
+797a812
+> # JAN
+799,815c814,830
+< while read drive name cdroms; do
+< case "$drive$name" in drivename:) 
+< count=0
+< for cd in $cdroms; do
+< cdnum="$((count++))"
+< cddev="$cd"
+< [ "$cdnum" = "0" ] && cdnum=""
+< cdlink="/dev/cdrom$cdnum"
+< [ -e "$cdlink" ] && continue
+< ln -sf "$cddev" "$cdlink"
+< done
+< break
+< ;;
+< esac
+< done <<EOT
+< $(cat /proc/sys/dev/cdrom/info 2>/dev/null)
+< EOT
+---
+> #while read drive name cdroms; do
+> #case "$drive$name" in drivename:) 
+> #count=0
+> #for cd in $cdroms; do
+> #cdnum="$((count++))"
+> #cddev="$cd"
+> #[ "$cdnum" = "0" ] && cdnum=""
+> #cdlink="/dev/cdrom$cdnum"
+> #[ -e "$cdlink" ] && continue
+> #ln -sf "$cddev" "$cdlink"
+> #done
+> #break
+> #;;
+> #esac
+> #done <<EOT
+> #$(cat /proc/sys/dev/cdrom/info 2>/dev/null)
+> #EOT
+848a864
+> # JAN
+850,852c866,868
+< BLIND=""
+< checkbootparam "blind" && BLIND="yes"
+< BRLTTY="$(getbootparam brltty 2>/dev/null)"
+---
+> #BLIND=""
+> #checkbootparam "blind" && BLIND="yes"
+> #BRLTTY="$(getbootparam brltty 2>/dev/null)"
+854,855c870,871
+< if [ -n "$BLIND" -o -n "$BRLTTY" ]; then
+< if [ -x /sbin/brltty ]; then
+---
+> #if [ -n "$BLIND" -o -n "$BRLTTY" ]; then
+> #if [ -x /sbin/brltty ]; then
+857,861c873,877
+< CMD=brltty
+< BRLTYPE=""
+< BRLDEV=""
+< BRLTEXT=""
+< if [ -n "$BRLTTY" ]; then
+---
+> #CMD=brltty
+> #BRLTYPE=""
+> #BRLDEV=""
+> #BRLTEXT=""
+> #if [ -n "$BRLTTY" ]; then
+863,883c879,899
+< BRLTYPE="${BRLTTY%%,*}"
+< R="${BRLTTY#*,}"
+< if [ -n "$R" -a "$R" != "$BRLTTY" ]; then
+< BRLTTY="$R"
+< BRLDEV="${BRLTTY%%,*}"
+< R="${BRLTTY#*,}"
+< if [ -n "$R" -a "$R" != "$BRLTTY" ]; then
+< BRLTTY="$R"
+< BRLTEXT="${BRLTTY%%,*}"
+< R="${BRLTTY#*,}"
+< fi
+< fi
+< fi
+< [ -n "$BRLTYPE" ] && CMD="$CMD -b $BRLTYPE"
+< [ -n "$BRLDEV" ] && CMD="$CMD -d $BRLDEV"
+< [ -n "$BRLTEXT" ] && CMD="$CMD -t $BRLTEXT"
+< echo "${BLUE}Starting braille-display manager: ${GREEN}${CMD}${BLUE}.${NORMAL}"
+< ( exec $CMD & )
+< sleep 2
+< fi
+< fi
+---
+> #BRLTYPE="${BRLTTY%%,*}"
+> #R="${BRLTTY#*,}"
+> #if [ -n "$R" -a "$R" != "$BRLTTY" ]; then
+> #BRLTTY="$R"
+> #BRLDEV="${BRLTTY%%,*}"
+> #R="${BRLTTY#*,}"
+> #if [ -n "$R" -a "$R" != "$BRLTTY" ]; then
+> #BRLTTY="$R"
+> #BRLTEXT="${BRLTTY%%,*}"
+> #R="${BRLTTY#*,}"
+> #fi
+> #fi
+> #fi
+> #[ -n "$BRLTYPE" ] && CMD="$CMD -b $BRLTYPE"
+> #[ -n "$BRLDEV" ] && CMD="$CMD -d $BRLDEV"
+> #[ -n "$BRLTEXT" ] && CMD="$CMD -t $BRLTEXT"
+> #echo "${BLUE}Starting braille-display manager: ${GREEN}${CMD}${BLUE}.${NORMAL}"
+> #( exec $CMD & )
+> #sleep 2
+> #fi
+> #fi
+912c928,929
+< if checkbootparam noagp; then
+---
+> # JAN
+> # if checkbootparam noagp; then
+914c931
+< else
+---
+> # else
+916,917c933,934
+< stringinfile "AGP" "/proc/pci" 2>/dev/null && { modprobe agpgart || modprobe agpgart agp_try_unsupported=1; } >/dev/null 2>&1 && echo " ${YELLOW}AGP bridge${GREEN} detected."
+< fi
+---
+> # stringinfile "AGP" "/proc/pci" 2>/dev/null && { modprobe agpgart || modprobe agpgart agp_try_unsupported=1; } >/dev/null 2>&1 && echo " ${YELLOW}AGP bridge${GREEN} detected."
+> # fi
+921,923c938,941
+< if ! checkbootparam "nomkxf86config"; then
+< [ -x /usr/sbin/mkxf86config ] && /usr/sbin/mkxf86config
+< fi
+---
+> # JAN
+> # if ! checkbootparam "nomkxf86config"; then
+> # [ -x /usr/sbin/mkxf86config ] && /usr/sbin/mkxf86config
+> # fi
+928,934c946,953
+< if [ -n "$INTERACTIVE" ]
+< then
+< echo -n "${CYAN}Do you want to (re)configure your graphics (X11) subsystem?${NORMAL} [Y/n] "
+< read a
+< [ "$a" != "n" ] && xf86cfg -textmode -xf86config /etc/X11/XF86Config-4 >/dev/console 2>&1 </dev/console
+< echo "${GREEN}Interactive configuration finished. Everything else should be fine for now.${NORMAL}"
+< fi
+---
+> # JAN
+> # if [ -n "$INTERACTIVE" ]
+> # then
+> # echo -n "${CYAN}Do you want to (re)configure your graphics (X11) subsystem?${NORMAL} [Y/n] "
+> # read a
+> # [ "$a" != "n" ] && xf86cfg -textmode -xf86config /etc/X11/XF86Config-4 >/dev/console 2>&1 </dev/console
+> # echo "${GREEN}Interactive configuration finished. Everything else should be fine for now.${NORMAL}"
+> # fi
+978a998
+> # JAN TODO
+993a1014
+> # JAN
+997,1008c1018,1029
+< if checkbootparam "dma"; then
+< for d in $(cd /proc/ide 2>/dev/null && echo hd[a-z]); do
+< if test -d /proc/ide/$d; then
+< if egrep -q 'using_dma[ \t]+0' /proc/ide/$d/settings 2>/dev/null; then
+< MODEL="$(cat /proc/ide/$d/model 2>/dev/null)"
+< test -z "$MODEL" && MODEL="[GENERIC IDE DEVICE]"
+< echo "${BLUE}Enabling DMA acceleration for: ${MAGENTA}$d 	${YELLOW}[${MODEL}]${NORMAL}"
+< echo "using_dma:1" >/proc/ide/$d/settings
+< fi
+< fi
+< done
+< fi
+---
+> # if checkbootparam "dma"; then
+> # for d in $(cd /proc/ide 2>/dev/null && echo hd[a-z]); do
+> # if test -d /proc/ide/$d; then
+> # if egrep -q 'using_dma[ \t]+0' /proc/ide/$d/settings 2>/dev/null; then
+> # MODEL="$(cat /proc/ide/$d/model 2>/dev/null)"
+> # test -z "$MODEL" && MODEL="[GENERIC IDE DEVICE]"
+> # echo "${BLUE}Enabling DMA acceleration for: ${MAGENTA}$d 	${YELLOW}[${MODEL}]${NORMAL}"
+> # echo "using_dma:1" >/proc/ide/$d/settings
+> # fi
+> # fi
+> # done
+> # fi
+1009a1031
+> # TODO JAN: Set a partition for www and mysql
+1014a1037
+> # JAN - leave out ntfs drives
+1105a1129,1141
+> update_progress 85
+> # JAN
+> # TODO: Allow other filesystems
+> # echo "Trying to find Troubadix PST Partition... "
+> if TROUBADIXPST=$(devlabel.sh $TROUBADIXNAME); then
+> 	echo "${GREEN}Found Troubadix Persistant Storage at $TROUBADIXPST.${NORMAL}"
+> 	mount -t ext3 -o rw $TROUBADIXPST /pst
+> 	export TROUBADIXPST
+> 	echo "Creating Symlinks... "
+> 	ln -s /pst/apache2 /etc/apache2
+> else
+> 	echo "${RED}Troubadix Persistant Storage not found!${NORMAL}"
+> fi
+1126c1162,1163
+< if checkbootparam "nodhcp"; then
+---
+> # JAN - don't try to get an ip-address on WLAN-Interfaces!
+> # if checkbootparam "nodhcp"; then
+1128,1139c1165,1176
+< else
+< NETDEVICES="$(awk -F: '/eth.:|tr.:/{print $1}' /proc/net/dev 2>/dev/null)"
+< for DEVICE in $NETDEVICES
+< do
+< echo -n "${GREEN}Network device ${MAGENTA}$DEVICE${GREEN} detected, DHCP broadcasting for IP.${NORMAL}"
+< trap 2 3 11
+< ifconfig $DEVICE up >/dev/null 2>&1 ; pump -i $DEVICE >/dev/null 2>&1 &
+< trap "" 2 3 11
+< sleep 1
+< echo " ${BLUE}(Backgrounding)${NORMAL}"
+< done
+< fi
+---
+> # else
+> # NETDEVICES="$(awk -F: '/eth.:|tr.:/{print $1}' /proc/net/dev 2>/dev/null)"
+> # for DEVICE in $NETDEVICES
+> # do
+> # echo -n "${GREEN}Network device ${MAGENTA}$DEVICE${GREEN} detected, DHCP broadcasting for IP.${NORMAL}"
+> # trap 2 3 11
+> # ifconfig $DEVICE up >/dev/null 2>&1 ; pump -i $DEVICE >/dev/null 2>&1 &
+> # trap "" 2 3 11
+> # sleep 1
+> # echo " ${BLUE}(Backgrounding)${NORMAL}"
+> # done
+> # fi
+1142,1147c1179,1185
+< for i in /cdrom/KNOPPIX/background /usr/local/lib/knoppix; do
+<  for j in jpg png gif; do
+<   BACKGROUND="$i.$j"
+<   [ -e "$BACKGROUND" ] && break 2
+<  done
+< done
+---
+> # JAN
+> # for i in /cdrom/KNOPPIX/background /usr/local/lib/knoppix; do
+> #  for j in jpg png gif; do
+> #   BACKGROUND="$i.$j"
+> #   [ -e "$BACKGROUND" ] && break 2
+> #  done
+> # done
+1149c1187
+< echo 'BACKGROUND="'"$BACKGROUND"'"' >> /etc/sysconfig/knoppix
+---
+> # echo 'BACKGROUND="'"$BACKGROUND"'"' >> /etc/sysconfig/knoppix
+1256a1295,1297
+> # JAN
+> echo "# Added by TROUBADIX" >> /etc/fstab
+> echo "$TROUBADIXPST /pst ext3 users,exec 0 0" >> /etc/fstab

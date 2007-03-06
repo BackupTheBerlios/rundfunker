@@ -1,0 +1,53 @@
+#!/bin/bash
+# Rundfunker Startup Script
+# creates Links for MySQL, Apache, Home
+# (C) Jan Peuker 2005
+
+set -e
+set -u
+
+# Just check if /pst is existing
+test -x /pst || exit 0
+
+SELF=$(cd $(dirname $0); pwd -P)/$(basename $0)
+
+cd /
+umask 077
+
+#
+# main()
+#
+
+case "${1:-''}" in
+  'start')
+  	# Create Links for Rundfunker
+	echo -n "Starting Rundfunker Services"
+	ln -s /pst/apache2 /etc/apache2
+	ln -s /pst/home /home/troubadix
+	ln -s /pst/troubadix /usr/sbin/troubadix
+	echo "."
+	;;
+  'stop')
+  	# Do nothing - the Links are not written to the ISO
+	# It is a "Service", so we're deleting the Links...
+	echo -n "Shutting down Rundfunker Services"
+	rm /etc/apache2
+	rm /home/troubadix
+	rm /usr/sbin/troubadix
+	echo "."
+  	;;
+  'restart')
+  	# restart just resets the Links
+	set +e; $SELF stop; set -e
+	$SELF start
+	;;
+  'reload')
+  	# Does the same as restart, just reset the Links
+	echo -n "Restaring Rundfunker Services"
+	echo "."
+	;;
+  *)
+  	echo "Usage $SELF start|stop|restart|reload"
+	exit 1
+	;;
+esac

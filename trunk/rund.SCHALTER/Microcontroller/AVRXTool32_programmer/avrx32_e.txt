@@ -1,0 +1,324 @@
+------------------------------------------------------------------------------
+CONTROL PROGRAMS FOR AVRX PROGRAMMER
+------------------------------------------------------------------------------
+
+                                                                Aug 10, 2005
+
+
+These tools are accompanied to upper document: http://elm-chan.org/works/avrx
+/report_e.html. For more information on the AVR programmers, please refer to
+the web page.
+
+
+  avrx32_e.txt  - Document for using the control programs. (This file.)
+  tips_e.txt    - Tips.
+  <src>         - Source files.
+  <bin>         - Executables.
+
+
+
+
+Operating Envilonment and How to use the Control Programs
+------------------------------------------------------------------------------
+These control programs work on the Win32 envilonment. The programs are console
+application as follows:
+
+program_name -<switches> <hex files> ...
+
+These programming tools have a nice feature that it can detect device type
+automaticaly and operates with suitable programming parameters according to
+the detected device type. Therefore, only prepareing hex files written to
+the device is sufficient. Specifying the device type is not needed to use
+these programming tools.
+
+
+
+
+PARALLEL PROGRAMMING WITH HIGH-VOLTAGE
+------------------------------------------------------------------------------
+In this programming mode, avrpp.exe is used as a control program. When the
+control program is executed, a messege that request to mount a device will be
+displayed. Then put a device on the socket and type Enter key, the programming
+operation will start. These instruction shuould be followed because the device
+might be damaged due to state of the programmer is unknown until control
+program is executed. When program 8, 28 or 40 pin devices with parallel
+programmer, a socket converter for the device is required. (see also html
+document)
+
+
+  -r       Device test. Display only device type.
+  -rp      Read program code and output it to STDOUT in Intel-Hex format.
+  -re      Read EEPROM data and output it to STDOUT in Intel-Hex format.
+  -rf      Read fuse values and output it to STDOUT.
+
+  -v       Skip erase and program operation and only following verify
+           operation is performed.
+
+  -l[<bin>] Lock device.
+
+  -e       Chip erase. This will unnecessary because erase operation is also
+           performed before programming the program memory.
+
+  -fl<bin> Program fuse low byte. The fuse byte are specified in binary
+           value <bin>.
+  -fh<bin> Program fuse high byte.
+  -fx<bin> Program fuse extended byte.
+
+  -pc<n>   Specify the COM port number to use. COM1 is used in default.
+  -pl<n>   Specify the LPT port number to use.
+
+  -8       Force device auto-detection as 8 pin device.
+  -5       Force device auto-detection as tiny15.
+
+  -c       Copy calibration byte into end of program memory when programming
+           into program flash memory is performed. (Refer to tips_e.txt)
+
+
+
+Example 1: Write prog1.hex and table1.hex into program memory, and prog1.eep
+           is written into data EEPROM. Long file names can also be used.
+
+  >avrpp prog1.hex table1.hex prog1.eep
+
+
+Example 2: Program fuse low byte. Bit[3:1] in the fuse byte is programmed (0)
+and any other bits are unprogrammed (1). The fuse byte is specified with a
+binary number following -f{l|h|x} switch.
+
+  >avrsp -fl11110001
+            ~~~~~~~~
+
+Example 4: Read program memory or EEPROM, and save as a Intel-Hex file.
+
+  >avrsp -rp > file.hex
+  >avrsp -re > file.eep
+
+Read data is output to the STDOUT in Intel-Hex format. When any line
+(32 bytes) is filled with 0xFF, the line will be eliminated. When you wish to
+get it into a file, redirect the output into any file.
+
+
+
+
+SERIAL DOWNLOADING VIA AN LPT/COM port
+------------------------------------------------------------------------------
+In this mode, avrsp.exe is used as the control program. Execute the control
+program after connect the ISP cable to the terget board and turn on the target
+power. The control program also supports LPT port controlled CPLD/FPGA
+programming adapter for Xilinx, Lattice and Altera device. When use this
+programmer instead, the connection between the JTAG signals and AVR are:
+TDO-MISO, TDI-MOSI, TCK-SCK and TMS-RESET.
+
+Available switchs are shown in follows:
+
+  -r       Device connection check. Display only the device property.
+  -rp      Read program code and output it to STDOUT in hex format.
+  -re      Read EEPROM data and output it to STDOUT in hex format.
+  -rf      Read fuse data and output it to STDOUT.
+
+  -v       Skip erase and program operation and only following verify
+           operation is performed.
+
+  -v-      Skip verify operation when any memory programming is performed.
+
+  -l[<bin>] Lock device. When the value is ommited, a defalut lock value that
+           programs both lock bits is used.
+
+  -e       Chip erase. This is usually unnecessary because the chip erase
+           operation is also performed when programming the program memory.
+
+  -fl<bin> Program fuse low byte. The fuse bits are specified in a binary
+           number. When use this function, you should enter the fuse value
+           with care, or the device might become impossible to access in ISP
+           mode due to the wrong fuse setting.
+  -fh<bin> Program fuse high byte.
+  -fx<bin> Program fuse extended byte.
+
+  -pc<n> -pl<n> -pv<n> -pb<n>[:<bps>]
+           Specify which port is used to program. The default value is -pc1
+           (COM1 direct I/O), second one is for LPT<n> in direct I/O, therd
+           one is for COM<n> port via API and last one is for COM<n> port
+           with an SPI bridge. Last two does not require any direct I/O dirver
+           on the NT based OSs, and some USB-RS232 converter may able to be
+           used (but -pv takes about 100 times longer then real COM port).
+
+  -c       Copy calibration bytes into end of the program memory when any
+           programming into the program flash memory is performed. (Refer
+           to tips_e.txt)
+
+  -d<n>    Specify I/O delay for communication timing between PC and the
+           target device. This switch will be unnecessary for most
+           envilonments. However, when the device is running at slow clock
+           (less than 1 MHz) or PC's I/O cycle time is too fast, any error
+           will occure. In this case, -d20..100 will able to solve this
+           problem. When the device is running at fast clock (faster than
+           6 MHz), -d0 reduces the programming time. The default value is 3.
+
+  -t<dev>  Force deivce type. This will be effective when the device type
+           cannot be detected due to any reason.
+           e.g. -t90S1200 -ttiny26 -tmega128
+
+  -z       Output a test signal on the SCK in pulse period of 1 msec. This
+           will help to examine the compatibility of windows timer service.
+
+
+
+Example 1: Write prog1.hex, table.hex and prog1.eep. .hex files are written
+into the program flash, .eep files are written into the EEPROM.
+
+  >avrsp prog1.hex table.hex prog1.eep
+
+
+Example 2FWrite only EEPROM data. In this case, chip erase operation is not
+performed, so that the data on the program memory will be retained.
+
+  >avrsp data1.eep
+
+
+Example 3: Program fuse high byte. Bit 0,1,6 and 7 in the fuse byte is
+programmed ("0"), others are unprogrammed ("1"). The fuse data is specified
+with a binary value following -f{l|h|x} switch. Please refer to fuse.txt and
+the device data sheet for each fuse function. The bit values indicated in
+hyphen are masked out but they must be 1 or 0. Leading zeros can be omitted.
+
+  >avrsp -FH111100
+            ~~~~~~
+
+
+Example 4: Read program flash memory or EEPROM, and save it as a hex file.
+
+  >avrsp -rp > file.hex
+  >avrsp -re > file.eep
+
+Read data is output to the <stdout> in intel-hex format. When any line
+(32 bytes) is filled with 0xFF, the line will be eliminated. When you wish to
+get it into a file, redirect the output into any file.
+
+
+Example 5: Multiple command execution
+
+  >avrsp -fl111100 -fh11110 -l file.hex file.eep ...
+
+      Write commands can be used at one time. This will effective when program
+      RSTDISBL fuse and Lock bit with ISP mode. The command execution priority
+      is independedt of order in the command line, and they will be executed
+      in order of Flash, EEPROM, Fuse bytes and Lock byte. When there is any
+      overwrap between the hex files, right one overwires left one.
+
+
+
+
+HOW TO LOCK A DEVICE
+------------------------------------------------------------------------------
+To lock device, only -l switch is sufficient for most application, both lock
+bits LB1 and LB2 in the lock byte will be programmed. However, if you wish to
+change boot lock bits, the lock byte must be specified like fuse bits.
+For details on the boot lock bits, refer to particular data sheets.
+
+
+
+
+COMMUNICATING VIA AN ISP CABLE
+------------------------------------------------------------------------------
+The COM port controlled serial programming adapter (ISP cable) can be used to
+communicate between the host PC and the target device. This will be useful for
+debugging, actual use, and so on.
+After the firmware is programmed, the ER signal of the COM port goes high when
+terminal program opens the COM poet and the target reset is released, and the 
+target promram will start.
+The target program configure MISO as output, MOSI as input and communicate in
+software implimented UART. In this case, the ports are connected to COM port
+with out inverted buffer, such as RS-232C drivers, so that the porality is
+inveted (L=mark, H=space). For more informaiton on the software implimanted
+UART, please refer to sample code included in AVRMON.ZIP.
+
+
+
+
+
+Error Messages
+------------------------------------------------------------------------------
+
+Control progams may stop with an error message when any error occured.
+Each error message, its cause, and work around are shown in follows:
+
+<file name> : File access failure
+---------------------------------
+The file is not exsist or any error occured.
+
+
+<file name> (<line#>) : Hex format error
+----------------------------------------
+Any error is detected during loading the hex file.
+
+
+Writing...Time out at AAAA
+--------------------------
+A polling time out is occured during byte programming.
+
+
+Verifying...Failed at AAAA:WW-RR
+--------------------------------
+A verify error is detected.
+
+
+Unknown device (<h>-<h>-<h>)
+----------------------------
+The device ID is not valid. Three hexdecimal values are read ID values.
+It can think about the following case.
+- The device is not supported in this version yet.
+- Target power is off.
+- The device is not clocked. (ISP mode)
+- Any communication error occured due to the SPI speed. (ISP mode)
+- ISP funciton is disabled due to any reason. (ISP mode)
+
+
+Locked device or Synchronization failed.
+----------------------------------------
+Locked device is not writable. (only ISP mode) Please perform chip erase
+with -e command. This error can also occure due to any communication error.
+
+
+No COM<n>(0xXXX) port.
+No LPT<n>(0xXXX) port.
+COM<n> could not be opend.
+Invalid Port#.
+--------------------------
+Specified port was absent or invalid for the port class. The correspondence
+of the port number and the physical address is determined in constant table.
+(Refer to hwctrl.h)
+
+
+I/O driver initialization failed.
+---------------------------------
+A direct I/O driver (giveio.sys) is required but it was not served.
+This occures at only WindowsNT/2k/XP. (Refer to differ_e.txt)
+
+
+
+
+------------------------------------------------------------------------------
+All files contained in this archive are freeware. You can redistribute and can
+use for personal or profit use without parmission. Please obseve the minimum
+rule on concerning the Freeware at least.
+
+(C)ChaN, 2005
+email: root@elm-chan.org
+homepage: http://elm-chan.org/
+
+
+
+REVISION HISTORY
+-----------------------------------------------------------------------------
+Oct. 3, 1999	First release. (DOS ver.)
+-----------------------------------------------------------------------------
+May. 4, 2004	Win32 based ISP programmig tool is released.
+Sep. 1, 2004	mega165 is supported. Fixed mega8 parameter.
+Nov. 11, 2004	Win32 based Parallel programmig tool is released. mega325/3250/645/6450 are supported.
+Feb. 2, 2005	mega406 is supported (AVRPP).
+Feb. 14, 2005	PWM2/3 are supported (AVRSP/AVRPP).
+Feb. 15, 2005	tiny25/45/85 are supported (AVRSP/AVRPP).
+Mar. 13, 2005	mega640/1280/1281/2560/2561 are supported (AVRSP/AVRPP).
+Apr. 24, 2005	Serial to SPI bridge is supported. (AVRSP)
+May. 20, 2005	Programming speed is improved on SPI bridge. (AVRSP)
+Aug. 10, 2005	tiny24/44/84 are supported (AVRSP/AVRPP).

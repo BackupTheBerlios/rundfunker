@@ -1,0 +1,1 @@
+SELECT genre FROM rf_song GROUP BY genre

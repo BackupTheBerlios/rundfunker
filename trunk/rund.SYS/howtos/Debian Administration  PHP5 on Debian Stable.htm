@@ -1,0 +1,1295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+  <head>
+    <meta name="description" content="Tips for a Debian GNU/Linux System Administrator.">
+<meta name="keywords"  content="Debian System Administration News, Debian Sysadmin, Linux Administration, Linux Sysadmin, Sysadmin">
+<meta name="copyright" content="(c) 2004, 2005 Debian Administration">
+<meta name="author"  content="Debian Administration">
+<meta name="robots" content="index,follow">
+<meta name="resource-type" content="document">
+<meta name="classification" content="Personal">
+<meta name="language" content="en">
+<link rel="icon" href="/favicon.ico" >
+<link rel="shortcut icon" href="/favicon.ico" >
+<link rel="top"    title="home"    href="/" >
+<link rel="search" title="Search" href="http://www.debian-administration.org/about/search">
+<link rel="alternate" title="Debian Administration RSS" href="/articles.rdf" type="application/rdf+xml">
+<link rel="alternate" title="Atom" href="/atom.xml" type="application/atom+xml">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" title="Default Layout">
+
+    <title>Debian Administration :: PHP5 on Debian Stable?</title>
+
+  </head>
+
+  <body id="yawns">
+    <div id="no-rightBar">
+
+
+<div id="sidebar">
+  
+<!--[if gte IE 5.5000]>
+   <script language="JavaScript"> var ie55up = true </script>
+<![endif]-->
+<script language="JavaScript">
+function fixPNG(myImage) // correctly handle PNG transparency in Win IE 5.5 or higher.
+   {
+    if (window.ie55up)
+	 {
+	 var imgID = (myImage.id) ? "id='" + myImage.id + "' " : ""
+	 var imgClass = (myImage.className) ? "class='" + myImage.className + "' " : ""
+	 var imgTitle = (myImage.title) ? "title='" + myImage.title + "' " : "title='" + myImage.alt + "' "
+	 var imgStyle = "display:inline-block;" + myImage.style.cssText 
+	 var strNewHTML = "<span " + imgID + imgClass + imgTitle
+	 strNewHTML += " style=\"" + "width:" + myImage.width + "px; height:" + myImage.height + "px;" + imgStyle + ";"
+	 strNewHTML += "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+	 strNewHTML += "(src=\'" + myImage.src + "\', sizingMethod='scale');\"></span>" 
+	 myImage.outerHTML = strNewHTML
+	 }
+   }
+</script>
+
+<div id="logo">
+ <p><a href="/" title="Go back to homepage"><img src="/images/logo.png" alt="Logo" width="104" height="115" onload="fixPNG(this)"></a></p>
+</div>
+
+
+
+
+        <h3 class="sideBarTitle">Current Poll</h3>
+	
+	<form method="post" action="/polls/45">
+	<p><input type="hidden" name="poll" value="45" /><b>&nbsp;My bootloader is?</b></p><p>
+	
+	<input type="radio" name="pollanswer" value="1" />&nbsp;Lilo<br />
+	
+	<input type="radio" name="pollanswer" value="2" />&nbsp;Grub<br />
+	
+	<input type="radio" name="pollanswer" value="3" />&nbsp;Arch-specific<br />
+	
+	<input type="radio" name="pollanswer" value="4" />&nbsp;Non-Linux<br />
+	
+	<input type="radio" name="pollanswer" value="5" />&nbsp;Other?<br />
+	
+	<input type="submit" name="pollvote" value="Vote" /><br />
+	( <a href="/polls/45">665 votes ~ 9 comments</a> )</p>
+	</form>
+	
+
+
+
+	<h3 class="sideBarTitle">Recent Weblogs</h3>
+	    
+            <ul>
+              
+              <li><a href="/users/trakic/weblog/2" title="Xen as native in Debian">trakic</a> </li>
+              
+              <li><a href="/users/uroboros/weblog/5" title="OpenVPN - which HW router?">uroboros</a> </li>
+              
+              <li><a href="/users/simonw/weblog/23" title="Malware and abuse">simonw</a> </li>
+              
+              <li><a href="/users/oxtan/weblog/3" title="syslog + fifo">oxtan</a> (4)</li>
+              
+              <li><a href="/users/localhost/weblog/1" title="Enabling Debian Sarge on new SCSI servers">localhost</a> (4)</li>
+              
+              <li><a href="/users/ajt/weblog/24" title="Compaq C-Series Model 810">ajt</a> </li>
+              
+              <li><a href="/users/lee/weblog/6" title="Simple conditional envelope rewriting in Exim4">lee</a> </li>
+              
+              <li><a href="/users/Steve/weblog/61" title="Xen rocks more....">Steve</a> </li>
+              
+              <li><a href="/users/nicc777/weblog/2" title="Custom building Apache 2 with mod_perl 2">nicc777</a> (2)</li>
+              
+              <li><a href="/users/fxsti0101/weblog/1" title="display issues">fxsti0101</a> (1)</li>
+              
+            </ul>
+	    <h3 class="sideBarTitle">More Weblogs</h3>
+	    <ul>
+	    <li><a href="http://planet.debian-administration.org/">Planet Debian Administration</a></li>	   </ul>
+	    
+
+
+
+
+
+      <h3 class="sideBarTitle">Previous Headlines</h3>
+            <ul>
+              
+                <li><a href="/articles/317">An introduction to bash completion: part 2</a></li>
+              
+                <li><a href="/articles/316">An introduction to bash completion: part 1</a></li>
+              
+                <li><a href="/articles/315">Question: Winbind on samba PDC?</a></li>
+              
+                <li><a href="/articles/314">System hangs while accessing USB 2.0 disks</a></li>
+              
+                <li><a href="/articles/313">Burning DVDs on Debian for Newbies</a></li>
+              
+                <li><a href="/articles/312">Network profiles for a laptop</a></li>
+              
+                <li><a href="/articles/311">Backup MySQL databases with mysqlhotcopy</a></li>
+              
+                <li><a href="/articles/310">Creating a Wiki with kwiki</a></li>
+              
+                <li><a href="/articles/309">Forwarding remote X via telnet?</a></li>
+              
+                <li><a href="/articles/308">Giving power to the user in front of the screen</a></li>
+              
+            </ul>
+
+
+
+	    
+</div>
+
+<!-- Main body -->
+<div id="mainContent">
+    <!-- ##### Header ##### -->
+    <div id="header">
+      <div class="midHeader">
+        <h1 class="headerTitle">Debian Administration</h1>
+        <h2 id="headerSubTitle">System Administration Tips and Resources</h2>
+      </div>
+      <div class="subHeader">
+       [ 
+ <a href="/about/Debian%20Administration" title="About this site">About</a> |
+ <a href="/create/article" title="Contribute an article to this website">Contribute Article</a> |
+ <a href="/about/FAQ" title="Frequently asked questions with answers">FAQ</a> |
+ <a href="/hof" title="Article statistics">Hall of Fame</a> |
+ <a href="/about/Search" title="Search the articles which have been posted previously">Search</a> |
+ <a href="/about/Syndication" title="Syndicate this website's articles, or view them in an aggregator">Syndication</a> |
+ <a href="/about/Topics" title="See the available topic catagories">Topics</a> ]
+      </div>
+    </div>
+
+
+
+       <div class="article">
+       <!-- headline + section name -->
+       <h2 class="title">PHP5 on Debian Stable?</h2>
+
+       <div class="tagline"><p>Posted by  <a href="/users/simonw">simonw</a> in the <a href="/topics/Questions" title="View past articles in this topic">Questions</a> section on Wed 28 Sep 2005  at 13:08 </p></div>
+
+
+       <p>What is the smart way to get PHP5 on a Debian stable box?
+<p>I know I can "pin" packages from other releases by following the Debian reference.</p>
+<p>I could snaffle the packages manually from <tt>testing</tt>, I could do my own backport, or use someone elses.  I could even rebuild everything from source tar balls from the respective websites.</p>
+
+<p>I'm leaning toward pinning packages, but I've never done this on anything but my own desktop box before, and I gather that "backports" was the unofficial but sensible way of doing this sort of thing before.</p>
+<p>I figure there is no "right way" (except perhaps not using PHP5 operationally before for Etch is released?), but what is the way of least resistance?</p>
+
+
+
+	<div class="row">
+        <span class="left">
+	<a href="/comment/onarticle/258">Comment on this article</a></span>
+
+         <span class="right">
+         <a href="/articles/258/print">Print version</a>
+         </span>
+	<div class="spacer"> </div>
+	</div>
+
+	<p>&nbsp;</p>
+         <div class="row">
+	  <span class="left">
+           
+            <a href="/articles/257">&lt;&lt;&lt; Reusing Emacs instances with gnuserv</a>
+           
+          </span>
+          <span class="right">
+           
+            <a href="/articles/259">Virus filtering with Postfix and ClamAV in 4 steps :) &gt;&gt;&gt;</a>
+           
+          </span>
+	<div class="spacer"> </div>
+        </div>
+
+	</div>
+
+
+ <hr />
+ 
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_1">#1</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_1">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (69.242.xx.xx) on Wed 28 Sep 2005  at 13:38 </div>
+
+ <div class="body">
+  I'm running a debian stable box for testing php5. I've been using <a href="http://www.dotdeb.org/tiki-index.php" rel="nofollow"><a href="http://www.dotdeb.org/tiki-index.php" rel="nofollow">http://www.dotdeb.org/tiki-index.php</a></a>
+<br />
+<br />
+The packages have been fine or testing code and projects, but I've not used it in production. 
+<br />
+<br />
+Another alternative could be to try ubuntu. They have php5 packages in their upcoming Breezy release.
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/1">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_3">#3</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_3">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (194.250.xx.xx) on Wed 28 Sep 2005  at 13:45 </div>
+
+ <div class="body">
+  <br />
+Dotdeb packages are provided by an hosting company, and yes, they are made for production (count several thousand servers using it).
+<br />
+
+<br />
+M
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_1">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/3">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_2">#2</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_2">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (194.250.xx.xx) on Wed 28 Sep 2005  at 13:42 </div>
+
+ <div class="body">
+  <br />
+One easy and efficient way is to use "Dotdeb" packages.
+<br />
+
+<br />
+<a href="http://www.dotdeb.org/" rel="nofollow"><a href="http://www.dotdeb.org/" rel="nofollow">http://www.dotdeb.org/</a></a>
+<br />
+
+<br />
+I used them several years on Woody (mutualized platform with many users) without any problem. Dotdeb is always up to date, especially concerning security issues.
+<br />
+
+<br />
+M
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/2">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_4">#4</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_4">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (80.99.xx.xx) on Wed 28 Sep 2005  at 15:07 </div>
+
+ <div class="body">
+  As I know, the dotdeb packages does not support apache2, that's why I use the PHP5 packages from here:
+<br />
+<br />
+deb <a href="http://people.debian.org/~dexter" rel="nofollow"><a href="http://people.debian.org/~dexter" rel="nofollow">http://people.debian.org/~dexter</a></a> all sarge
+<br />
+deb-src <a href="http://people.debian.org/~dexter" rel="nofollow"><a href="http://people.debian.org/~dexter" rel="nofollow">http://people.debian.org/~dexter</a></a> all sarge
+<br />
+<br />
+---
+<br />
+kobak
+<br />
+
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/4">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_5">#5</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_5">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/stoffell">stoffell</a>   (81.164.xx.xx) on Wed 28 Sep 2005  at 18:04 </div>
+
+ <div class="body">
+  Thanks for the nice links, also looks good. 
+<br />
+<br />
+But with the release of starge (current stable), the dotdeb packages support apache2.
+
+<br />
+
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_4">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/5">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_13">#13</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_13">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/simonw">simonw</a> [<a href="/users/simonw/weblog">Weblogs</a>]  (212.24.xx.xx) on Tue 20 Dec 2005  at 09:11 </div>
+
+ <div class="body">
+  <div class="hft-lines">Hmm they seem to want to pull in apache-common from 1.3?!<br />
+<br />
+Known issue, or do I need to doublecheck stuff?<br /></div>
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_5">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/13">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_6">#6</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_6">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/multani">multani</a>   (82.230.xx.xx) on Wed 28 Sep 2005  at 19:12 </div>
+
+ <div class="body">
+  Yes, dotdeb now supports Apach2 & Php5 ...
+<br />
+<br />
+I've used the packages from Dexter, but I found several bugs in, so now, I used the Dotdeb one, and it's allright ...
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_4">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/6">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_7">#7</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_7">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (195.202.xx.xx) on Wed 28 Sep 2005  at 20:42 </div>
+
+ <div class="body">
+  Put it in a vserver.
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/7">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_8">#8</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_8">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/simonw">simonw</a> [<a href="/users/simonw/weblog">Weblogs</a>]  (84.45.xx.xx) on Wed 28 Sep 2005  at 21:19 </div>
+
+ <div class="body">
+  I assume the vserver solution would be to let me run "testing" along side "stable"? 
+<br />
+<br />
+If so I can appreciate the flexibility of having PHP4 for in stable, and PHP5 in testing,  it seems to have increased my work load as the system admin?! All the other GNU/Linux boxes run Debian stable, or will do by Christmas.
+<br />
+<br />
+We even discussed offering some sort of virtual server hosting (we were thinking Xen or UML, but vserver might be an option), but most of our clients want us to "just make it work", rather than wanting their own server (even if I think it is very easy to manage a virtual server, since you don't have any of those hardware headaches that Linux can still bring, not everyone agrees). So if we did go with some sort of virtual server solution, we might end up maintaining N instances ourselves, so it would need some careful planning.
+<br />
+<br />
+I had read about Dexter's packages, but not the dotdeb packages, perhaps I should have searched a little harder, but I was finding very little. 
+<br />
+<br />
+I think PHP5 adoption was quite slow, no doubt in part because it isn't 100% backwardly compatible, and also that the new features benefit big packages, and they take time to write.
+<br />
+<br />
+But even customers who want handholding are now asking for it by name, as they are looking at products that require it.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_7">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/8">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_9">#9</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_9">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/stoffell">stoffell</a>   (81.165.xx.xx) on Wed 28 Sep 2005  at 21:55 </div>
+
+ <div class="body">
+  Have a look at this: <a href="http://www.linux-mag.com/content/view/2175/" rel="nofollow"><a href="http://www.linux-mag.com/content/view/2175/" rel="nofollow">http://www.linux-mag.com/content/view/2175/</a></a>
+<br />
+<br />
+Concerning PHP5, there's also a section on "Adoption Among Hosting Providers" and "Application Support"
+<br />
+<br />
+---
+<br />
+stoffell
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_8">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/9">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_10">#10</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_10">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (213.164.xx.xx) on Thu 29 Sep 2005  at 07:32 </div>
+
+ <div class="body">
+  Perhaps I'm being dumb here, but isn't Debian Stable the overruling reason for using Debian - i.e. a well tested production quality platform?
+<br />
+<br />
+How can it continue to be this if you don't use Stable's packages?
+<br />
+<br />
+This isn't intended as flamebait, I'd really like to know.
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/10">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_11">#11</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_11">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (67.104.xx.xx) on Thu 29 Sep 2005  at 18:25 </div>
+
+ <div class="body">
+  There are exceptions to every rule. I think of it more as all of my system except one package has been tested well. I run coldfusion on my Debian Server and it's not even a Debian package.
+<br />
+<br />
+Dont forget that Debian is a great distro but ultimatly you have to make whatever OS you use work for your enviroment. Its rediculous to be say if Debian does not have a stable package dont use it, thats just not practical.
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_10">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/11">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+ <div style="margin-left: 15px;">
+  
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_12">#12</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_12">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/Anonymous">Anonymous</a>   (207.74.xx.xx) on Fri 30 Sep 2005  at 13:01 </div>
+
+ <div class="body">
+  Things only become stable through testing. Someone has to try it out first. :)
+ </div>
+
+<p class="foot">
+ [
+ 
+  <a href="#comment_10">Parent</a>
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/12">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+ </div>
+  
+
+
+<p></p>
+
+
+<!-- Indent comments.  
+     See matching loop to correctly terminate the comment indentation.
+  -->
+
+
+
+
+<!-- Comment entry -->
+<div class="comment">
+  <div class="link">
+   
+   
+    <a href="/articles/258#comment_14">#14</a>
+   
+   
+  </div>
+
+ <div class="title"><a name="comment_14">Re: PHP5 on Debian Stable?</a>
+
+ </div>
+
+ <div class="tagline">
+ Posted by <a href="/users/simonw">simonw</a> [<a href="/users/simonw/weblog">Weblogs</a>]  (212.24.xx.xx) on Tue 20 Dec 2005  at 10:45 </div>
+
+ <div class="body">
+  <div class="hft-lines">dotdeb it is.<br />
+<br />
+Found an article saying basically add the repositories to /etc/apt/sources.list and;<br />
+<br />
+apt-get update # Of course<br />
+apt-get install libapache2-mod-php5 php5 php5-mysql<br />
+<br />
+Will report back if we get any issues. Previous attempts were less specific on what to install, and were picking up stuff for the old version of Apache. Seems slicker than the &quot;dexter&quot; repository and possibly slightly older, and people are using it in anger. However they do update some existing Debian Sarge packages (presumably for compatibility).<br />
+<br />
+The Apache2 module ousts the PHP4 one, although it seem happy to have both PHP4 and PHP5 installed locally.<br />
+<br />
+I also need to migrate the existing PHP4 applications, which may prove interesting.<br /></div>
+ </div>
+
+<p class="foot">
+ [
+ 
+  Parent
+ 
+
+ 
+
+ 
+  | <a href="/comment/onarticle/258/14">Reply to this comment</a>
+ 
+
+ 
+
+ 
+
+ 
+  
+ 
+
+ 
+]
+</p>
+
+</div>
+
+<!-- Terminate the indentation of the comments. -->
+
+
+<p></p>
+
+
+
+
+  <!-- Closing tag for if_error -->
+
+    <!-- ##### Footer ##### -->
+  <div id="footer">
+	<div>
+<p>Articles and comments are the property of their respective posters.</p>
+<p>Trademarks are the property of their respective owners.  Debian is <a
+href="http://tarr.uspto.gov/servlet/tarr?regser=serial&amp;entry=75386376&amp;action=Request+Status">a registered trademark</a> of <a href="http://www.spi-inc.org">Software in the Public Interest, Inc</a>.</p>
+<p>This site is copyright &copy; 2004, 2005 <a class="footer" href="http://www.debian-administration.org/">Debian Administration</a> / <a href="http://www.steve.org.uk/">Steve Kemp</a></p>
+<p>Email: <a class="footer" href="mailto:webmaster@debian-administration.org">webmaster@debian-administration.org</a></p>
+</div>
+    </div>
+
+</div>
+</div>
+
+<!-- ##### Right Sidebar ##### -->
+<div id="rightbar">
+  
+
+      <h3 class="sideBarTitle">User Login</h3>
+            <form id="user-login" action="/" method="post">
+	    <input type="hidden" name="target" value="/articles/258" />
+                
+	<p><b>Username</b>:<br />
+        <input id="name" name="lname" type="text" size="14" maxlength="25" /></p>
+	<p><b>Password</b>:<br />
+	<input id="pass" name="lpass" type="password" size="15" maxlength="25" /></p>
+	<p><input type="submit" name="login" value="Login" /></p>
+                
+          <p><a href="/create/user">Create New User</a></p>
+            </form>
+
+
+
+
+  
+<h3 class="sideBarTitle">Quick Site Search</h3>
+ <form id="quickSearch" action="/" method="get">
+  <p><input size="10" name="search"> <input type="submit" name="go" value="Go"></p>
+ </form>
+
+
+
+  
+
+
+   
+   
+   
+   
+
+    	 
+	
+	    <h3 class="sideBarTitle">Sponsored Links</h3>
+ <p>&nbsp;</p>
+ <div style="text-align: center;"> 	 
+  <script type="text/javascript"><!-- 	 
+   google_ad_client = "pub-1910202134166551"; 	 
+   google_ad_width = 120; 	 
+   google_ad_height = 620; 	 
+   google_ad_format = "120x600_as"; 	 
+   google_ad_channel =""; 	 
+  //--></script> 	 
+  <script type="text/javascript" 	 
+   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+  </script> 	 
+ </div>
+
+	
+
+        
+	
+         	 
+	  <hr />
+	  <p><a href="http://www.debian-administration.org/about/FAQ%20:%20Site%20Adverts">Why are these adverts here?</a></p>
+          <p><a href="/create/user">Create an account</a> and login to avoid them.</p>
+         	 
+
+     
+</div>
+
+
+
+
+  </body>
+</html>
+

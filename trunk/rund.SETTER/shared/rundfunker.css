@@ -1,0 +1,48 @@
+/* DATEI: rundfunker.css */
+
+body {
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	}
+
+body, input, h1, h2, h3, h4, div, td, th, p, b, i {font-family: Verdana, Arial, Helvetica, sans-serif;}
+
+body, div, td, p, th, a, input {font-size: 10px;}
+
+.smalloutput {font-size: 9px; color:#d2d7d9}
+
+h4 {font-size: 12px;}
+
+h3 {font-size: 13px;}
+
+h2 {font-size: 17px;}
+
+h1 {font-size: 18px;}
+
+th {background-color: #d2d7d9;}
+
+a:link {color:#797d80; text-decoration:none;}
+a:visited {color:#797d80; text-decoration:none;}
+a:active {color:#797d80; text-decoration:underline;}
+
+input {border: 1px solid #797d80; background-color: #ffffff;}
+input.small {width: 40px;}
+input.checkbox {border: 1px solid #797d80; background-color: #ffffff; width: 15px;}
+input.radio {border: none; background-color: #ffffff; width: 20px;}
+input.button {background-color: #ffffff;}
+input.ip {
+	border: 1px solid #797d80;
+	background-color: #ffffff;
+	width: 30px;
+	text-align: center;
+}
+
+input.path {
+	border: 1px solid #797d80;
+	background-color: #ffffff;
+	width: 250px;
+}
+
+select {width: 200px;}

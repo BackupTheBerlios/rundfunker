@@ -1,0 +1,153 @@
+--------------------------------------
+TIPS ON THE PROGRAMMER CONTROL TECHNIC
+--------------------------------------
+This notes are written down details that could not finsih explaining in html
+document, such as some know-how and attentions. When you build your own AVR
+programmer, this notes will be helpful.
+
+
+
+Generating Control timing
+-------------------------
+In order to generate control timing, two method are used. For delay time in
+unit of milisecond, the Windows API, QueryPerformanceCounter() and
+QueryPerformanceFrequency(), are used. For delay time in unit of microsecond,
+reading I/O port is used. The transfer speed for ISP mode can be changed
+with -d command.
+
+
+
+Device type auto detection (Parallel mode)
+------------------------------------------
+In parallel programming mode, first, the control program attempts to read
+device ID as parallel controled device, such as 20, 28 or 40 pin devices.
+If any valid ID could not be read, control program attempts again to read
+ID as 8 pin device. Therefore, all devices including 8 pin devices can be
+detected automaticaly.
+
+
+
+Device type auto detection (ISP mode)
+-------------------------------------
+In serial downloading mode, the method of synchronization sequence is different
+with AT90S1200 and any other devices. To cope with it, the control program
+attempts up to three times to synchronize and read device ID until valid
+device ID is found. For first two attempts, synchronize in method of Reset
+Pulse for AT90S1200. For final attempt, synchronize in method of Echo Back
+for any other devices. Therefore, even at the ISP operation, all devices can
+be detected automaticaly.
+
+
+
+Skipping to program 0xFFs
+-------------------------
+In order to reduce programming time, any byte or page which is not needed to
+be programmed will be skipped.
+
+
+
+Detecting end of the byte programming (ISP mode)
+------------------------------------------------
+At the ISP mode, polling method is used to detect end of byte programming.
+Therefore, the programming time depends on supply voltage and variation of
+each device. However, at AT90S1200, data polling doesn't work correctly
+so that fixed delay time is used for it.
+
+
+
+Calibration Bytes
+-----------------
+Most devices with internal RC oscillator have an OSCCAL register. It must be
+initialized with a calibration byte that unique to each device in order to
+remove process variety. The value can be read out with device programmer.
+avrpp and avrsp can read it with -rf command that reads fuse bytes and
+calibration bytes. The calibration bytes will be shown in one or four decimal
+values. Four values mean for 1MHz, 2MHz, 4MHz and 8MHz.
+Recent devices will inialize OSCCAL register with the device unique value
+in system reset. However initializing the OSCCAL register must be required
+for old devices that its OSCCAL register is cleard by 0 in system reset.
+The calibration byte to be used must be embedded into program code and the
+program reads the value and store into the OSCCAL register. Writing the value
+into each source code is difficult when program number of devices, any support
+by device programmer is required.
+In this case, -c command can store the calibration byte into end of the flash
+memory with any program code. When there are four calibration bytes, they are
+stored in opposite order.
+
+example:
+    c = pgm_read_byte(FLASHEND - n); // written by -c switch
+    if(c != 0xFF) OSCCAL = c;
+
+
+
+Communication speed (ISP mode)
+------------------------------
+-d command changes communication speed between PC and the device. The maximum
+communication speed depends on the target clock frequency, so that timing
+delay have to be inserted to the bit transfering. In default, communication
+timing is for approx. 1 MHz or faster. -d20..60 expands the timing delay
+for down to 100 kHz operation. -d0 skips timing delay, this is for fast clock
+operation of 8 MHz or faster. The default value is 3, this generate 3 I/O
+read access. The delay time per I/O access will depend on PC chipset.
+
+
+
+First time programming at Parallel mode
+---------------------------------------
+The parallel programmer uses -STB and -SELIN signals to control Vcc and Vpp.
+These signals are normaly high so that before execute the control program
+first, Vcc and Vpp will be applied to the socket. Therefore, at least, at
+the first time of the programming, device must be put after the mount request
+message. Make sure that Vpp LED on the board is off before mount the device
+on the socket.
+
+
+
+Programming voltage generator
+-----------------------------
+For parallel programming operation, the devices require +12V programming
+voltage on the RESET pin to enter programming mode. Therefore, parallel
+programmer has a DC-DC converter to genarate the programming voltage.
+The drawn current into the RESET pin is less than 1 mA. When replace any
+other voltage source, its output current is required only several mA.
+
+
+
+Socket converter
+----------------
+The parallel programmer is built for only 1200/2313 pinout. Any other devices
+require a socket converter. When build the parallel mode programmer, building
+in some sockets for all devices might easy ratehr than a socket with socket
+converters.
+
+
+
+RSTDISBL fuse
+-------------
+Some devices can configure its RESET pin as a general purpose I/O port by
+programming RSTDISBL fuse. When this feature is enabled, ISP operation to
+the device will get not work. Be careful when change any fuse bit.
+
+
+
+JTAGEN fuse
+-----------
+Some recent devices have JTAG feature. In default, the JTAG feature is enabled
+and corresponding I/O pins cannot be used as general purpose I/O port. When
+use the I/O pins, JTAGEN fuse must be unprogrammed ("1") or JTD bit in the
+MCUCR must be set with program.
+
+
+
+Automatic adapter recoginization of avrsp
+-----------------------------------------
+The avrsp program detects the attached adapter type automaticaly. The
+detecting method is as follows:
+
+     If D5 is tied to ACK, the adapter type is Altera ByteBlasterMV,
+else if D7 is tied to PE, the adapter type is AVRX,
+else if D6 is tied to BUSY and PE, the adapter type is Xilinx JTAG,
+else if D6 is tied to PE, the adapter type is Lattice ISP,
+else if D0 is tied to PE, the adapter type is STK200 dongle,
+else no programming adapter is attached.
+

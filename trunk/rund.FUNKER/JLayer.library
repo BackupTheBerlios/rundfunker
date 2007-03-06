@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <!--JBuilder Library Definition File-->
+  <fullname>JLayer</fullname>
+  <class>
+    <path>[lib/jl1.0.jar]</path>
+  </class>
+  <lastmodsaved>1134234290583</lastmodsaved>
+</library>

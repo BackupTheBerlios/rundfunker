@@ -1,0 +1,395 @@
+<html>
+<head>
+<title>linux power management  : acpi apm etc </title>
+<meta name="description" content="acpi ...">
+<meta name="keywords" content="amilo,linux,gnu,fujitsu,siemens,a,1400,A7614,driver,acpi,pm">
+<!-- %rzr type="submit" date="" 
+http://www.google.com/search?hl=fr&ie=UTF-8&oe=utf-8&q=%22amilo+a%22+acpi++%22LINUX+POWER+MANAGEMENT+%3A+APM+%2F+ACPI+%22&btnG=Recherche+Google&lr=
+ -->
+
+<!-- %rzr class=headscript -->
+<script src="sitescript.js"></script>
+<!-- %rzr/ class=headscript -->
+
+<basefont face="helvetica" />
+
+<link rel="stylesheet" type="text/css" media="screen" 
+ href="../../styles/rzr.css" />
+<link rel="stylesheet" type="text/css" media="print"
+ href="../../styles/print.css" /-->
+<script src="../../w/scripts/menu.js"></script>
+</head>
+
+<center>
+<a name="acpi"></a>
+<h1>LINUX POWER MANAGEMENT : APM /  ACPI etc</H1>
+ [ <a href="menu.htm">Index</a> 
+ | <a href="#battery">Battery</a> 
+ | <a href="#apm">Apm</A>
+ | <a href="#acpi">Acpi</A>
+ ]
+</center>
+
+Linux Amilo A can do advanced power management or Acpi
+<p>
+Ideas, troubles etc : See forum :
+<a class="url" href="http://groups.yahoo.com/group/amilo">
+http://groups.yahoo.com/group/amilo
+</a><br />
+
+
+<p>
+Thats the tricky part, I know that using a disfonctionnal PM can burn you CPU.
+
+<p>
+
+The fan starts at least each 5 mins
+(when temperature reach 70 DC)
+, and it takes 1 minute to decrease to 55 DC.
+<br>
+Should be comparated when using Windows (which may reduce cpu speed).
+<br>
+It is a bit loudy but not so annoying, 
+ but on the upper right corner (leg burner).
+<br>
+So I guess I've done half off the Acpi tweaking ?
+then how to put the comp on stanbye ?
+
+<a name="battery">
+<h3>POWER SUPPLY / BATTERY</H3>
+Whith some tweaking I worked over 2.5 hours on battery,
+I used linux +X11 +kde +emacs +mozilla +apache +php
+<p>
+KDE's Klaptop (klaptopdeamon)
+ is designed for notebooks with Advanced Power Management (APM)
+ 
+<a class="url" href="http://akpi.scmd.at/news.php">
+http://akpi.scmd.at/news.php
+</a><br />
+
+
+<p>
+For longest life time, 
+should  the battery *ever*  stay inside the laptop 
+when laptop is used on PowerSupply  ?
+<br>
+Where to find replacement baterries  ? 
+
+<br>
+Custom batteries :
+<a class="url" href="http://www.1001piles.com">
+http://www.1001piles.com
+</a>
+
+
+<br>
+Also how to build a powersupply adapter from a car's battery (12 V) ?
+Motormate provide adapters (12V DC / 230V AC  ~60 EUR)
+
+<p>
+Finally sometimes on boot my amilo can not switched off,
+so you can remove the battery while running, it did not hurt for me.
+
+<a name="apm"></A>
+<h3>APM</h3> 
+On Linux Knoppix Shutdown does not work by default, because it
+disabled real poweroff (need to toggle option when building kernel)
+
+<pre>
+man apm
+modprobe apm
+
+# apm -v -d
+APM BIOS 1.2 (kernel driver 1.16)
+On-line, no system battery
+Using device 0x0a86, 1.16: 1.2
+APM Flags      = 0x03; Line Status   = 0x01
+Battery Status = 0xff; Battery Flags = 0x80
+Battery %age   =   -1; Battery Time  =   -1, use_mins=0
+
+# cat /proc/apm
+1.16 1.2 0x03 0x01 0xff 0x80 -1% -1 ?
+
+sleepd # shutdown the computer ?
+</pre>
+To do it manually: as root, in a console, type 'apm --suspend'. 
+To hibernate (suspend) automaticly:
+<br>
+K-menu - Power Control - Display Power Control. Enable the checkbox. 
+
+
+<a name="acpi"></a>
+<h3>ACPI</H3>
+
+Add acpi support in kernel and 
+download acpi tools.
+<br>
+But how to put screen on standby and sleep ?
+<br>
+Since kernel 2.4 (- ?) 
+ Acpi is included
+
+<pre>
+# must recompile kernel
+# Compiling linux kernel update to 2.4.21 # select acpi modules
+
+#acpi -v
+acpi 0.06
+
+# cat /proc/acpi/battery/BAT1/info # etc
+
+# lsmod
+ospm_battery            6660   0  (unused)
+ospm_processor          7176   0  (unused)
+ospm_system             6684   0  (unused)
+ospm_ec                 4520   0  (unused)
+ospm_button             3984   0  (unused)
+ospm_thermal            6400   0  (unused)
+ospm_ac_adapter         2724   0  (unused)
+ospm_busmgr            14072   0  [ospm_battery ospm_processor ospm_system ospm_ec ospm_button ospm_thermal ospm_ac_adapter]
+
+cat /proc/acpi/info
+ACPI-CA Version:         20011018
+Sx States Supported:     S0 S3 S4 S5
+
+# cat /proc/acpi/thermal/0/status
+temperature:   3232 dK
+state:         ok
+
+# cat /proc/acpi/processor/0/status
+Bus Mastering Activity:  ffffffff
+C-State Utilization:     C1[430] C2[5669] C3[0]
+
+# cat /proc/acpi/thermal/0/info
+critical (S5): trip=4782
+passive:       trip=4732 tc1=2 tc2=5 tsp=150 devices=00000004
+cooling mode:  unknown
+polling:       disabled
+</pre>
+
+
+Throttling reduce cpu usage (work i % of the time)
+did work for me on 2.6.0-test4
+<pre>
+# cat /proc/acpi/processor/CPU0/throttling
+state count:             8
+active state:            T0
+states:
+   *T0:                  00%
+    T1:                  12%
+    T2:                  25%
+    T3:                  37%
+    T4:                  50% # good enough for decoding divx
+    T5:                  62% # mp3 @128kbits
+    T6:                  75%
+    T7:                  87%
+# echo -n 4 > /proc/acpi/processor/CPU0/throttling
+</pre>
+
+When using kernel 2.6.0-test4 ,
+ the fan has at least 2 speeds :
+55+ dC & 75+ dC
+
+<p>
+
+Acpid enables to catch acpi events such as power button
+ (which does 'halt')
+
+<pre>
+# apt-get install acpid 
+# cat /etc/acpi/*
+# boot # append="devfs=mount acpi=off"
+</pre>
+
+<p>
+Now I am curious on how to use cpufreq 
+<br>
+cpufreqd: controls your cpu speed depending on your current battery level,
+ ac situation and running programs.
+
+<a class="url" href="http://www.brodo.de/cpufreq/">
+http://www.brodo.de/cpufreq/
+</a><br />
+
+It is a deamon that print on syslog, 
+but how to know what is the current frequency ?
+
+
+<p>
+<a class="url" href="http://www.acpi.info/">
+http://www.acpi.info/
+</a><br />
+
+<a class="url" href="http://www.codemonkey.org.uk/projects/cpufreq/">
+http://www.codemonkey.org.uk/projects/cpufreq/
+</a><br />
+
+
+
+
+<a class="url" href="/x/acpi.sf.net/">
+http://acpi.sf.net/
+</a><br />
+
+<a class="url" href="http://www.cpqlinux.com/acpi-howto.html">
+http://www.cpqlinux.com/acpi-howto.html
+</a><br />
+
+
+
+
+<a class="url" href="http://www.tldp.org/HOWTO/ACPI-HOWTO/">
+http://www.tldp.org/HOWTO/ACPI-HOWTO/
+</a><br />
+
+
+
+<a class="url" href="http://www.winischhofer.net/linux2.shtml">
+http://www.winischhofer.net/linux2.shtml
+</a><br />
+
+
+<h3>ACPI PATCH</H3>
+But maybe you must update to latest patch and rebuild kernel again
+
+<a class="url" href="http://prdownloads.sourceforge.net/acpi/acpi-20030619-2.4.21.diff.gz?download">
+http://prdownloads.sourceforge.net/acpi/acpi-20030619-2.4.21.diff.gz?download
+</a><br />
+
+<pre>
+# wget *.diff # gunzip  # patch -p1 &lt; acpi-*.diff
+
+# acpi -V
+     Battery 1: unknown, 100%
+     Thermal 1: ok, 65.0 degrees C
+  AC Adapter 1: on-line
+
+# cat /proc/acpi/info
+version:                 20030619
+states:                  S0 S3 S4 S5
+
+# cat /proc/acpi/thermal_zone/THRM/temperature
+temperature:             55 C # fan start at 70
+
+# cat /proc/acpi/processor/CPU0/performance
+not supported # what shall I expect ?
+
+# cat /proc/acpi/thermal_zone/THRM/trip_points
+critical (S5):           205 C
+passive:                 200 C: tc1=2 tc2=5 tsp=150 devices=0xc126d9c0
+
+# cat /proc/acpi/battery/BAT1/info
+present:                 yes
+design capacity:         3900 mAh
+last full capacity:      3900 mAh
+battery technology:      rechargeable
+design voltage:          14800 mV
+design capacity warning: 390 mAh
+design capacity low:     117 mAh
+capacity granularity 1:  64 mAh
+capacity granularity 2:  64 mAh
+model number:            Panasonic_LiON
+serial number:
+battery type:            LiON
+OEM info:                FSC
+
+# cat /proc/acpi/battery/BAT1/state
+present:                 yes
+capacity state:          ok
+charging state:          unknown
+present rate:            0 mA
+remaining capacity:      3900 mAh
+present voltage:         14800 mV
+</pre>
+We should decrease 205 DC to 90 DC  to avoid cpu burning
+well maybe this shall never happend if  fan never fail.
+
+
+<h3>DPMS</H3>
+You can save a bit of energy with your XServer :
+<pre>
+Section "Device" # @ /etc/X11/XF86Config-4 # http://rzr.online.fr/
+        Option "power_saver" #
+        Option "StandbyeTime" "10"
+        Option "SuspendTime" "20"
+        Option "OffTime" "30" # 
+        ...
+EndSection
+
+
+# man xset # xset + dpms #
+# xset dpms force standby # or suspend
+# man XF86Config-4
+</pre>
+
+<h3>MISC</H3>
+Sleep, Hibernate etc
+<pre>
+# mkdir /sys && mount -t sysfs sysfs /sys
+# /usr/src/linux/Documentation/driver-model/overview.txt
+
+# apt-get install lm-sensors
+# sensors-detect
+
+# swsusp # shutdown -z
+
+# You need to append resume=/dev/your_swap_partition to kernel command line. 
+# Then you suspend by 
+# echo 4 > /proc/acpi/sleep
+</pre>
+
+
+<a class="url" href="http://swsusp.sourceforge.net">
+http://swsusp.sourceforge.net
+</a><br />
+
+
+
+
+<p>
+laptopkernel is a patchset for the linux kernel containing several
+useful patches for laptop-users.  It contains acpi, software suspend,
+supermount and some hardware compatibility patches.
+
+<a class="url" href="/x/savannah.nongnu.org/projects/laptopkernel/">
+http://savannah.nongnu.org/projects/laptopkernel/
+</a><br />
+
+
+
+
+
+<p>
+
+<p>
+lm_sensors 
+  
+<a class="url" href="/x/secure.netroedge.com/~lm78/">
+http://secure.netroedge.com/~lm78/
+</a><br />
+
+
+<a class="url" href="http://tuxmobil.org/apm_linux.html">
+http://tuxmobil.org/apm_linux.html
+</a><br />
+
+
+<a class="url" href="http://www.mc.man.ac.uk/LDP/HOWTO/Ecology-HOWTO.html">
+http://www.mc.man.ac.uk/LDP/HOWTO/Ecology-HOWTO.html
+</a><br />
+
+<a class="url" href="http://www.gkrellm.net/">
+http://www.gkrellm.net/
+</a><br />
+
+<a class="url" href="http://www.linuxfocus.org/English/November2003/article315.shtml">
+http://www.linuxfocus.org/English/November2003/article315.shtml
+</a><br />
+
+
+
+<hr>
+<address><a href="/x/rzr.online.fr/">
+Philippe_COVAL(a)IFrance.COM - http://RzR.online.FR</a> </address>
+<!-- hhmts start -->Last modified: Wed Jul 27 20:31:42 CEST 2005 <!-- hhmts end -->
+</body> </html>

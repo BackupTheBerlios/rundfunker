@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refactor PUBLIC "-//Borland Software Corporation//Refactor 1.0//EN" "http://www.borland.com/devsupport/jbuilder/dtds/refactor_1_0.dtd">
+
+<refactor>
+  <rename-method id="6AP0T8WQDIGE0XLOAQW1PKH0" creation-time="Sat Nov 26 21:51:36.021 CET 2005">
+    <declaring-class-name>net.leberfinger.rundsucher.MetaDataThread</declaring-class-name>
+    <declared-method-signature>(J)J</declared-method-signature>
+    <old-method-name>getDBLastModified</old-method-name>
+    <new-method-name>isAkutellInDB</new-method-name>
+  </rename-method>
+  <rename-package id="6AP0OQOA9WGEVVOSITLFK8Z" creation-time="Tue Dec 06 14:55:47.750 CET 2005">
+    <old-package-name>net.leberfinger.rundsucher</old-package-name>
+    <new-package-name>de.fhaugsburg.rundfunker.rundsucher</new-package-name>
+  </rename-package>
+  <rename-class id="6AP0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:15:53.352 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.model.JLayerPlayer</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.JLayerPlayer</new-class-name>
+  </rename-class>
+  <rename-class id="4AP0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:16:44.556 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.model.PlayerImpl</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.PlayerImpl</new-class-name>
+  </rename-class>
+  <rename-class id="2AP0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:17:09.592 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.model.PlayerInterface</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.model.Player</new-class-name>
+  </rename-class>
+  <rename-class id="0AP0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:17:44.162 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.model.Player</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.Player</new-class-name>
+  </rename-class>
+  <rename-class id="Y9P0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:18:41.514 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.model.PlayerJLayerImpl</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.PlayerJLayerImpl</new-class-name>
+  </rename-class>
+  <rename-class id="W9P0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 22:30:50.733 CET 2005">
+    <old-class-name>javazoom.jl.player.advanced.Interface1</old-class-name>
+    <new-class-name>javazoom.jl.player.advanced.Player</new-class-name>
+  </rename-class>
+  <rename-class id="U9P0S22SE2HE8IJDAQW1PKH0" creation-time="Sat Dec 10 23:23:52.087 CET 2005">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.player.JLayerPlayer</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.JLayerPlayerImpl</new-class-name>
+  </rename-class>
+  <rename-field id="S9P0S22SE2HE8IJDAQW1PKH0" creation-time="Sun Dec 11 02:44:51.838 CET 2005">
+    <declaring-class-name>de.fhaugsburg.rundfunker.rundspieler.player.Player</declaring-class-name>
+    <old-field-name>PAUSE</old-field-name>
+    <declared-field-type>I</declared-field-type>
+    <new-field-name>PAUSED</new-field-name>
+  </rename-field>
+  <rename-field id="D6P07EO0UBHEKD668HW1PKH0" creation-time="Sat Dec 17 13:16:03.492 CET 2005">
+    <declaring-class-name>de.fhaugsburg.rundfunker.rundsucher.FileSearchThread</declaring-class-name>
+    <old-field-name>searchPath</old-field-name>
+    <declared-field-type>Ljcifs/smb/SmbFile;</declared-field-type>
+    <new-field-name>searchRoot</new-field-name>
+  </rename-field>
+  <rename-class id="7AP0VB97E4JEY4UR9031QKH0" creation-time="Tue Jan 31 16:54:39.729 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplaySwingImpl</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayListenerSwing</new-class-name>
+  </rename-class>
+  <rename-class id="6AP0VB97E4JEY4UR9031QKH0" creation-time="Tue Jan 31 16:55:36.100 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayRemote</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayListenerRemote</new-class-name>
+  </rename-class>
+  <rename-method id="5AP0VB97E4JEY4UR9031QKH0" creation-time="Tue Jan 31 17:53:50.645 CET 2006">
+    <declaring-class-name>de.fhaugsburg.rundfunker.rundspieler.view.ListScreen</declaring-class-name>
+    <declared-method-signature>()V</declared-method-signature>
+    <old-method-name>turnDDSLeft</old-method-name>
+    <new-method-name>prevItem</new-method-name>
+  </rename-method>
+  <rename-method id="4AP0VB97E4JEY4UR9031QKH0" creation-time="Tue Jan 31 17:54:12.086 CET 2006">
+    <declaring-class-name>de.fhaugsburg.rundfunker.rundspieler.view.ListScreen</declaring-class-name>
+    <declared-method-signature>()V</declared-method-signature>
+    <old-method-name>turnDDSRight</old-method-name>
+    <new-method-name>nextItem</new-method-name>
+  </rename-method>
+  <rename-class id="7AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:42:27.119 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayHandler</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayServer</new-class-name>
+  </rename-class>
+  <rename-class id="6AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:49:39.861 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayListener</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayClient</new-class-name>
+  </rename-class>
+  <rename-class id="5AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:50:30.614 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayListenerRemote</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayClientRemote</new-class-name>
+  </rename-class>
+  <rename-class id="4AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:50:48.199 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayListenerSwing</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.view.DisplayClientSwing</new-class-name>
+  </rename-class>
+  <rename-class id="3AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:58:37.214 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.PlaybackEvent</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.PlaybackEvent</new-class-name>
+  </rename-class>
+  <rename-class id="2AP0LLN14LJEECSMGHW1PKH0" creation-time="Sun Feb 12 09:58:55.770 CET 2006">
+    <old-class-name>de.fhaugsburg.rundfunker.rundspieler.PlaybackListener</old-class-name>
+    <new-class-name>de.fhaugsburg.rundfunker.rundspieler.player.PlaybackListener</new-class-name>
+  </rename-class>
+</refactor>
+

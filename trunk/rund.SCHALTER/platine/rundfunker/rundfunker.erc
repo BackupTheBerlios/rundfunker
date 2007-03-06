@@ -1,0 +1,16 @@
+EAGLE Version 4.16 Copyright (c) 1988-2005 CadSoft
+
+Electrical Rule Check für C:/Programme/EAGLE-4.16/projects/rundfunker/rundfunker.sch am 22.12.2005 12:58:17 
+
+FEHLER: Seite 1/1: Nicht angeschlossener INPUT-Pin: U$1 ADC6
+FEHLER: Seite 1/1: Nicht angeschlossener INPUT-Pin: U$1 ADC7
+WARNUNG: Seite 1/1: POWER-Pin U$1 AVCC verbunden mit VCC
+FEHLER: Seite 1/1: kein SUPPLY für POWER-Pin U$1 AREF
+WARNUNG: Seite 1/1: POWER-Pin U$1 AGND verbunden mit GND
+WARNUNG: Seite 1/1: POWER-Pin IC2P VSS verbunden mit GND
+WARNUNG: Seite 1/1: POWER-Pin IC2P VDD verbunden mit VCC
+
+Board und Schaltplan sind konsistent
+
+    3 Fehler
+    4 Warnungen

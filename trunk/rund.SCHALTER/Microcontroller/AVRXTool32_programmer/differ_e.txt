@@ -1,0 +1,85 @@
+AVRPP/AVRSP - AVR Programming tools for Win32
+							   November 11, 2004
+
+
+AVRSP is an AVR serial programming tool that was re-written as a Win32
+application that combined MS-DOS based AVRXS and AVRSS. AVRPP is Win32
+version of MS-DOS based AVRXP. Their function and usage are equivalent as
+those MS-DOS programs. This document explains only changes from the MS-DOS
+based programs.
+
+
+
+Command Line Option
+
+ The switch character for the command line option was '/' on MS-DOS version.
+ But it has been changed to '-' on Win32 version.
+
+
+Control Port (AVRSP)
+
+ AVRSP supports COM port and LPT port to control ISP adapters.
+ The port number for AVRSP is specified as follows:
+
+ ExamplesF -pc1 (COM1, default)
+            -pl1 (LPT1)
+
+
+Fuse write command
+
+ The fuse value format for write command is changed from hexdecimal to
+ binary. Reserved bit "-" is masked out but it must be 0 or 1 in command
+ line. Leading zero can be ommited.
+
+ DOS version:    /fl36
+ Win32 version:  -fl110110
+
+
+Relationship between port number and I/O address
+
+ I/O address for the control port was got form BIOS work area. But Win32
+ programs determin the physical I/O address in constant table. (Refer to
+ hwctrl.h)
+
+
+Supported input file format
+
+ Also Motorola S record is supported. AVRSP/AVRPP can read these format even
+ if the Intel-hex and the Motorola S record are mixed into a file.
+
+
+Using AVRSP/AVRPP on the Windows NT/2k/XP
+
+ When use the programs in direct I/O access on the these OSs, GIVEIO is
+ required to get permission of direct I/O access. If the GIVEIO has been
+ registerd to SCM database and started, avrsp/avrpp can be used without any
+ setup instruction. If not, you have to get GIVEIO.SYS and copy it into any
+ directory (%windir%\system32 will do), and use avr?p.exe, GIVEIO will be
+ registered at the same time. In this case, you have to have logged in as
+ an administrator user in order to access the SCM.
+
+>move giveio.sys %windir%\system32
+>avrsp -r
+
+ Wnen any message other than "GIVEIO initialization failed" is displayed,
+ the GIVEIO has been installed successful.
+
+
+I/O delay (AVRSS/AVRXS/AVRSP/AVRPP)
+
+ Small value for I/O delay option (-d) reduces read/write time, but operating
+ clock frequency of the target device restricts minimum value of the I/O
+ delay option.
+
+ >4MHz   -d0
+ >1MHz   -d3    (default)
+  32kHz  -d200
+
+
+Programming Language
+
+ Programming language is changed from asm to c. You can use the source files
+ without any restriction for migration to any other platform or research.
+
+
+ChaN

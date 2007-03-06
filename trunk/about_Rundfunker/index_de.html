@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Rundfunker</title>
+</head>
+
+<body style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
+<p><strong> Rundfunker (WLAN MP3 Player) </strong><a style="color:#000000" href="index.html">[english version]</a> <br />
+  <br />
+  <img src="IMG_01_001.jpg" alt="The Rundfunker" width="900" height="600" /><br />
+  <br />
+  Der Rundfunker ist ein stationärer MP3-Player, der das WLAN nach lokalen Audioquellen durchsucht und dort freigegebene Audio-Dateien abspielt. Er besitzt ein eingebautes 2-Wege-Lautsprecher-System, ein LC-Display und ein überraschend simples und gleichzeitig mächtiges Bedienkonzept. Dabei benötigt das Gerät keinerlei externe Peripherie, ein einfacher Stromanschluss genügt - die komplette Hardware befindet sich bereits im optisch ansprechenden Designer-Gehäuse mit edler Aluminium-Frontplatte. 
+
+Unser Fünf-Mann-Team (Mathias Bauer, Christoph Beckmann, Christian Leberfinger, Stefan Loibl, Jan Peuker) hat die komplette Software konzipiert, implementiert und als Open-Source zur Verfügung gestellt; außerdem haben wir zwei komplett funktionstüchtige Prototypen gebaut.
+<br />
+<br />
+Die Idee, ein WLAN-Radio zu entwickeln, entstand aus dem Wunsch, die Vorteile eines Radiogeräts mit denen einer personalisierten Musiksammlung auf einem PC zu kombinieren. Ein UKW-Empfänger ist in der Regel kompakt, transportabel und unkompliziert zu bedienen; leider jedoch entspricht das Programm der verschiedenen Sender nicht unbedingt jedermanns Geschmack. Die mp3s auf dem heimischen PC würden eigentlich eine perfekte Alternative zum Radio-Einheitsbrei darstellen, allerdings haben sie den großen Nachteil, dass sie in der Regel auf einem mehr oder weniger unbeweglichen Rechner liegen und damit kaum außerhalb der Zimmergrenzen gehört werden können (ohne die Nachbarn zu verärgern).</p>
+<p>Der Rundfunker ist hier eine elegante Lösung. Er ist ein mp3-Player in Radioform, der drahtlosen Zugriff auf alle mp3s bietet, die im lokalen Rechnernetz freigegeben sind. Auf diese Weise unterliegt er nicht den Volumenbeschränkungen der beliebten mp3-Player in USB-Stick-Form, die heutzutage Platz für etwa ein Gigabyte Musikdaten bieten: der Rundfunker kann über WLAN theoretisch auf mehrere Terabyte Musik zurückgreifen. Damit übertrifft er selbst portable mp3-Player mit eingebauten Festplatten (mit etwa 60 Gigabyte) um Längen. 
+Der Rundfunker ist zwar tragbar, aber nicht für den portablen Gebrauch wie bei einem Walkman gedacht. Sein Revier ist die Wohnung. Dies bringt diverse Vorteile mit sich. Das Gerät muss nicht mit einem winzigen Gehäuse à la iPod auskommen, sondern besteht aus einer kompakten Box von 21×21×18 Zentimetern, die genügend Volumen für das integrierte Zwei-Wege-Lautsprechersystem, eine edle Frontplatte mit leicht zu bedienenden Knöpfen und ein übersichtliches LC-Display bietet.</p>
+<p>Ein typischer Anwendungsfall des Rundfunkers wäre folgender: im Arbeitszimmer im ersten Stock steht der PC mit einer Festplatte voller mp3-Dateien, die in der Küche im Erdgeschoss ohne Kabelverbindung wiedergegeben werden können. Dabei hat der Hörer zahlreiche Möglichkeiten, die Wiedergabe zu beeinflussen. Über das simple Bedienkonzept kann er beispielsweise sein Lieblingsalbum oder sein favorisiertes Genre suchen oder einfach durch die gesamte Musiksammlung blättern.</p>
+<p>Um den Rundfunker in Betrieb zu nehmen, muss er lediglich über die Steckdose mit Strom versorgt werden. Damit er auch mp3-Dateien zum Wiedergeben finden kann, muss der oder die Quell-PCs angeschaltet sein und die Ordner, die die Musikfiles beinhalten, im Dateisystem freigegeben werden. Die Konfiguration des Systems (z.B. Einstellen der IP-Adressen) erfolgt über ein übersichtliches Web-Interface, das als zusätzliches Feature auch die komplette Fernsteuerung des Rundfunkers ermöglicht.</p>
+<p><strong>Mainboard</strong><br />
+  <br />Unser Anliegen war es, ein komplett passiv gekühlts Motherboard zu verbauen. Wir haben uns für das VIA Epia MS 10000E LVDS entschlossen, da es COM- und Audio-Ports als Steckbrückenverbinder, einen PCI-Slot (für die WLAN-Karte) und einen Compact-Flash-Einschub bietet. Von der Compact-Flash-Karte booten wir Troubadix, eine selbst angepasste Knoppix-Variante. <br />
+<br />
+<img src="IMG_02_001.jpg" width="900" height="600" /><img src="IMG_02_002.jpg" width="900" height="600" /><img src="IMG_02_003.jpg" alt="Rundfunker's Epia MS10000E" width="900" height="600" /><br />
+<br />
+<strong>Betriebssystem (Troubadix)</strong><br />
+<br />
+Als Betriebssystem kommt Troubadix, ein selbst gezüchtetes Knoppix-Derivat zum Einsatz, das im Gegensatz zu anderen Mini-Distributionen den 2.6er Kernel in der vollen Knoppix-Ausführung, MySQL 4.1, Apache2, PHP5, OpenSSH und die Sun-JRE 1.4.2 beinhaltet - allerdings kein X und dementsprechend auch keinen Window-Manager. Da Troubadix im Rundfunker von einer Compact-Flash-Karte gebootet wird, sind keine beweglichen Teile im Gehäuse, die bei einem Transport beschädigt werden könnten.<br />
+  <br />
+  <img src="IMG_03_001.jpg" alt="Troubadix on Compact-Flash card" width="900" height="600" /><br />
+  Troubadix ist nur ungefähr 200 MB groß - der restliche Speicherplatz auf der CF-Karte steht für unser Java-Programm and die dahinterliegende Datenbank zur Verfügung.</p>
+<p><strong>Konfiguration</strong><br />
+    <br />
+  Grundsätzliche Einstellungen können komfortabel über ein in PHP umgesetztes Webinterface getätigt werden. Außerdem kann der Rundfunker über ein Java-Applet in diesem Webinterface komplett fernbedient werden.<br />
+    <br />
+      <img src="IMG_04_001.gif" alt="Configuring the Rundfunker via Webinterface" width="783" height="531" /><br />
+      Grundsätzliche Einstellungen<br />
+      <br /> 
+  <img src="IMG_04_002.gif" alt="Java remote control for Rundfunker" width="783" height="531" /><br />
+Fernbedienung (Java-Applet) </p>
+<p><strong>LCD, Jog-Dial und LEDs an das Epia anschließen</strong><br />
+    <br />Verbunden werden Java-Programm und Hardware über eine kleine Platine, die wir selbst entwickelt haben. Darauf sitzt ein von uns programmierter Microcontroller, der über die serielle Schnittstelle mit dem Motherboard kommuniziert. Der Microcontroller kann so die Benutzereingaben an unsere Software weiterleiten und empfängt im Gegenzug die Inhalte, die er an das LC-Display weiterleiten soll.
+	Die Entwicklung dieser Platine und der Software, die auf dem Microcontroller läuft, war die Aufgabe, die uns anfangs am schwersten gefallen ist, da wir uns mit solchen Dingen noch nie zuvor beschäftigt hatten. Wir haben Eagle eingesetzt, um die Schaltkreise zu entwerfen und entwickelten die Microcontroller-Software für unseren Atmel Atmega 168 mit AVR Studio. Viel Zeit kostete die Fehlentscheidung, den Atmega 168 zur verwenden, da dieser leider nicht genügend Anschluss-Pins zur Verfügung stellt. Da wir uns außerdem für ein uC-Modul entschieden hatten, dass relativ teuer (ca. 50 EUR) war, wollten wir es nicht einfach durch einen größeren uC ersetzen (Atmega 32 oder ähnlich). So mussten wir die Anschlussmöglichkeiten mithilfe eines Schieberegisters und eines 8-to-3-Decoders "aufbohren". Unglücklicherweise haben wir das Datenblatt des Schieberegisters anfänglich auch noch missverstanden, so dass wir auch hier nachträglich noch kleine Löt-Workarounds durchführen mussten ;)
+<br />
+  <br />
+  <img src="IMG_05_001.jpg" alt="Circuit board" width="900" height="600" /><br />
+  Die bestückte Anschluss-Platine<br />
+  <br />
+  <img src="IMG_05_002.gif" alt="Circuit diagram" width="900" height="600" /><br />
+  Schaltplan der Platine<br />
+  <br />
+   <img src="IMG_05_003.jpg" alt="installed board" width="900" height="600" /><br />
+   Die fertige und eingebaute Platine im Gehäuse des Rundfunkers</p>
+<p><strong>Benutzer-Anwendung</strong><br />
+  <br />
+Auf diesem System aufgesetzt ist ein selbst konzipiertes und implementiertes Java-Programm, das sowohl das Suchen und Abspielen der Audiodateien aus dem WLAN als auch die Bedienung des Geräts ermöglicht. Bei der Konzeption dieser Software wurde besonders auf eine sauber objektorientierte Struktur und leichte Erweiterbarkeit geachtet. Normalerweise würden wir jetzt ein paar Screenshots unseres Programms herzeigen; in diesem speziellen Fall gibt es natürlich keinen "Screen" im herkömmlichen Sinne - deswegen einige Photos von Inhalten unseres LC-Displays: <br />
+  <br />
+  <img src="IMG_06_001.jpg" alt="standard-screen during playback" width="900" height="296" /><br />
+Der Standard-Bildschirm während Liedwiedergabe (vorheriger/nächster Song bei Betätigung des Jog-Dials) <br />
+  <br />
+  <img src="IMG_06_002.jpg" alt="list of artists" width="900" height="296" /><br />
+Interpreten-Liste - durchblättern und auswählen mittels Jog-Dial (ALPS rotary encoder) <br />
+<br />
+<img src="IMG_06_003.jpg" alt="Rundfunker speller" width="900" height="296" /><br />
+Der komfortabelste Weg, einen Interpreten aus einer großen Liste zu wählen: Rundfunker Speller </p>
+<p><br />
+  <strong>Hardware/Software</strong><br />
+<br />
+Hardware:<br />
+  - ein VIA Epia Mini-ITX-Motherboard mit 1 GHz CPU und 256 MB RAM<br />
+- ein 4 x 20 Zeichen LC-Display<br />
+- eine selbst entwickelte Platine mit elektronischen Bauteilen zum Anschluss von Display, Tastern, LEDs und Jog-Dial.<br />
+- ein selbst programmierter Microcontroller zur Ansteuerung der Hardware<br />
+- ein 2-Wege-Lautsprecher-System aus dem Car-Hifi-Bereich, das für gute Klangqualität sorgt<br />
+<br />
+Software:<br />
+- die Microcontroller-Software zur Ansteuerung der Hardware (in C implementiert)<br />
+- das Java-Programm zum Handling des Bedienkonzepts und Abspielen der Audio-Dateien<br />
+- die PHP-Webanwendung für Fernbedienung und Konfiguration des Rundfunkers<br />
+- Troubadix, unsere selbst entwickelte Knoppix-Variante</p>
+<p><strong>Geh&auml;use</strong><br />
+    <br />
+Das Geh&auml;use des Rundfunkers haben wir aus MDF-Platten (mitteldichte Faserplatte) aus dem Baumarkt gebaut. Wir hatten es zuvor in einem 3D-Programm entworfen, dann gebaut und anschlie&szlig;end seidenmatt-wei&szlig; lackiert. Die edle Aluminium-Frontplatte, die wir entworfen hatten, wurde von einer Spezialfirma aus Berlin gefertigt.<br />
+<br />
+<img src="IMG_07_001.jpg" alt="" width="900" height="600" /><br /> 
+Zwei Werkzeuge, 
+die wir beim Bau des Geh&auml;uses eingesetzt haben: Handoberfr&auml;se und Stichs&auml;ge <br />
+<br />
+<img src="IMG_07_002.jpg" width="900" height="600" /><br />
+Fast fertig - nur noch etwas leer ;)<br />
+<br />
+<img src="IMG_07_003.jpg" alt="fence protecting loudspeakers" width="900" height="600" /><br />
+Das Schutzgitter f&uuml;r die Lautsprecher. Die Aussparung f&uuml;r Lautsprecher und Gitter haben wir gefr&auml;st <br />
+<br />
+<img src="IMG_07_004.jpg" width="900" height="600" /><br /> 
+Fertig eingepasste Schutzgitter und die angezeichneten Aussparungen f&uuml;r die Anschlusskabel der Bedienelemente
+<br />
+<br />
+<img src="IMG_07_005.jpg" width="900" height="600" /><br />
+Stichs&auml;ge in Aktion <br />
+<br />
+<img src="IMG_07_006.jpg" width="900" height="600" /><br /> 
+Die fertig lackierten Geh&auml;use
+unserer beiden Prototypen <br />
+<br />
+<img src="IMG_07_007.jpg" width="900" height="600" /><br />
+Einblick von unten;) <br />
+<br />
+<img src="IMG_07_008.jpg" alt="finished" width="900" height="600" /><br />
+Der fertige Rundfunker </p>
+<p><strong>Audio-Bauteile</strong><br />
+    <br />
+  Wir haben einen kleinen 18-Watt-Verst&auml;rker f&uuml;r die Ansteuerung unserer 2-Wege-Lautsprecher von Pioneer eingebaut.<br />
+  <br />
+  <img src="IMG_08_001.jpg" alt="audio components" width="900" height="600" /><br />
+Eine kleine Platine zum Anschluss des Verst&auml;rkers </p>
+<p><strong>Projekt-Management</strong><br />
+  <br />
+Alle Entwicklungsschritte wurden mit einem Ticketsystem (Trac) koordiniert, vom Versionierungssystem Subversion verwaltet und im angebundenen Wiki dokumentiert. Alle Quelltexte, Schaltpl&auml;ne und Dokumente, die w&auml;hrend der Entwicklungsphase angefallen sind, stehen auf unserem Projekt-Server f&uuml;r jeden zum Einblick:  <a href="https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/">https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/</a>
+ <br />
+ Mehr Bilder gibt es <a href="http://gallery.christianleberfinger.de/thumbnails.php?album=54">hier</a>.</p>
+</body>
+</html>

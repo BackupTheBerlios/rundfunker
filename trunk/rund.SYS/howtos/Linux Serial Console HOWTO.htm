@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="author" content="Van Emery">
+  <meta name="Description" content="Linux Serial Console HOWTO">
+  <meta name="Keywords" content="Red Hat 9 Linux Serial Console HOWTO, Linux Serial Console HOWTO">
+
+  <title>Linux Serial Console HOWTO</title>
+  
+<style type="text/css">
+  body { color: black; background: white; font-family: arial,sans-serif;
+  margin-left: 5%; margin-right: 5%;}
+  pre { color: black; background: #E6E6F9; font-family: monospace; border: solid; 
+  border-width: thin; padding: 0.5em;}
+  h1 { font-size: 200%; color: #05057A;}
+  h2 { font-size: 150%; color: #05057A; margin-left: -1%;}
+  h3 { font-size: 125%; color: black;}
+  div.box { border: solid; border-width: thin; width: 100% }
+  div.center { text-align:center }
+  .right { float:right }
+  .left { float:left }
+  div.color {
+    background: #FFCCA8;
+    padding: 0.5em;
+    border: solid;
+    border-width: thin;
+  }
+  strong { font-size: 90%; color: red }
+  tt { font-size: 110% }
+  .gb { color: #197D1D; font-size: 110%; }
+  .noborder { border-style: none }  
+  li.sp { padding-bottom:12px }
+  
+  a:link {color:blue}
+  a:visited {color:purple}
+  a:focus {color:teal}
+  a:hover {color:teal}
+  a:active {color:red}
+   
+</style>
+  
+</head>
+
+<body>
+
+<div class="center">
+<br />
+<h1>Linux Serial Console HOWTO</h1>
+<h2>by Van Emery</h2>
+<br />
+
+<img src="connectors-a.jpg" width="250" height="138" alt="RS-232C Connectors" />
+
+<hr />
+
+</div>
+
+<h3>Introduction</h3>
+
+<p>Have you ever needed to connect a dumb terminal (like a Wyse 50) to a Linux host?  Do you need to login 
+to a Linux server from a laptop to perform administrative functions, because there is no monitor or keyboard 
+attached to the server?  If you are accustomed to administering routers, switches, or firewalls in this 
+manner, then you may be interested in doing the same with some of your GNU/Linux hosts.  This HOWTO will 
+explain, step-by-step, how to setup a serial console for Red Hat 9, although most of it should apply to 
+other distributions as well.</p>
+
+<p>Why did I write this document?  Although there are lots of documents available on the Internet dealing 
+with Linux serial ports, most of them seemed to be either out of date, or focused on modem 
+dial-in/dial-out.  I wanted consise documentation on how to setup simple terminal access via RS-232-C serial 
+ports for Red Hat 9.</p>
+
+<h3>Assumptions/Setup</h3>
+
+<p>I was using Red Hat 9 for this test.  My test machine consisted of:</p>
+
+<ul>
+	<li>Motherboard:  Gigabyte Technology GA-7VA motherboard (Rev. 2.0)</li>
+	<li>Chipset:  VIA KT400A</li>
+	<li>CPU:  AMD-K7 (Duron 1400)</li>
+	<li>RAM:  256MB DDR333</li>
+	<li>Serial Ports:  2 built-in ports with 16550A UARTs, DB-9 male</li>
+	<li>Linux kernel:  2.4.20-24.9</li>
+</ul>
+
+<div><hr /></div>
+
+<h3>Step 1:  Check your system's serial support</h3>
+
+<p>First, let's make sure that your operating system recognizes serial ports in your hardware.  You 
+should make a visual inspection and make sure that you have one or more serial ports on your motherboard 
+or add-in PCI card.  Most motherboards have two built-in ports, which are called COM1: and COM2: in the 
+DOS/Windows world.  You may need to enable them in BIOS before 
+the OS can recognize them.  After your system boots, you can check for serial ports with the following 
+commands:</p>
+
+<pre>
+[root@oscar root]# <b>dmesg | grep tty</b>
+ttyS0 at 0x03f8 (irq = 4) is a 16550A
+ttyS1 at 0x02f8 (irq = 3) is a 16550A
+
+[root@oscar root]# <b>setserial -g /dev/ttyS[01]</b>
+/dev/ttyS0, UART: 16550A, Port: 0x03f8, IRQ: 4
+/dev/ttyS1, UART: 16550A, Port: 0x02f8, IRQ: 3
+</pre>
+
+<p>As you can see, the two built-in serial ports are <tt>/dev/ttyS0</tt> and <tt>/dev/ttyS1</tt>.
+</p>
+
+<h3><br />Step 2: Configure your inittab to support serial console logins</h3>
+
+<p>The <tt>/etc/inittab</tt> file must be reconfigured to allow serial console logins.  You will note that 
+the <tt>mingetty</tt> daemon is used to listen for virtual consoles (like the 6 that run by default with 
+your keyboard and monitor).  You will need to configure <tt>agetty</tt> or <tt>mgetty</tt> to listen on the 
+serial ports, because they are capable of responding to input on physical serial ports.  In the past, 
+I have used both full-featured gettys.  In this document, I will only discuss <tt>agetty</tt>, since it is 
+already included in the default Red Hat 9 installation.  It handles console/dumb terminal connections as well 
+as dial-in modem connections.</p>
+
+<div class="color">
+<p><b>What is a getty?</b></p>
+<p>A getty is is a program that opens  a  tty  port,  prompts  for a login name, and runs the <tt>/bin/login</tt> 
+command. It is normally invoked by <tt>init</tt>.</p>
+</div>
+
+<p>Before you edit <tt>/etc/inittab</tt>, which is a <i>very</i> important config file, you should make a backup copy:</p>
+
+<pre>
+[root@oscar etc]# <b>cp /etc/inittab /etc/inittab.org</b>
+</pre>
+
+<p>The required <tt>/etc/inittab</tt> additions are highlighted in <strong>red</strong>:</p>
+
+<pre>
+id:3:initdefault:
+
+# System initialization.
+si::sysinit:/etc/rc.d/rc.sysinit
+
+l0:0:wait:/etc/rc.d/rc 0
+l1:1:wait:/etc/rc.d/rc 1
+l2:2:wait:/etc/rc.d/rc 2
+l3:3:wait:/etc/rc.d/rc 3
+l4:4:wait:/etc/rc.d/rc 4
+l5:5:wait:/etc/rc.d/rc 5
+l6:6:wait:/etc/rc.d/rc 6
+
+# Trap CTRL-ALT-DELETE
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+
+pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+
+# If power was restored before the shutdown kicked in, cancel it.
+pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+
+# Run gettys in standard runlevels
+1:2345:respawn:/sbin/mingetty tty1
+2:2345:respawn:/sbin/mingetty tty2
+3:2345:respawn:/sbin/mingetty tty3
+4:2345:respawn:/sbin/mingetty tty4
+5:2345:respawn:/sbin/mingetty tty5
+6:2345:respawn:/sbin/mingetty tty6
+
+<strong># Run agetty on COM1/ttyS0 and COM2/ttyS1
+s0:2345:respawn:/sbin/agetty -L -f /etc/issueserial 9600 ttyS0 vt100
+s1:2345:respawn:/sbin/agetty -L -f /etc/issueserial 38400 ttyS1 vt100
+#s1:2345:respawn:/sbin/agetty -L -i 38400 ttyS1 vt100
+</strong>
+
+# Run xdm in runlevel 5
+x:5:respawn:/etc/X11/prefdm -nodaemon
+</pre>
+
+<p><br /><b>agetty options explained:</b></p>
+<ul>
+	<li>-L &nbsp;&nbsp;&nbsp;force line to be local line with no need for carrier detect (when you have no modem).</li>
+	<li>-f &nbsp;&nbsp;&nbsp;alternative <tt>/etc/issue</tt> file.  This is what a user sees at the login prompt.</li>
+	<li>-i &nbsp;&nbsp;&nbsp;do not display any messages at the login prompt.</li>
+	<li>9600 &nbsp;&nbsp;&nbsp;serial line rate in bps.  Set this to your dumb terminal or terminal emulator line rate.</li>
+	<li>ttyS0	&nbsp;&nbsp;&nbsp;this is the serial port identifier.</li>
+	<li>vt100 &nbsp;&nbsp;&nbsp;is the terminal emulation.  You can use others, but <a href="http://www.vt100.net/">VT100</a> 
+	is the most common or "standard".  Another widely used termial type is VT102.</li>
+</ul>
+
+<p>
+Possible serial line rates (sometimes called baud rates) for the 16550A UART:
+</p>
+
+<ul>
+	<li>110 bps</li>
+	<li>300 bps</li>
+	<li>1200 bps</li>
+	<li>2400 bps</li>
+	<li>4800 bps</li>
+	<li>9600 bps</li>
+	<li>19,200 bps</li>
+	<li>38,400 bps</li>
+	<li>57,600 bps</li>
+	<li>115,200 bps</li>
+</ul>
+
+<p>I have tried all of these line rates.  9600 bps is generally O.K., and is a very common setting for networking hardware. 
+38,400 bps is the speed of the standard Linux console, so it is my second choice.  If your dumb terminal or terminal 
+emulator cannot handle 38,400 bps, then try 19,200 bps:  it is reasonably speedy and you will not be annoyed.
+</p>
+
+<p>Here was my custom issue file, <tt>/etc/issueserial</tt>.  It uses escape sequences defined in the 
+<tt>agetty</tt> manpage to add some useful information, such as the serial port number, line speed, and 
+how many users are currently logged on:</p>
+
+<pre>
+ 
+Oscar
+Connected on \l at \b bps
+\U
+ 
+</pre>
+
+<p>Now, you must activate the changes that you made in <tt>/etc/inittab</tt>.  This is done with the following command, 
+which forces the init process to re-read the configuration file:</p>
+
+<pre>
+[root@oscar root]# <b>init q</b>
+</pre>
+
+<p>Now, let's make sure that the <tt>agetty</tt> process is listening on the serial ports:</p>
+
+<pre>
+[root@oscar root]$ <b>ps -ef | grep agetty</b>
+root       958     1  0 Dec13 ttyS0    00:00:00 /sbin/agetty -L -f /etc/issueserial 9600 ttyS0 vt100
+root      1427     1  0 Dec13 ttyS1    00:00:00 /sbin/agetty -L -f /etc/issueserial 38400 ttyS1 vt100
+</pre>
+
+<h3><br />Step 3:  Test serial port login with an external dumb terminal or terminal emulator</h3>
+
+<div class="center">
+<br />
+<img src="Wy50b.gif" width="181" height="144" alt="Wyse 50b" />
+<br /><br />
+</div>
+
+<p>I have tested this setup with a WYSE dumb terminal, a Linux laptop running Minicom, and Windows 
+2000/XP laptops running HyperTerminal.  They all worked just fine.</p>
+
+<p><i>Terminal settings:</i> &nbsp;should be <b>9600, N, 8, 1</b>.  
+Terminal emulation should be set to <b>VT100</b> or <b>VT102</b>.  Turn flow control <b>off</b>.  If you 
+want to use the 38,400 bps serial port on ttyS1, then your settings should be adjusted to 
+<b>38400, N, 8, 1</b>.</p>
+
+<p></p>
+
+<p><i>Cable:</i> &nbsp;To connect a laptop to the serial port on the Linux host, you need to have a null-modem 
+cable. The purpose of a null-modem cable is to permit two RS-232 DTE devices to communicate with each 
+other without modems between them.  While you can construct this yourself, a good, sturdy manufactured 
+null-modem cable is inexpensive and will last longer.  
+
+<p>If you <i>insist</i> on making the cable yourself, then check out <a href="http://www.nullmodem.com/">
+Nullmodem.Com</a> for the wiring and pinout diagram.</p>
+
+<p><i>Connectors:</i> &nbsp;Motherboard serial ports are typically male DB-9 connectors, but some serial ports use 
+DB-25 connectors.  You may need some DB-9 to DB-25 converters or gender-changers in order to connect to 
+your terminal. For a typical laptop to server connection, a DB-9 null-modem cable should be sufficient.</p>
+
+<p>Here is what you should see on the dumb terminal or terminal emulator:</p>
+
+<pre>
+Oscar
+Connected on ttyS1 at 38400 bps
+3 users
+
+oscar.vanemery.com login:  
+</pre>
+
+<p><b>Note: &nbsp;</b>If you want to be able to login via serial console as the root user, you will need to edit the 
+<tt>/etc/securetty</tt> config file.  The entries to add are highlighted in red:</p>
+
+<pre>
+console
+<strong>ttyS0
+ttyS1</strong>
+vc/1
+vc/2
+vc/3
+vc/4
+vc/5
+vc/6
+vc/7
+vc/8
+vc/9
+vc/10
+vc/11
+tty1
+tty2
+tty3
+tty4
+tty5
+tty6
+tty7
+tty8
+tty9
+tty10
+tty11
+</pre>
+
+<h3><br />Step 4: Modifying the agetty settings</h3>
+
+<p>If you want to change the baud rate or some other <tt>agetty</tt> setting, you will need to perform 
+these 3 steps:</p>
+
+<ol>
+	<li>Modify the <tt>/etc/inittab</tt> configuration file</li>
+	<li>Activate the config change by forcing <tt>init</tt> to re-read the config file</li>
+	<li>Restart the <tt>agetty</tt> daemons</li>
+</ol>
+
+<p>Here is an example of steps 2 and 3:</p>
+
+<pre>
+[root@oscar root]# <b>init q</b>
+[root@oscar root]# <b>pkill agetty</b>
+</pre>
+
+<h3><br />Optional: &nbsp;Configure serial port as <i>THE</i> system console</h3>
+
+<p>You can use options in <tt>/etc/grub.conf</tt> to redirect console output to one of your serial ports.  
+This can be handy if you do not have a keyboard or monitor available for the Linux host in question.  You 
+can also see all of the bootup and shutdown messages from your terminal.  
+In this example, we will make the <tt>/dev/ttyS1</tt> port be the console.  The text to add to the config 
+file is highlighted in red:</p>
+
+<pre>
+# grub.conf generated by anaconda
+#boot=/dev/hda
+default=0
+timeout=10
+splashimage=(hd0,0)/grub/splash.xpm.gz
+title Red Hat Linux (2.4.20-24.9)
+        root (hd0,0)
+        kernel /vmlinuz-2.4.20-24.9 ro root=LABEL=/ <strong>console=ttyS1,38400</strong>
+        initrd /initrd-2.4.20-24.9.img
+</pre>
+
+<p>Now, if you drop your system into single user mode with the "<tt>init 1</tt>" command, you will still 
+be able to administer the system from your serial-connected terminal.  No monitor or keyboard is required!
+</p>
+
+<p><strong>Warning!:</strong> &nbsp;&nbsp;The <tt>kudzu</tt> hardware detection program may "choke" on boot 
+when the serial port becomes the console, instead of the video adapter.  To remedy this situation, you should 
+disable <tt>kudzu</tt> (assuming that your hardware is configured properly and won't be changing).  This 
+is how you would do that:</p>
+
+<pre>
+[root@oscar root]# <b>chkconfig kudzu off</b>
+[root@oscar root]#<b> chkconfig --list kudzu</b>
+kudzu           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+</pre>
+
+<p><strong>You should also know</strong> how to break into the Grub bootloader during system startup and 
+edit the kernel line.  By deleting the console argument from the kernel line, you can boot the system with 
+the standard console, which uses the video card and attached keyboard. You have been warned!</p>
+
+<div><hr /></div>
+
+<h3>Conclusion</h3>
+
+<p>Now, you should be able to login from the serial ports on your GNU/Linux host.  This could be useful 
+for maintenance or for serving a whole room full of dumb terminals. In the future, I will investigate a 
+PCI multiport serial card in the latter role.</p>
+
+<p>Have fun!</p>
+
+<div><br /><hr /></div>
+
+<h3>Resources</h3>
+
+<ul>
+ <li><tt>man agetty</tt></li>
+ <li><tt>man securetty</tt></li>
+ <li><a href="serial-console.txt">/usr/src/linux-2.4.20-24.9/Documentation/serial-console.txt</a></li>
+ <li><a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Serial-HOWTO.html">Linux Serial HOWTO</a></li>
+ <li><a href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Text-Terminal-HOWTO.html">Text Terminal HOWTO</a></li>
+ <li><a href="http://www.vt100.net">VT100.Net</a></li>
+ <li><a href="http://www.nullmodem.com">Nullmodem.Com</a></li>
+</ul>
+
+<div><br /><hr /></div>
+
+<div class=center>
+<br /><br /><br />
+<a href="../linux.html">Back to Linux Gouge...</a>
+<br /><br />
+</div>
+
+<p>
+   <a href="http://validator.w3.org/check/referer">
+   <img class="noborder" src="../valid-html401.png" alt="Valid HTML 4.01!" height="31" width="88"></a>
+</p>                   
+
+</body>
+</html>
