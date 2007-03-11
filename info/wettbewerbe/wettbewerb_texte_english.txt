@@ -1,0 +1,82 @@
+---------------------
+BRIEF DESCRIPTION
+---------------------
+	
+The Rundfunker is a tabletop mp3 player that scans the WLAN for local audio sources and is able to play shared audio-files. It has a built-in 2-way speaker system, a LC display and a very simple yet powerful user interface. The device is independent of any external peripheral equipment - all hardware components are integrated into the appealingly designed housing including an exclusive aluminium front panel. All you need is 12 V DC power supplied e.g. by a mains adapter.
+
+Our 5-man team has designed and implemented the entire software and has made it available as open source. Moreover we constructed two fully functional prototypes.
+
+---------------------
+TEAM
+---------------------
+
+Mathias Bauer, Web-Developer, FH Augsburg - University of Applied Sciences
+Christoph Beckmann, Application-Developer, FH Augsburg - University of Applied Sciences
+Christian Leberfinger, Application-Developer, Hardwareassembly, FH Augsburg - University of Applied Sciences
+Stefan Loibl, Microcontroller-Programmer, FH Augsburg - University of Applied Sciences
+Jan Peuker, Operatingsystem-Developer, FH Augsburg - University of Applied Sciences
+
+---------------------
+ORIGIN
+---------------------
+
+Germany, 2005-2006
+
+FH Augsburg - University of Applied Sciences http://www.fh-augsburg.de/
+Supervisor: Prof. Dr. Nik Klever
+
+Categorie: Research
+Issues: Music | Audio | Open Source | Radio | MP3-Player
+Formats: Software | Streaming | interaktive | networked
+Technologies: Wireless Communication | Java | MP3 | Database | Linux | Elektronics | Microcontroller
+
+---------------------
+TENOR
+---------------------
+
+The idea of developping a wlan radio emerged from the desire to combine the advantages of a FM receiver with those of a personalised collection of music on a PC. A FM receiver usually is compact, portable and uncomplicated in use. Unfortunately the programme of the radio stations is not everyone's cup of tea. The mp3 files on a personal computer could be an alternative, however they have the huge drawback of normally being located on a more or less immobile computer. Thus they can hardly be heard beyond the four walls of the room the PC stands in (without annoying the neighbours).
+
+The Rundfunker is an elegant solution for this circumstance. It is a radio-shaped mp3 player that offers wireless access to all mp3s that are shared in the local network and thus isn't subject to the volume-restrictions of the popular mp3 USB sticks with unhandy tiny buttons that nowadays have a capacity of only few gigabytes. Via WLAN the Rundfunker can deal with huge audio-libraries with hypothetically unlimited size.
+
+The Rundfunker is mobile, yet not made for real portable use like Walkman and co - it shows its strength within the reach of the wireless home network: The device doesn't have to make do with an ultra-compact housing like an iPod, but consists of a cubic box (dimensions: 21×21×18 centimeters) that holds enough volume for the integrated 2-way speaker system, an exclusive aluminium front panel containing easy to use buttons and a clearly arranged LC display.
+
+A typical use case for the Rundfunker would be: the study in the upper floor has a PC with a harddisk filled with your most precious and well-sorted songs e.g. recorded from your old vinyl records. Your Rundfunker is situated in your kitchen and can play these mp3s via WLAN. The listener has various possibilities of influencing the playback. By means of the easy to use interface he can choose his favourite album or genre or simply browse through the entire collection of mp3s.
+
+Power supply is the only thing you need to take the Rundfunker into operation. To enable the Rundfunker to play your songs, you can use the comfortable webinterface and configure your IP-address and your shared audio-sources. You can also use the Java-Applet in the webinterface to operate your Rundfunker by remote control.
+
+---------------------
+TECHNOLOGY
+---------------------
+
+The device is based on a VIA Epia mini-itx-board and driven by Troubadix - a specially customized linux (Knoppix-derivative) that differs from other mini-distributions by containing the complete Knoppix kernel 2.6, MySQL 4.1, Apache2, PHP5, OpenSSH and Sun's JRE 1.4.2 - however no X and thus no window-manager. Since Troubadix is booted from a compactflash card, no moving parts are installed in the housing that could be damaged during transport.
+
+On this system runs an entirely self-developed and -implemented Java program, that scans the WLAN for audiofiles, is able to play them and lets the listener control the device. Our software design focused on a strictly object oriented and easily extensible structure.
+
+The connection between Java and the hardware is achieved by a small self-designed circuit board. A microcontroller running our code communicates with the mainboard via the serial port. In this way it can forward user-input to our Java-tool and receive output for the LC display.
+
+Fundamental options can be set comfortably through the webinterface, that was implemented in PHP. You can also use the integrated Java applet to operate your Rundfunker by remote control - just as if you had the device right in front of you.
+
+Every step of design and development was coordinated with help of a ticket system (Trac) and documented in an integrated Wiki - all managed by the versioning system Subversion. All sources, circuit diagrams and other documents we created during development phase are accessible to everybody on our project's server: 
+https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/
+
+
+Hardware/Software:
+
+Hardware:
+
+- VIA Epia Mini-ITX-Motherboard (1 GHz CPU, 256 MB RAM)
+- LC-Display (4 x 20 characters)
+- self-developed circuit board with electronic components to connect display, buttons, LEDs and Jog-Dial
+- Microcontroller to control the hardware
+- 2-way speaker system with good audio characteristics
+
+Software:
+- Microcontroller software (developed in C) to control the hardware
+- Java program to handle user input, play back audiofiles and scan the WLAN
+- PHP webinterface for configuration and controlling Rundfunker by remote
+
+---------------------
+URL
+---------------------
+
+https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/

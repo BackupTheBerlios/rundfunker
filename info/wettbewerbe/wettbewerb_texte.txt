@@ -1,0 +1,83 @@
+---------------------
+KURZBESCHREIBUNG
+---------------------
+
+Der Rundfunker ist ein stationärer MP3-Player, der das WLAN nach lokalen Audioquellen durchsucht und dort freigegebene Audio-Dateien abspielt. Er besitzt ein eingebautes 2-Wege-Lautsprecher-System, ein LC-Display und ein überraschend simples und gleichzeitig mächtiges Bedienkonzept. Dabei benötigt das Gerät keinerlei externe Peripherie, ein einfacher Stromanschluss genügt - die komplette Hardware befindet sich bereits im optisch ansprechenden Designer-Gehäuse mit edler Aluminium-Frontplatte. 
+
+Unser Fünf-Mann-Team (Mathias Bauer, Christoph Beckmann, Christian Leberfinger, Stefan Loibl, Jan Peuker) hat die komplette Software konzipiert, implementiert und als Open-Source zur Verfügung gestellt; außerdem haben wir zwei komplett funktionstüchtige Prototypen gebaut.
+
+---------------------
+TEAM
+---------------------
+
+Mathias Bauer, Web-Developer, FH Augsburg
+Christoph Beckmann, Application-Developer, FH Augsburg
+Christian Leberfinger, Application-Developer, Hardwareaufbau, FH Augsburg
+Stefan Loibl, Microcontroller-Programmierer, FH Augsburg
+Jan Peuker, Betriebssystem-Entwickler, FH Augsburg
+
+---------------------
+ENTSTEHUNG
+---------------------
+
+Deutschland, 2005-2006
+
+FH Augsburg http://www.fh-augsburg.de/
+Betreuer des Projekts: Prof. Dr. Nik Klever
+
+Kategorie: Forschungsprojekt
+Themen: Musik | Audio | Open Source | Radio | MP3-Player
+Formate: Software | Streaming | interaktiv | vernetzt
+Technik: Drahtlose Kommunikation | Java | MP3 | Datenbank | Elektronik/Microcontroller
+
+---------------------
+INHALT
+---------------------
+
+Die Idee, ein WLAN-Radio zu entwickeln, entstand aus dem Wunsch, die Vorteile eines Radiogeräts mit denen einer personalisierten Musiksammlung auf einem PC zu kombinieren. Ein UKW-Empfänger ist in der Regel kompakt, transportabel und unkompliziert zu bedienen; leider jedoch entspricht das Programm der verschiedenen Sender nicht unbedingt jedermanns Geschmack. Die mp3s auf dem heimischen PC würden eigentlich eine perfekte Alternative zum Radio-Einheitsbrei darstellen, allerdings haben sie den großen Nachteil, dass sie in der Regel auf einem mehr oder weniger unbeweglichen Rechner liegen und damit kaum außerhalb der Zimmergrenzen gehört werden können (ohne die Nachbarn zu verärgern). 
+
+Der Rundfunker ist hier eine elegante Lösung. Er ist ein mp3-Player in Radioform, der drahtlosen Zugriff auf alle mp3s bietet, die im lokalen Rechnernetz freigegeben sind. Auf diese Weise unterliegt er nicht den Volumenbeschränkungen der beliebten mp3-Player in USB-Stick-Form, die heutzutage Platz für etwa ein Gigabyte Musikdaten bieten: der Rundfunker kann über WLAN theoretisch auf mehrere Terabyte Musik zurückgreifen. Damit übertrifft er selbst portable mp3-Player mit eingebauten Festplatten (mit etwa 60 Gigabyte) um Längen. 
+Der Rundfunker ist zwar tragbar, aber nicht für den portablen Gebrauch wie bei einem Walkman gedacht. Sein Revier ist die Wohnung. Dies bringt diverse Vorteile mit sich. Das Gerät muss nicht mit einem winzigen Gehäuse à la iPod auskommen, sondern besteht aus einer kompakten Box von 21×21×18 Zentimetern, die genügend Volumen für das integrierte Zwei-Wege-Lautsprechersystem, eine edle Frontplatte mit leicht zu bedienenden Knöpfen und ein übersichtliches LC-Display bietet. 
+
+Ein typischer Anwendungsfall des Rundfunkers wäre folgender: im Arbeitszimmer im ersten Stock steht der PC mit einer Festplatte voller mp3-Dateien, die in der Küche im Erdgeschoss ohne Kabelverbindung wiedergegeben werden können. Dabei hat der Hörer zahlreiche Möglichkeiten, die Wiedergabe zu beeinflussen. Über das simple Bedienkonzept kann er beispielsweise sein Lieblingsalbum oder sein favorisiertes Genre suchen oder einfach durch die gesamte Musiksammlung blättern.
+
+Um den Rundfunker in Betrieb zu nehmen, muss er lediglich über die Steckdose mit Strom versorgt werden. Damit er auch mp3-Dateien zum Wiedergeben finden kann, muss der oder die Quell-PCs angeschaltet sein und die Ordner, die die Musikfiles beinhalten, im Dateisystem freigegeben werden. Die Konfiguration des Systems (z.B. Einstellen der IP-Adressen) erfolgt über ein übersichtliches Web-Interface, das als zusätzliches Feature auch die komplette Fernsteuerung des Rundfunkers ermöglicht.
+
+---------------------
+TECHNIK
+---------------------
+
+Technische Umsetzung:
+
+Das Gerät basiert auf einem Mini-ITX-Board, das alle Funktionen eines normalen Personal Computers bereitstellt. Als Betriebssystem kommt Troubadix, ein selbst gezüchtetes Knoppix-Derivat zum Einsatz, das im Gegensatz zu anderen Mini-Distributionen den 2.6er Kernel in der vollen Knoppix-Ausführung, MySQL 4.1, Apache2, PHP5, OpenSSH und die Sun-JRE 1.4.2 beinhaltet - allerdings kein X und dementsprechend auch keinen Window-Manager. Da Troubadix im Rundfunker von einer Compact-Flash-Karte gebootet wird, sind keine beweglichen Teile im Gehäuse, die bei einem Transport beschädigt werden könnten.
+
+Auf diesem System aufgesetzt ist ein selbst konzipiertes und implementiertes Java-Programm, das sowohl das Suchen und Abspielen der Audiodateien aus dem WLAN als auch die Bedienung des Geräts ermöglicht. Bei der Konzeption dieser Software wurde besonders auf eine sauber objektorientierte Struktur und leichte Erweiterbarkeit geachtet.
+
+Verbunden werden Java-Programm und Hardware über eine kleine Platine, die wir selbst entwickelt haben. Darauf sitzt ein von uns programmierter Microcontroller, der über die serielle Schnittstelle mit dem Motherboard kommuniziert. Der Microcontroller kann so die Benutzereingaben an unsere Software weiterleiten und empfängt im Gegenzug die Inhalte, die er an das LC-Display weiterleiten soll.
+
+Grundsätzliche Einstellungen können komfortabel über ein in PHP umgesetztes Webinterface getätigt werden. Außerdem kann der Rundfunker über ein Java-Applet in diesem Webinterface komplett fernbedient werden.
+
+Alle Entwicklungsschritte wurden mit einem Ticketsystem (Trac) koordiniert, vom Versionierungssystem Subversion verwaltet und im angebundenen Wiki dokumentiert. Alle Quelltexte, Schaltpläne und Dokumente, die während der Entwicklungsphase angefallen sind, stehen auf unserem Projekt-Server für jeden zum Einblick: https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/
+
+
+Hardware/Software:
+
+Hardware:
+
+- ein VIA Epia Mini-ITX-Motherboard mit 1 GHz CPU und 256 MB RAM
+- ein 4 x 20 Zeichen LC-Display
+- eine selbst entwickelte Platine mit elektronischen Bauteilen zum Anschluss von Display, Tastern, LEDs und Jog-Dial.
+- ein selbst programmierter Microcontroller zur Ansteuerung der Hardware
+- ein 2-Wege-Lautsprecher-System aus dem Car-Hifi-Bereich, das für gute Klangqualität sorgt
+
+Software:
+- die Microcontroller-Software zur Ansteuerung der Hardware (in C implementiert)
+- das Java-Programm zum Handling des Bedienkonzepts und Abspielen der Audio-Dateien
+- die PHP-Webanwendung für Fernbedienung und Konfiguration des Rundfunkers
+- Troubadix, unsere selbst entwickelte Knoppix-Variante
+
+---------------------
+URL
+---------------------
+
+https://troubadix.multimedia.fh-augsburg.de/rundfunkertrac/
